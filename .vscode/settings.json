@@ -1,3 +1,45 @@
 {
-  "latex-workshop.latex.outDir": "%WORKSPACE_FOLDER%/latex/out"
+  "latex-workshop.latex.outDir": "%WORKSPACE_FOLDER%/latex/out",
+  "cSpell.enabledFileTypes": {
+    "latex": true
+  },
+  "cSpell.language": "es-ES",
+  "ltex.language": "es",
+  "ltex.spellcheck": true,
+  "editor.wordWrap": "on",
+  "latex-workshop.latex.tools": [
+    {
+      "name": "pdflatex",
+      "command": "pdflatex",
+      "args": [
+        "--shell-escape",
+        "-interaction=nonstopmode",
+        "-synctex=1",
+        "%DOC%"
+      ]
+    },
+    {
+      "name": "bibtex",
+      "command": "bibtex",
+      "args": ["%DOCFILE%"]
+    },
+    {
+      "name": "makeglossaries",
+      "command": "makeglossaries",
+      "args": ["%DOCFILE%"]
+    }
+  ],
+  "latex-workshop.latex.recipes": [
+    {
+      "name": "pdflatex -> bibtex -> pdflatex*2 -> makeglossaries -> pdflatex",
+      "tools": [
+        "pdflatex",
+        "bibtex",
+        "pdflatex",
+        "pdflatex",
+        "makeglossaries",
+        "pdflatex"
+      ]
+    }
+  ]
 }

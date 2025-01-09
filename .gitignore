@@ -172,4 +172,24 @@ cython_debug/
 
 
 # Latex output
-/latex/out
+*.aux
+*.log
+*.out
+*.toc
+*.lof
+*.lot
+*.bbl
+*.blg
+*.synctex.gz
+*.fls
+*.fdb_latexmk
+*.gls
+*.ist
+*.acn
+*.acr
+*.alg
+*.glg
+*.glo
+*.glsdefs
+*.loa
+*.xdy

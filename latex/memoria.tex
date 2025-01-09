@@ -1,75 +1,103 @@
-% DOCUMENTO PRINCIPAL
-
-% Este es el fichero principal de este repositorio. No se recomienda editarlo.
-% Modifica las plantillas incluidas en los directorios:
-% - secciones
-% - tablas
-% - algoritmos
-
+% Document class definition
 \documentclass[final,a4paper,11pt,twoside]{class_diss}
 
-\usepackage[full]{textcomp}
-\usepackage{graphicx}
+% Package imports
+% Basic packages
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish,es-tabla]{babel}
+\usepackage[margin=3cm]{geometry}
+\usepackage{setspace}
+\usepackage{url}
+\usepackage{xspace}
+
+% Math packages
 \usepackage{amsmath}
 \usepackage{amsxtra}
 \usepackage{amssymb}
 \usepackage{amsthm}
 \usepackage{latexsym}
-\usepackage{setspace}
-\usepackage[margin=3cm]{geometry}
-\usepackage[titles]{tocloft}
-\usepackage{latexsym}
-\usepackage{fancyhdr}
-\usepackage{emptypage}
-\usepackage[svgnames,dvipsnames,usenames,table,xcdraw]{xcolor}
-\usepackage{tikz}
-\usepackage[toc,acronym,nonumberlist,xindy={language=spanish-traditional},sanitize=none]{glossaries}
-\usepackage[scaled]{helvet}
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage[spanish,es-tabla]{babel}
-\usepackage[explicit]{titlesec}
-\usepackage{newtxtext}
-\usepackage{newtxmath}
-\usepackage{stmaryrd}
 \usepackage{bbold}
-\usepackage[ruled,vlined]{algorithm2e}
-\usepackage{algorithmic}
-\usepackage{float}
-\usepackage{url}
-\usepackage{xspace}
+\usepackage{stmaryrd}
+
+% Graphics packages
+\usepackage{graphicx}
+\usepackage[svgnames,dvipsnames,table,xcdraw]{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{shapes}
+
+% Table packages
 \usepackage{booktabs}
 \usepackage{multirow}
+
+% List and enumeration packages
 \usepackage{enumitem}
+
+% Floating object packages
+\usepackage{float}
 \usepackage{rotating}
 \usepackage{pdflscape}
-\usepackage{listings}
 \usepackage{placeins}
 \usepackage{flafter}
 
+% Code listing packages
+\usepackage{listings}
+
+% Algorithm packages
+\usepackage[ruled,vlined]{algorithm2e}
+\usepackage{algorithmic}
+
+% Bibliography and citation packages
+\usepackage[authoryear,sort&compress]{natbib}
+\usepackage{hypernat}
+\bibliographystyle{apa}
+\setcitestyle{authoryear}
+
+% Glossary packages
+\usepackage[toc,acronym,nonumberlist,xindy={language=spanish-traditional},sanitize=none]{glossaries}
+\makeglossaries
+
+% Hyperlink packages
+\usepackage[pdftex,plainpages=false,pdfpagelabels]{hyperref}
+
+% Formatting packages
+\usepackage[full]{textcomp}
+\usepackage[scaled]{helvet}
+\usepackage[titles]{tocloft}
+\usepackage[explicit]{titlesec}
+\usepackage{emptypage}
+\usepackage{soul}
+\usepackage[colorinlistoftodos, textwidth=2.5cm]{todonotes}
+\usepackage{fancyhdr}
+
+
+% Custom commands and settings
 \theoremstyle{definition}
 \newtheorem{definition}{Teorema}[section]
 \theoremstyle{remark}
 \newtheorem*{remark}{Remark}
 \DeclareMathOperator*{\argmax}{arg\,max}
 \DeclareMathOperator*{\argmin}{arg\,min}
+
+% Color definitions
 \definecolor{VIU}{RGB}{240, 90, 15}
 \definecolor{DESTACADO}{RGB}{130, 34, 145}
 \definecolor{CITA}{RGB}{0, 123, 194}
 
+% Custom commands
 \renewcommand{\algorithmcfname}{Algoritmo}
-\renewcommand{\acronymname}{Lista de Acr\'onimos}
+\renewcommand{\acronymname}{Lista de Acrónimos}
 \addto\captionsspanish{
-    \renewcommand*{\acronymname}{Lista de Acr\'onimos}
+    \renewcommand*{\acronymname}{Lista de Acrónimos}
 }
 \newcommand{\inhib}{\relbar\mapsfromchar}
 \newcommand{\destacado}[1]{\color{DESTACADO}\textbf{#1}\color{black}\xspace}
-
-\usetikzlibrary{shapes}
 \newcommand*\circled[1]{\tikz[baseline=(char.base)]{
     \node[shape=diamond,fill=black!90,inner sep=1pt,minimum size=1cm] (char) {\textcolor{white}{\small\textbf{#1}}};}
 }
 
+% Fancyhdr settings
+\setlength{\headheight}{14pt}
 \pagestyle{fancy}
 \fancyhf{}
 \fancyhead[LO]{}
@@ -83,41 +111,31 @@
   \renewcommand{\headrulewidth}{0pt}
 }
 
+% Chapter title formatting
 \colorlet{chapnumcolor}{VIU}
-
 \newcommand*{\chapnumfont}{%
   \usefont{T1}{jkp}{b}{n}%
   \fontsize{70}{90}%
   \selectfont%
 }
-
 \newcommand*{\chaptitlefont}{%
   \usefont{T1}{qhv}{b}{n}%
   \fontsize{22}{26}%
   \selectfont%
 }
-
 \titleformat{name=\chapter}
 {\normalfont\huge\bfseries}
 {\rlap{\parbox{\textwidth}{\filleft\chapnumfont\color{chapnumcolor}\thechapter}}}
 {0pt}
 {\rlap{\parbox{0.7\textwidth}{\filright\chaptitlefont #1}}}
 
-\makeglossaries
+% Glossary entries
 \input{secciones/glosario.tex}
 
-\bibliographystyle{apa}
-
-\usepackage[authoryear,sort&compress]{natbib}
-\usepackage{hypernat}
-\setcitestyle{authoryear}
-
-\usepackage[pdftex,plainpages=false,pdfpagelabels]{hyperref}
-
+% Hyperref settings
 \hypersetup{
     linktocpage=true,
     colorlinks=true,
-    bookmarks=true,
     citecolor=CITA,
     urlcolor=CITA,
     linkcolor=CITA,
@@ -125,72 +143,48 @@
     urlbordercolor={1 0 0},
     linkbordercolor={.7 .8 .8},
     breaklinks=true,
-    pdfpagelabels=true,
-    }
+}
 
+% Document settings
 \setcounter{secnumdepth}{3}
 \onehalfspacing
 \renewcommand\familydefault{\sfdefault}
 
+% Begin document
 \begin{document}
 
+\pagestyle{empty}
 \input{secciones/portada.tex}
 \input{secciones/frase-favorita.tex}
-
-\pagenumbering{gobble}
 \input{secciones/agradecimientos.tex}
-\cleardoublepage
-
-\newpage
-\pagenumbering{roman}
-\setcounter{page}{1}
 
 \pagestyle{fancy}
-\fancyhf{}
-\fancyhead[LO]{\leftmark}
-\fancyhead[RE]{\rightmark}
-\fancyfoot[C]{\circled{\thepage}}
-\renewcommand{\headrulewidth}{0.4pt}
-
-\pdfbookmark[0]{\contentsname}{contents}
-
-\renewcommand{\cftchapleader}{\cftdotfill{\cftdotsep}}
-\renewcommand{\cftchapfont}{\mdseries}
-\renewcommand{\cftchappagefont}{\mdseries}
-
-\tableofcontents
-\listoffigures
-\listoftables
-
-\renewcommand{\listalgorithmcfname}{Índice de algoritmos}
-\listofalgorithms
-\addcontentsline{toc}{chapter}{Índice de algoritmos}
-
-\newpage
-\pagenumbering{arabic}
-\setcounter{page}{1}
-
+\input{secciones/indice.tex}
 \input{secciones/resumen.tex}
 \input{secciones/introduccion.tex}
-\input{secciones/objetivos.tex}
-\input{secciones/metodologia.tex}
-\input{secciones/resultados-y-discusion.tex}
+\input{secciones/estado-del-arte.tex}
+\input{secciones/marco-teorico.tex}
+\input{secciones/material.tex}
+\input{secciones/metodos.tex}
+\input{secciones/resultados.tex}
 \input{secciones/conclusiones.tex}
-\input{secciones/limitaciones-y-futuro.tex}
 
 \cleardoublepage
 \phantomsection
 
-\printglossary[type=\acronymtype]
-\printglossary
+% Print the glossary and acronyms
+\printglossaries
+\addcontentsline{toc}{chapter}{Glosario}
 
+
+% Appendix
 \appendix
 \input{secciones/apendizes.tex}
 
+% Bibliography
 \begin{singlespace}
   \begin{footnotesize}
     \begin{twocolumn}
-      \bibdata{bibliografia}
       \bibliography{bibliografia}
       \addcontentsline{toc}{chapter}{Bibliografía}
     \end{twocolumn}

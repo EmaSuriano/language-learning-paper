@@ -1,0 +1,46 @@
+\chapter{Marco teórico}
+\label{marco-teorico}
+
+\section{Reinforcement Learning}
+
+\subsection{Fundamentos}
+
+\todo{15 a 20 paginas}
+\todo{agregar una introducción a este capítulo}
+\todo{Agregar referencia bibliográfica a cada sección}
+
+El RL se basa en el paradigma de aprendizaje a través de la interacción con un entorno. Los componentes principales son:
+
+\begin{equation}
+  Q(s,a) \leftarrow Q(s,a) + \alpha[r + \gamma \max_{a'}Q(s',a') - Q(s,a)]
+\end{equation}
+
+Donde:
+
+\section{Arquitecturas Transformer}
+\subsection{Mecanismo de Atención}
+El mecanismo de atención se puede expresar matemáticamente como:
+
+\begin{equation}
+  \text{Attention}(Q,K,V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V
+\end{equation}
+
+\section{Sistema Multi-Agente con RAG}
+\subsection{Arquitectura de Agentes}
+La arquitectura propuesta integra múltiples agentes especializados:
+
+\begin{itemize}
+  \item \textbf{Agente Tutor}
+        \begin{itemize}
+          \item Gestión del proceso de aprendizaje
+          \item Coordinación con otros agentes
+          \item Seguimiento del progreso
+        \end{itemize}
+
+  \item \textbf{Agente de Contenido}
+        \begin{itemize}
+          \item Recuperación de material
+          \item Generación de ejercicios
+          \item Adaptación de dificultad
+        \end{itemize}
+\end{itemize}

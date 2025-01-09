@@ -1,0 +1,37 @@
+
+\newpage
+
+\renewcommand{\headrulewidth}{0.4pt}
+
+\pdfbookmark[0]{\contentsname}{contents}
+
+\renewcommand{\cftchapleader}{\cftdotfill{\cftdotsep}}
+\renewcommand{\cftchapfont}{\mdseries}
+\renewcommand{\cftchappagefont}{\mdseries}
+
+\fancyhf{}
+\fancyhead[LO]{\leftmark}
+\fancyhead[RE]{\rightmark}
+\fancyfoot[C]{\circled{\thepage}}
+
+% Set page to roman numbering
+\pagenumbering{roman}
+\setcounter{page}{1}
+
+% Índice general
+\tableofcontents
+
+% Índice de figuras
+\listoffigures
+
+% Índice de tablas
+\listoftables
+
+% Índice de algoritmos
+\renewcommand{\listalgorithmcfname}{Índice de algoritmos}
+\listofalgorithms
+\addcontentsline{toc}{chapter}{Índice de algoritmos}
+
+% Reset page numbering to arabic
+\pagenumbering{arabic}
+\setcounter{page}{1}

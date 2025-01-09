@@ -1,83 +1,72 @@
-% INTRODUCCIÓN
-
-\cleardoublepage
-
 \chapter{Introducción}
 \label{introduccion}
 
-Escribe aquí la introducción de tu Trabajo Fin de Máster, utilizando tantas secciones, subsecciones y subsubsecciones como estimes necesarias.
+El aprendizaje de idiomas en la era digital ha experimentado una transformación significativa gracias a los avances en \gls{ia}. Sin embargo, uno de los mayores desafíos sigue siendo la personalización efectiva del proceso de aprendizaje para adaptarse a las necesidades individuales de cada estudiante. Este trabajo propone un enfoque innovador que combina técnicas de \gls{rl} con arquitecturas \gls{transformers} introducidas y tecnologías de procesamiento de voz para crear un sistema de aprendizaje de idiomas adaptativo y personalizado.
 
-\section{Mi primera sección}
-\label{mi-primera-seccion}
+\citep{vaswani2017attention} introdujo la arquitectura \gls{transformers} que ha revolucionado el procesamiento del lenguaje natural. \citep{vaswani2017attention} demostraron que los \gls{transformers} superan a las arquitecturas recurrentes y convolucionales en tareas de traducción automática. \citep{devlin2018bert} presentaron \gls{bert}, un modelo de lenguaje basado en \gls{transformers} que ha establecido nuevos estándares en tareas de procesamiento del lenguaje natural.
 
-\textbf{Esta palabra} está en negrita. \textit{Esta palabra} está en cursiva. \destacado{Esta palabra} se destaca en púrpura.
-\medskip
+\section{Motivación}
+\label{motivacion}
 
-\section{Mi segunda sección}
-\label{mi-segunda-seccion}
+La adquisición de una segunda lengua es un proceso complejo que varía significativamente entre individuos. Los métodos tradicionales de enseñanza de idiomas, incluso en su forma digitalizada, presentan limitaciones significativas.
 
-En la sección~\ref{mi-primera-seccion} se muestran ejemplos de palabras en negrita, cursiva y destacadas en púrpura.
-\medskip
+\subsection{Limitaciones Actuales}
+\label{limitaciones-actuales}
 
-% Define los acrónimos en el fichero secciones/glosario.tex
-% Define la bibliografía en el fichero bibliografia.bib
-Una \acrfull{gan} es... \citep{goodfellow2014generative}.
-\medskip
-
-\citet{goodfellow2014generative} diseñaron las redes generativas antagónicas como...
-\medskip
-
-\vspace{5ex}
-
-Listado:
 \begin{itemize}
-  \item Item 1.
-  \item Item 2.
-  \item Item 3.
+  \item \textbf{Rigidez Estructural}: Los programas siguen secuencias predefinidas que no se adaptan al progreso real del estudiante.
+  \item \textbf{Falta de Personalización}: No consideran adecuadamente los diferentes estilos de aprendizaje y preferencias individuales.
+  \item \textbf{Retroalimentación Limitada}: La mayoría de los sistemas proporcionan feedback básico sin considerar el contexto completo del aprendizaje.
+  \item \textbf{Práctica Conversacional Artificial}: Las interacciones suelen ser mecánicas y no reflejan la naturaleza dinámica del lenguaje real.
 \end{itemize}
 
-Enumeración:
+\subsection{Oportunidades de Mejora}
+\label{oportunidad-de-mejora}
+
+\begin{itemize}
+  \item \textbf{Adaptabilidad Dinámica}: Sistemas que ajustan el contenido y la dificultad en tiempo real.
+  \item \textbf{Personalización Profunda}: Consideración de múltiples factores individuales para optimizar el aprendizaje.
+  \item \textbf{Interacción Natural}: Uso de tecnologías avanzadas para simular conversaciones más realistas.
+  \item \textbf{Feedback Contextual}: Retroalimentación detallada y específica basada en el perfil del estudiante.
+\end{itemize}
+
+\section{Objetivos}
+\label{objetivos}
+
+\subsection{Objetivo General}
+\label{objetivo-general}
+
+Desarrollar un sistema de aprendizaje de idiomas que utilice \gls{rl}, \gls{transformers} y una arquitectura multi-agente para una experiencia de aprendizaje personalizada, adaptativa y efectiva.
+
+\subsection{Objetivo Específicos}
+\label{objetivos-especificos}
+
 \begin{enumerate}
-  \item Item 1.
-  \item Item 2.
-  \item Item 3.
+  \item \textbf{Optimización del Aprendizaje}
+        \begin{itemize}
+          \item Implementar un sistema de \gls{rl} que optimice rutas de aprendizaje personalizadas
+          \item Desarrollar mecanismos de adaptación dinámica del contenido
+          \item Crear sistemas de evaluación continua del progreso
+        \end{itemize}
+
+  \item \textbf{Mejora de la Interacción}
+        \begin{itemize}
+          \item Integrar modelos \gls{transformers} para procesamiento del lenguaje natural
+          \item Desarrollar sistemas de diálogo contextuales
+          \item Implementar análisis de errores en tiempo real
+        \end{itemize}
+
+  \item \textbf{Perfeccionamiento de Habilidades Lingüísticas}
+        \begin{itemize}
+          \item Crear sistemas de evaluación de pronunciación usando \gls{tts} y \gls{stt}
+          \item Desarrollar ejercicios adaptativos de comprensión
+          \item Implementar práctica conversacional contextual
+        \end{itemize}
+
+  \item \textbf{Gestión del Conocimiento}
+        \begin{itemize}
+          \item Integrar sistemas \gls{rag} para acceso a recursos educativos
+          \item Desarrollar bases de conocimiento dinámicas
+          \item Implementar mecanismos de actualización de contenido
+        \end{itemize}
 \end{enumerate}
-
-\subsection{Una subsección}
-\label{una-subseccion}
-
-La figura~\ref{fig1} muestra...
-
-\begin{figure}[ht!]
-  \centering
-  \includegraphics[scale=0.15]{figuras/fig1.png}
-  % \caption[Así aparece el rótulo en el índice]{Así aparece el rótulo en el texto.}
-  \caption[Tipos de grafos]{\textbf{Tipos de grafos.}}
-  \label{fig1}
-\end{figure}
-
-La tabla~\ref{tab1} muestra...
-
-\input{tablas/tabla1.tex}
-
-\subsection{Una subsubsección}
-\label{una-subsubseccion}
-
-El algoritmo~\ref{alg1} muestra...
-\medskip
-
-\input{algoritmos/algoritmo1.tex}
-
-\newpage
-
-Ejemplo de fórmula:
-
-\begin{equation*}
-  N_{k}(\mathbf{\mu},\mathbf{\Sigma}) = \frac{1}{\sqrt{2\pi\det(\Sigma})} \exp \bigg\{ -\frac{1}{2}(\mathbf{X}-\mathbf{\mu})^{T}\Sigma^{-1}(\mathbf{X}-\mathbf{\mu}) \bigg\} \quad \mathbf{X},\mathbf{\mu} \in \mathbb{R}^{k}
-\end{equation*}
-
-Otro ejemplo de fórmula:
-
-\begin{equation*}
-  \underbrace{P(\mathcal{B}|\mathcal{D}) = P(\mathcal{\mathcal{G}},\Theta|\mathcal{D})}_{\textbf{Aprendizaje}} = \underbrace{P(\mathcal{G}|\mathcal{D})}_{\textbf{Aprendizaje estructural}} \cdot \underbrace{P(\Theta|\mathcal{G},\mathcal{D})}_{\textbf{Aprendizaje paramétrico}}
-\end{equation*}

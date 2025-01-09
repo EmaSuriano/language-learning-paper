@@ -34,4 +34,4 @@ code/%.tex: code/%.cc
 #	ps2pdf -dMaxSubsetPct=100 -dCompatibilityLevel=1.2 -dSubsetFonts=true -dEmbedAllFonts=true $<
 
 clean:
-	@rm -f *.bbl *.blg *.dvi *~ *.ps *.aux *.log *.pdf *.bak *.toc *.lof *.lot *.out
+	@rm -f *.aux *.log *.out *.toc *.lof *.lot *.bbl *.blg *.synctex.gz *.fls *.fdb_latexmk *.gls *.ist *.acn *.acr *.alg *.glg *.glo *.glsdefs *.loa *.xdy *.dvi *~ *.ps *.pdf *.bak
