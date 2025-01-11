@@ -1,0 +1,24 @@
+\begin{algorithm}[H]
+  \label{alg2}
+  \SetAlgoLined
+  \medskip
+  \begin{enumerate}
+    \item Inicializar los parámetros de la política $\theta$ y el valor función $\phi$
+    \item Para cada iteración:
+          \begin{enumerate}
+            \item Recopilar conjunto de trayectorias $\mathcal{D}_k = \{\tau_i\}$ ejecutando la política $\pi_\theta$ en el entorno
+            \item Calcular ventajas estimadas $\hat{A}_t$ usando función de valor actual $V_\phi$
+            \item Para cada época de optimización:
+                  \begin{enumerate}
+                    \item Calcular ratio de probabilidad $r_t(\theta) = \frac{\pi_\theta(a_t|s_t)}{\pi_{\theta_{old}}(a_t|s_t)}$
+                    \item Calcular pérdida recortada:
+                          $$L^{CLIP}(\theta) = \hat{\mathbb{E}}_t[\min(r_t(\theta)\hat{A}_t, \text{clip}(r_t(\theta), 1-\epsilon, 1+\epsilon)\hat{A}_t)]$$
+                    \item Actualizar $\theta$ minimizando $-L^{CLIP}(\theta)$ usando descenso de gradiente
+                    \item Actualizar función de valor $\phi$ minimizando error cuadrático medio
+                  \end{enumerate}
+            \item Actualizar $\theta_{old} \leftarrow \theta$
+          \end{enumerate}
+    \item Devolver la política optimizada $\pi_\theta$
+  \end{enumerate}
+  \caption{Algoritmo \textit{Proximal Policy Optimization} (PPO)}
+\end{algorithm}

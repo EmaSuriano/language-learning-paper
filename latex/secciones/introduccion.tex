@@ -1,33 +1,35 @@
 \chapter{Introducción}
 \label{introduccion}
 
-El aprendizaje de idiomas en la era digital ha experimentado una transformación significativa gracias a los avances en \gls{ia}. Sin embargo, uno de los mayores desafíos sigue siendo la personalización efectiva del proceso de aprendizaje para adaptarse a las necesidades individuales de cada estudiante. Este trabajo propone un enfoque innovador que combina técnicas de \gls{rl} con arquitecturas \gls{transformers} introducidas y tecnologías de procesamiento de voz para crear un sistema de aprendizaje de idiomas adaptativo y personalizado.
-
-\citep{vaswani2017attention} introdujo la arquitectura \gls{transformers} que ha revolucionado el procesamiento del lenguaje natural. \citep{vaswani2017attention} demostraron que los \gls{transformers} superan a las arquitecturas recurrentes y convolucionales en tareas de traducción automática. \citep{devlin2018bert} presentaron \gls{bert}, un modelo de lenguaje basado en \gls{transformers} que ha establecido nuevos estándares en tareas de procesamiento del lenguaje natural.
+El aprendizaje de idiomas en la era digital ha experimentado una transformación significativa gracias a los avances en el sector de \gls{ia}. Sin embargo, uno de los mayores desafíos sigue siendo la personalización efectiva del proceso de aprendizaje para adaptarse a las necesidades individuales de cada estudiante. Este trabajo propone un enfoque innovador que combina técnicas de \gls{rl} con arquitecturas \gls{transformers} introducidas y tecnologías de procesamiento de voz para crear un sistema de aprendizaje de idiomas adaptativo y personalizado.
 
 \section{Motivación}
 \label{motivacion}
 
-La adquisición de una segunda lengua es un proceso complejo que varía significativamente entre individuos. Los métodos tradicionales de enseñanza de idiomas, incluso en su forma digitalizada, presentan limitaciones significativas.
+La adquisición de una segunda lengua es un proceso complejo que varía significativamente entre individuos. Los métodos tradicionales de enseñanza de idiomas, incluso en su forma digitalizada, presentan limitaciones significativas que impiden una personalización efectiva y una adaptación dinámica al progreso del estudiante.
 
 \subsection{Limitaciones Actuales}
 \label{limitaciones-actuales}
 
 \begin{itemize}
-  \item \textbf{Rigidez Estructural}: Los programas siguen secuencias predefinidas que no se adaptan al progreso real del estudiante.
-  \item \textbf{Falta de Personalización}: No consideran adecuadamente los diferentes estilos de aprendizaje y preferencias individuales.
-  \item \textbf{Retroalimentación Limitada}: La mayoría de los sistemas proporcionan feedback básico sin considerar el contexto completo del aprendizaje.
-  \item \textbf{Práctica Conversacional Artificial}: Las interacciones suelen ser mecánicas y no reflejan la naturaleza dinámica del lenguaje real.
+  \item \textbf{Rigidez Estructural}: Los programas siguen secuencias predefinidas que no se adaptan al progreso real del estudiante, limitando la capacidad de responder a sus necesidades específicas.
+  \item \textbf{Falta de Personalización}: No consideran adecuadamente los diferentes estilos de aprendizaje, intereses y preferencias individuales, lo que puede afectar la motivación y la eficacia del aprendizaje.
+  \item \textbf{Retroalimentación Limitada}: La mayoría de los sistemas proporcionan feedback básico sin considerar el contexto completo del aprendizaje, lo que dificulta la identificación de áreas de mejora específicas.
+  \item \textbf{Práctica Conversacional Artificial}: Las interacciones suelen ser mecánicas y no reflejan la naturaleza dinámica del lenguaje real, lo que limita la capacidad del estudiante para aplicar sus habilidades en situaciones de la vida real.
 \end{itemize}
+
+Estas limitaciones resaltan la necesidad de un enfoque más flexible y personalizado en la enseñanza de idiomas, que pueda adaptarse a las necesidades y progresos individuales de cada estudiante, proporcionando una experiencia de aprendizaje más efectiva y motivadora.
 
 \subsection{Oportunidades de Mejora}
 \label{oportunidad-de-mejora}
 
+A pesar de los avances en la enseñanza de idiomas, existen varias áreas donde se pueden realizar mejoras significativas:
+
 \begin{itemize}
-  \item \textbf{Adaptabilidad Dinámica}: Sistemas que ajustan el contenido y la dificultad en tiempo real.
-  \item \textbf{Personalización Profunda}: Consideración de múltiples factores individuales para optimizar el aprendizaje.
-  \item \textbf{Interacción Natural}: Uso de tecnologías avanzadas para simular conversaciones más realistas.
-  \item \textbf{Feedback Contextual}: Retroalimentación detallada y específica basada en el perfil del estudiante.
+  \item \textbf{Adaptabilidad Dinámica}: Implementar sistemas que ajusten el contenido y la dificultad en tiempo real, basándose en el rendimiento y las necesidades del estudiante.
+  \item \textbf{Personalización Profunda}: Considerar múltiples factores individuales, como el estilo de aprendizaje, intereses y ritmo de progreso, para optimizar el proceso de aprendizaje.
+  \item \textbf{Interacción Natural}: Utilizar tecnologías avanzadas, como modelos de lenguaje natural y procesamiento de voz, para simular conversaciones más realistas y dinámicas.
+  \item \textbf{Feedback Contextual}: Proporcionar retroalimentación detallada y específica, basada en el contexto y el perfil del estudiante, para mejorar la comprensión y el rendimiento.
 \end{itemize}
 
 \section{Objetivos}
@@ -36,37 +38,19 @@ La adquisición de una segunda lengua es un proceso complejo que varía signific
 \subsection{Objetivo General}
 \label{objetivo-general}
 
-Desarrollar un sistema de aprendizaje de idiomas que utilice \gls{rl}, \gls{transformers} y una arquitectura multi-agente para una experiencia de aprendizaje personalizada, adaptativa y efectiva.
+Desarrollar un sistema de aprendizaje de idiomas que utilice \gls{rl}, \gls{transformers} y un \gls{multi-agent} para una experiencia de aprendizaje personalizada, adaptativa y efectiva.
 
 \subsection{Objetivo Específicos}
 \label{objetivos-especificos}
 
-\begin{enumerate}
-  \item \textbf{Optimización del Aprendizaje}
-        \begin{itemize}
-          \item Implementar un sistema de \gls{rl} que optimice rutas de aprendizaje personalizadas
-          \item Desarrollar mecanismos de adaptación dinámica del contenido
-          \item Crear sistemas de evaluación continua del progreso
-        \end{itemize}
+\subsubsection{Optimización del Aprendizaje}
+El objetivo de esta sección es implementar estrategias que optimicen el proceso de aprendizaje mediante la personalización y la evaluación continua. Para ello, se propone implementar un sistema de \gls{rl} que optimice rutas de aprendizaje personalizadas, desarrollar mecanismos de adaptación dinámica del contenido y crear sistemas de evaluación continua del progreso.
 
-  \item \textbf{Mejora de la Interacción}
-        \begin{itemize}
-          \item Integrar modelos \gls{transformers} para procesamiento del lenguaje natural
-          \item Desarrollar sistemas de diálogo contextuales
-          \item Implementar análisis de errores en tiempo real
-        \end{itemize}
+\subsubsection{Mejora de la Interacción}
+El objetivo de esta sección es mejorar la interacción entre el sistema y el usuario mediante el uso de \gls{llm}. Para ello, se propone integrar modelos \gls{llm} para el \gls{nlp}, desarrollar sistemas de diálogo contextuales e implementar análisis de errores en tiempo real. Estas mejoras permitirán una comunicación más fluida y natural, facilitando una experiencia de aprendizaje más efectiva y personalizada.
 
-  \item \textbf{Perfeccionamiento de Habilidades Lingüísticas}
-        \begin{itemize}
-          \item Crear sistemas de evaluación de pronunciación usando \gls{tts} y \gls{stt}
-          \item Desarrollar ejercicios adaptativos de comprensión
-          \item Implementar práctica conversacional contextual
-        \end{itemize}
+\subsubsection{Perfeccionamiento de Habilidades Lingüísticas}
+El objetivo aquí es desarrollar herramientas que ayuden a los usuarios a mejorar sus habilidades lingüísticas, especialmente en pronunciación y comprensión. Para lograr esto, se propone crear sistemas de evaluación de pronunciación usando \gls{tts} y \gls{stt}, desarrollar ejercicios adaptativos de comprensión e implementar práctica conversacional contextual.
 
-  \item \textbf{Gestión del Conocimiento}
-        \begin{itemize}
-          \item Integrar sistemas \gls{rag} para acceso a recursos educativos
-          \item Desarrollar bases de conocimiento dinámicas
-          \item Implementar mecanismos de actualización de contenido
-        \end{itemize}
-\end{enumerate}
+\subsubsection{Gestión del Conocimiento}
+Esta sección se dedica a la integración y gestión de recursos educativos para proporcionar un acceso eficiente y actualizado a la información. Se busca integrar sistemas \gls{rag} para el acceso a recursos educativos, desarrollar bases de conocimiento dinámicas e implementar mecanismos de actualización de contenido.

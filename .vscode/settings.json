@@ -1,5 +1,4 @@
 {
-  "latex-workshop.latex.outDir": "%WORKSPACE_FOLDER%/latex/out",
   "cSpell.enabledFileTypes": {
     "latex": true
   },
@@ -41,5 +40,6 @@
         "pdflatex"
       ]
     }
-  ]
+  ],
+  "workbench.externalBrowser": "Arc"
 }
