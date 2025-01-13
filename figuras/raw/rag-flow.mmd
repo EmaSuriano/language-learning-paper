@@ -1,0 +1,8 @@
+flowchart LR
+    U((User)) --> Q[/Query/]
+    DB[(Knowledge Base)] --> R
+    Q --> R[Retriever]
+    R --> G[Generator]
+    Q --> G
+    G --> A[/Answer/]
+    A --> U
