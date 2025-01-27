@@ -1,3 +1,138 @@
 \chapter{Material}
 \label{material}
 
+Este capítulo detalla los recursos tecnológicos, infraestructura y herramientas utilizadas en el desarrollo del sistema de aprendizaje de idiomas. Se describe la arquitectura general, los componentes hardware y software, así como las bibliotecas y frameworks empleados.
+
+\section{Infraestructura y Recursos Computacionales}
+
+El sistema se implementa localmente utilizando una estación de trabajo de alto rendimiento, aprovechando las capacidades de aceleración por hardware para el procesamiento de modelos de lenguaje y voz.
+
+\subsection{Recursos Hardware}
+
+\begin{itemize}
+    \item \textbf{GPU}: NVIDIA GeForce RTX 4070 con las siguientes características:
+    \begin{itemize}
+        \item 12GB de memoria VRAM GDDR6X
+        \item Arquitectura Ada Lovelace
+        \item Soporte para CUDA y Tensor Cores
+        \item Capacidades de aceleración para \gls{ml} y \gls{ia}
+    \end{itemize}
+    
+    \item \textbf{Memoria Principal}:
+    \begin{itemize}
+        \item 32GB de RAM DDR4
+        \item Optimizada para cargas de trabajo intensivas en memoria
+    \end{itemize}
+    
+    \item \textbf{Almacenamiento}:
+    \begin{itemize}
+        \item 1TB SSD NVMe
+        \item Alto rendimiento en lectura/escritura
+        \item Almacenamiento de modelos y datos
+    \end{itemize}
+\end{itemize}
+
+
+\section{Componentes del Sistema}
+
+El sistema se divide en dos componentes principales: Frontend y Backend. El Frontend se encarga de la interacción con el usuario, proporcionando una interfaz intuitiva y responsive. El Backend gestiona los modelos de inteligencia artificial y realiza el procesamiento pesado necesario para el funcionamiento del sistema.
+
+\subsection{Backend}
+
+\begin{itemize}
+    \item \textbf{LangGraph}: Un framework avanzado diseñado para:
+        \begin{itemize}
+            \item Orquestar agentes de aprendizaje de idiomas de manera eficiente
+            \item Gestionar flujos de conversación complejos y dinámicos
+            \item Coordinar tareas de aprendizaje adaptativas y personalizadas
+        \end{itemize}
+        
+        \item \textbf{LangChain}: Una herramienta poderosa para:
+        \begin{itemize}
+            \item Integrar modelos de lenguaje de gran escala (\gls{llm}) en el sistema
+            \item Gestionar y optimizar prompts para mejorar la interacción con los modelos de lenguaje
+            \item Procesar y analizar texto de manera eficiente utilizando técnicas avanzadas de procesamiento de lenguaje natural
+            \item Posibilita tener acceso a /gls{rag} para mejorar la precisión y relevancia de las respuestas generadas
+        \end{itemize}
+
+        \item \textbf{FastAPI}: Un framework robusto para la creación de servicios de backend y la exposición de APIs, permitiendo una comunicación eficiente con el frontend:
+        \begin{itemize}
+            \item APIs REST de alto rendimiento y baja latencia
+            \item Generación automática de documentación interactiva mediante OpenAPI
+            \item Validación automática de datos y serialización eficiente
+        \end{itemize}
+\end{itemize}
+
+\section{Bases de Datos}
+
+\begin{itemize}
+    \item \textbf{Base de Datos SQL}: Almacenamiento de:
+    \begin{itemize}
+        \item Perfiles de usuarios: Información personal y preferencias de los usuarios.
+        \item Progreso de aprendizaje: Registro detallado del avance y desempeño de los usuarios en las actividades de aprendizaje.
+        \item Métricas de rendimiento: Datos estadísticos sobre el uso del sistema y la efectividad de las actividades de aprendizaje.
+    \end{itemize}
+    
+    \item \textbf{ChromaDB}: Base de datos vectorial para:
+    \begin{itemize}
+        \item Almacenamiento de embeddings: Representaciones vectoriales de datos textuales y de voz para facilitar la búsqueda y análisis.
+        \item Búsqueda semántica: Capacidad de realizar consultas basadas en el significado y contexto de los datos, en lugar de palabras clave exactas.
+        \item Recuperación de contexto: Extracción de información relevante y contextual para mejorar la interacción y respuestas del sistema.
+    \end{itemize}
+\end{itemize}
+
+\subsection{Frontend}
+
+\begin{itemize}
+    \item \textbf{Next.js}: Framework de React que ofrece:
+    \begin{itemize}
+        \item Renderizado híbrido (SSR y CSR): Permite la generación de contenido tanto en el servidor como en el cliente, mejorando el rendimiento y la experiencia del usuario.
+        \item Optimización automática de recursos: Gestión eficiente de imágenes, scripts y estilos para mejorar la velocidad de carga.
+        \item Soporte para API Routes: Facilita la creación de endpoints API directamente en la aplicación Next.js.
+    \end{itemize}
+    
+    \item \textbf{Transformers.js}: Biblioteca para:
+    \begin{itemize}
+          \item Procesamiento de voz en el navegador: Facilita la transcripción y síntesis de voz directamente en el navegador sin necesidad de servidores externos, lo que mejora significativamente la fluidez de la experiencia del usuario.
+        \item Modelos \gls{tts} y \gls{stt} locales: Soporte para modelos de texto a voz (TTS) y de voz a texto (STT) que se ejecutan localmente.
+        \item Aceleración por \gls{webgpu}: Utiliza la capacidad de procesamiento de la GPU del navegador para mejorar el rendimiento de los modelos de voz.
+        \item Compatibilidad con múltiples idiomas: Soporte para varios idiomas y dialectos, facilitando la creación de aplicaciones multilingües.
+    \end{itemize}
+\end{itemize}
+
+\section{Recursos Lingüísticos}
+
+\begin{itemize}
+    \item \textbf{Modelos de Voz}:
+        \begin{itemize}
+            \item Modelos \gls{tts} optimizados para navegador:
+            \begin{itemize}
+                \item Generación de voz natural y fluida a partir de texto utilizando \gls{whisper}
+                \item Personalización de voces para diferentes personajes y contextos
+                \item Soporte para múltiples idiomas y variaciones regionales
+            \end{itemize}
+            
+            \item Procesamiento local mediante \gls{webgpu}:
+            \begin{itemize}
+                \item Aceleración del procesamiento de voz utilizando la GPU del navegador
+                \item Reducción de la latencia en la generación y reconocimiento de voz
+                \item Mejora del rendimiento y la eficiencia energética en dispositivos locales
+            \end{itemize}
+        \end{itemize}
+        
+        \item \textbf{Recursos Educativos}:
+        \begin{itemize}
+            \item Material didáctico estructurado por niveles CEFR:
+            \begin{itemize}
+                \item Contenidos alineados con los niveles A1 a C2 del Marco Común Europeo de Referencia para las Lenguas (CEFR)
+                \item Progresión gradual de la dificultad para facilitar el aprendizaje
+            \end{itemize}
+            
+            \item Ejercicios y actividades graduadas:
+            \begin{itemize}
+                \item Prácticas de comprensión lectora y escritura
+                \item Retroalimentación inmediata y personalizada para cada ejercicio
+                \item Escenarios de la vida real para practicar el uso del idioma en contextos auténticos
+            \end{itemize}
+        \end{itemize}
+\end{itemize}

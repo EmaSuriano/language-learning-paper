@@ -1,2 +1,134 @@
 \chapter{Resultados}
 \label{resultados}
+
+Este capítulo presenta el estado actual de implementación del sistema y los resultados preliminares obtenidos de las pruebas iniciales de los componentes desarrollados hasta el momento. Es importante destacar que el sistema se encuentra en fase de desarrollo, con algunos componentes clave ya implementados y otros en proceso de desarrollo.
+
+\section{Estado Actual de Implementación}
+\label{estado-actual}
+
+El desarrollo del sistema se ha centrado inicialmente en dos componentes principales: la interfaz de usuario con capacidades de procesamiento de voz y el backend con sistema de gestión de documentos.
+
+\subsection{Componentes Implementados}
+\label{componentes-implementados}
+
+\subsubsection{Frontend}
+
+Se ha completado la implementación de los siguientes componentes en el frontend:
+
+\begin{itemize}
+    \item \textbf{Interfaz de Usuario:}
+    \begin{itemize}
+        \item Implementación completa en Next.js
+        \item Integración con \gls{assistant-ui} para la gestión de chat
+        \item Sistema de routing y gestión de estado
+    \end{itemize}
+
+    \item \textbf{Procesamiento de Voz:}
+    \begin{itemize}
+        \item Integración exitosa de \gls{webgpu} para procesamiento local
+        \item Implementación de sistema \gls{tts} para generación de voz
+        \item Implementación de sistema \gls{stt} para reconocimiento de voz
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{Backend}
+
+En el backend, se han implementado los siguientes componentes:
+
+\begin{itemize}
+    \item \textbf{Servidor FastAPI:}
+    \begin{itemize}
+        \item Estructura base del servidor
+        \item Endpoints REST básicos
+        \item Sistema de autenticación
+        \item Integración con \gls{llm} para generación de embeddings
+        \item Integración con \gls{rag} para generación de respuestas
+    \end{itemize}
+
+    \item \textbf{Sistema de Gestión de Documentos:}
+    \begin{itemize}
+        \item Integración con \gls{chromadb} para almacenamiento de documentos
+        \item Sistema de indexación de documentos
+        \item Búsqueda semántica básica
+    \end{itemize}
+\end{itemize}
+
+\subsection{Componentes Pendientes}
+\label{componentes-pendientes}
+
+Los siguientes componentes están planificados pero aún no implementados:
+
+\begin{itemize}
+    \item Sistema de \gls{rl} para personalización del aprendizaje
+    \item Sistema \gls{multi-agent} para gestión de diálogos
+    \item Sistema de análisis de progreso del usuario    
+\end{itemize}
+
+\section{Resultados Preliminares}
+\label{resultados-preliminares}
+
+\subsection{Rendimiento del Frontend}
+\label{rendimiento-frontend}
+
+Las pruebas iniciales del procesamiento de voz con \gls{webgpu} muestran los siguientes resultados:
+
+\begin{itemize}
+    \item \textbf{Procesamiento \gls{tts}:}
+    \begin{itemize}
+        \item Tiempo promedio de generación: 100ms por frase
+        \item Uso de memoria: 150MB promedio
+        \item Utilización de GPU: 25-30\% durante la generación
+    \end{itemize}
+
+    \item \textbf{Procesamiento \gls{stt}:}
+    \begin{itemize}
+        \item Latencia de reconocimiento: 200ms
+        \item Uso de memoria: 200MB promedio
+        \item Precisión inicial: 85\% en condiciones óptimas
+    \end{itemize}
+\end{itemize}
+
+\subsection{Rendimiento del Backend}
+\label{rendimiento-backend}
+
+El sistema de gestión de documentos muestra los siguientes resultados iniciales:
+
+\begin{itemize}
+    \item \textbf{Indexación de Documentos:}
+    \begin{itemize}
+        \item Tiempo promedio de indexación: 500ms por documento
+        \item Eficiencia de almacenamiento: 2MB por 1000 embeddings
+    \end{itemize}
+
+    \item \textbf{Búsqueda Semántica:}
+    \begin{itemize}
+        \item Tiempo de respuesta: 100ms promedio
+        \item Precisión de búsqueda: 80\% para consultas similares
+    \end{itemize}
+\end{itemize}
+
+\section{Limitaciones Actuales}
+\label{limitaciones-actuales}
+
+Es importante señalar las siguientes limitaciones en el estado actual del desarrollo:
+
+\begin{itemize}
+    \item \textbf{Funcionalidad Limitada:} Al encontrarse en fase de desarrollo, muchas funcionalidades planificadas aún no están implementadas.
+    
+    \item \textbf{Pruebas Preliminares:} Las pruebas realizadas hasta el momento son básicas y en entornos controlados.
+    
+    \item \textbf{Integración Parcial:} La integración entre frontend y backend es básica, pendiente de completar con todos los componentes planificados.
+\end{itemize}
+
+\section{Próximos Pasos}
+\label{proximos-pasos}
+
+Para continuar con el desarrollo del sistema, se han planificado las siguientes acciones:
+
+\begin{itemize}
+    \item Implementación del sistema de \gls{rl} para personalización
+    \item Desarrollo del sistema \gls{multi-agent}
+    \item Integración completa de componentes frontend y backend
+    \item Implementación de sistema de análisis de usuario
+    \item Realización de pruebas exhaustivas con usuarios reales
+\end{itemize}

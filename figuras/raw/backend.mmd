@@ -1,0 +1,81 @@
+---
+config:
+  look: classic
+  layout: elk
+  theme: mc
+---
+flowchart TB
+ subgraph Security["Seguridad"]
+        Auth["Autenticación"]
+        JWT["JWT Handler"]
+  end
+ subgraph API["API Layer (FastAPI)"]
+        Routes["Rutas API"]
+        Middleware["Middleware"]
+        Security
+  end
+ subgraph Agents["Agentes"]
+    direction LR
+        LA["Learning Agent"]
+        DA["Dialog Agent"]
+        EA["Evaluation Agent"]
+  end
+ subgraph LangGraph["LangGraph System"]
+        WorkFlow["Workflow Manager"]
+        Agents
+        State["State Manager"]
+  end
+ subgraph Models["Modelos"]
+        LLM["LLM Manager"]
+        RL["RL Manager"]
+        RAG["RAG System"]
+  end
+ subgraph Services["Servicios"]
+        UserService["User Service"]
+        ContentService["Content Service"]
+        ProgressService["Progress Service"]
+  end
+ subgraph Core["Core"]
+        LangGraph
+        Models
+        Services
+  end
+ subgraph DB["Bases de Datos"]
+        SQL[("SQL Database")]
+        Vector[("ChromaDB")]
+  end
+ subgraph Cache["Sistema de Cache"]
+        Redis[("Redis")]
+  end
+ subgraph Data["Data Layer"]
+        DB
+        Cache
+  end
+    Routes --> Security
+    Security --> LangGraph
+    WorkFlow --> Agents
+    Agents --> State & Services
+    LA --> Models
+    DA --> Models
+    EA --> Models
+    LLM --> RAG
+    RAG --> Vector
+    Services --> DB & Cache
+     Routes:::api
+     Middleware:::api
+     Auth:::api
+     JWT:::api
+     WorkFlow:::agents
+     LA:::agents
+     DA:::agents
+     EA:::agents
+     State:::agents
+     LLM:::models
+     RL:::models
+     RAG:::models
+     SQL:::data
+     Vector:::data
+     Redis:::data
+     Security:::api
+     DB:::data
+     Cache:::data

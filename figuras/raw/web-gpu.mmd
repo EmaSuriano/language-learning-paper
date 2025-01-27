@@ -1,0 +1,45 @@
+---
+config:
+  layout: elk
+  look: classic
+---
+flowchart TB
+ subgraph Application["Capa de Aplicación"]
+        WA["WebAssembly/JavaScript"]
+        API["WebGPU API"]
+  end
+ subgraph Resources["Recursos"]
+        Buffers["GPUBuffer"]
+        Textures["GPUTexture"]
+        Samplers["GPUSampler"]
+  end
+ subgraph Pipelines["Pipelines"]
+        Compute["Compute Pipeline"]
+        Render["Render Pipeline"]
+        BGroups["Bind Groups"]
+  end
+ subgraph Commands["Sistema de Comandos"]
+        Encoder["Command Encoder"]
+        Queue["Command Queue"]
+        Submission["Command Submission"]
+  end
+ subgraph GPUDevice["Dispositivo Lógico"]
+    direction TB
+        Resources
+        Pipelines
+        Commands
+  end
+ subgraph Hardware["Backend Nativo"]
+        Driver["GPU Driver"]
+        Native["APIs Nativas\nVulkan/Metal/D3D12"]
+        GPU["Hardware GPU"]
+  end
+    Application -- 1.Inicialización --> GPUDevice
+    API -- "2.Creación" --> Resources
+    API -- "3.Configuración" --> Pipelines
+    Resources -- "4.Binding" --> Pipelines
+    Pipelines -- "5.Encoding" --> Commands
+    Commands -- "6.Ejecución" --> Hardware
+     Application:::app
+     GPUDevice:::device
+     Hardware:::hw

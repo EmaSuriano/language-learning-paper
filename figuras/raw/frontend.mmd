@@ -1,0 +1,72 @@
+---
+config:
+  look: classic
+  layout: elk
+  theme: mc
+---
+flowchart TB
+    subgraph User["Capa de Usuario"]
+        UI["Interfaz de Usuario"]
+        Components["Componentes"]
+    end
+
+    subgraph AssistantUI["Assistant UI Framework"]
+        Chat["Componentes de Chat"]
+        Thread["Gestión de Hilos"]
+        Messages["Gestión de Mensajes"]
+    end
+
+    subgraph Core["Núcleo de la Aplicación"]
+        subgraph State["Gestión de Estado"]
+            Context["Contextos React"]
+            Hooks["Custom Hooks"]
+            Store["Store Global"]
+        end
+
+        subgraph Services["Servicios"]
+            API_Service["Servicio API"]
+            Auth["Autenticación"]
+            Storage["Almacenamiento Local"]
+        end
+
+        subgraph Voice["Motor de Voz"]
+            STT["Speech-to-Text Engine"]
+            TTS["Text-to-Speech Engine"]
+            subgraph Processing["Procesamiento"]
+                WebGPU["WebGPU Acceleration"]
+                Models["Modelos Transformers.js"]
+                Buffer["Buffer de Audio"]
+            end
+        end
+    end
+
+
+    UI --> Components
+    Components --> AssistantUI
+    
+    Chat --> Context
+    Thread --> Context
+    Messages --> Context
+    
+    Components --> Context
+    Components --> Hooks
+    
+    Context --> Store
+    Hooks --> Store
+    
+    Components --> API_Service
+    API_Service --> Auth
+    
+    Components --> STT
+    Components --> TTS
+    STT --> Processing
+    TTS --> Processing
+    
+    Processing --> WebGPU
+    Processing --> Models
+    Processing --> Buffer
+    
+
+    class Chat,Thread,Messages,AssistantUI assistantUI;
+    class Context,Hooks,Store state;
+    class STT,TTS,WebGPU,Models,Buffer,Processing voice;

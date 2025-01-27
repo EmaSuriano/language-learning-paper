@@ -158,6 +158,10 @@
 
 \pagestyle{fancy}
 \input{secciones/indice.tex}
+% Print the glossary and acronyms
+\printglossaries
+\addcontentsline{toc}{chapter}{Glosario}
+
 \input{secciones/resumen.tex}
 \input{secciones/introduccion.tex}
 \input{secciones/estado-del-arte.tex}
@@ -170,14 +174,9 @@
 \cleardoublepage
 \phantomsection
 
-% Print the glossary and acronyms
-\printglossaries
-\addcontentsline{toc}{chapter}{Glosario}
-
-
 % Appendix
 \appendix
-\input{secciones/apendizes.tex}
+\input{secciones/anexos.tex}
 
 % Bibliography
 \begin{singlespace}
