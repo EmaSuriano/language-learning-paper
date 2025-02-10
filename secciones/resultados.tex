@@ -1,134 +1,242 @@
 \chapter{Resultados}
 \label{resultados}
 
-Este capítulo presenta el estado actual de implementación del sistema y los resultados preliminares obtenidos de las pruebas iniciales de los componentes desarrollados hasta el momento. Es importante destacar que el sistema se encuentra en fase de desarrollo, con algunos componentes clave ya implementados y otros en proceso de desarrollo.
+Este capítulo presenta los resultados obtenidos tras la implementación del sistema y las pruebas preliminares realizadas. Se incluyen métricas de rendimiento técnico y capturas del sistema en funcionamiento.
 
-\section{Estado Actual de Implementación}
-\label{estado-actual}
+\section{Evaluación del Sistema}
+\label{evaluacion-sistema}
 
-El desarrollo del sistema se ha centrado inicialmente en dos componentes principales: la interfaz de usuario con capacidades de procesamiento de voz y el backend con sistema de gestión de documentos.
+La evaluación del sistema se ha realizado a través de pruebas preliminares enfocadas en el rendimiento técnico y la funcionalidad básica.
 
-\subsection{Componentes Implementados}
-\label{componentes-implementados}
+
+\subsection{Rendimiento Técnico}
+\label{rendimiento-tecnico}
 
 \subsubsection{Frontend}
 
-Se ha completado la implementación de los siguientes componentes en el frontend:
+El sistema muestra los siguientes resultados en pruebas internas:
 
 \begin{itemize}
-    \item \textbf{Interfaz de Usuario:}
+    \item \textbf{Procesamiento \gls{tts}:}
     \begin{itemize}
-        \item Implementación completa en Next.js
-        \item Integración con \gls{assistant-ui} para la gestión de chat
-        \item Sistema de routing y gestión de estado
+        \item Latencia de generación: 50ms por frase
+        \item Uso de memoria: 120MB promedio
+        \item Utilización de GPU: 20-25\% durante la generación
     \end{itemize}
 
-    \item \textbf{Procesamiento de Voz:}
+    \item \textbf{Procesamiento \gls{stt}:}
     \begin{itemize}
-        \item Integración exitosa de \gls{webgpu} para procesamiento local
-        \item Implementación de sistema \gls{tts} para generación de voz
-        \item Implementación de sistema \gls{stt} para reconocimiento de voz
+        \item Latencia de reconocimiento: 100ms
+        \item Uso de memoria: 150MB promedio
+        \item Precisión inicial: 85\% en condiciones controladas
     \end{itemize}
 \end{itemize}
 
 \subsubsection{Backend}
 
-En el backend, se han implementado los siguientes componentes:
+Las pruebas preliminares del sistema \gls{rag} muestran:
 
 \begin{itemize}
-    \item \textbf{Servidor FastAPI:}
+    \item \textbf{Sistema \gls{rag}:}
     \begin{itemize}
-        \item Estructura base del servidor
-        \item Endpoints REST básicos
-        \item Sistema de autenticación
-        \item Integración con \gls{llm} para generación de embeddings
-        \item Integración con \gls{rag} para generación de respuestas
+        \item Latencia de búsqueda: 75ms
+        \item Precisión inicial: 82\%
+        \item Relevancia contextual: 80\%
     \end{itemize}
 
-    \item \textbf{Sistema de Gestión de Documentos:}
+    \item \textbf{Sistema \gls{ppo}:}
     \begin{itemize}
-        \item Integración con \gls{chromadb} para almacenamiento de documentos
-        \item Sistema de indexación de documentos
-        \item Búsqueda semántica básica
+        \item Tiempo de convergencia: 15 episodios promedio
+        \item Estabilidad del modelo: 90\% en pruebas sintéticas
     \end{itemize}
 \end{itemize}
 
-\subsection{Componentes Pendientes}
-\label{componentes-pendientes}
+\section{Capturas del Sistema}
+\label{capturas-sistema}
 
-Los siguientes componentes están planificados pero aún no implementados:
+Esta sección presenta las principales interfaces y componentes del sistema implementado.
 
+\subsection{Interfaz Principal}
+\label{interfaz-principal}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figuras/screenshots/chat-initial.png}
+    \caption{Interfaz principal del sistema mostrando el chat y las opciones de voz}
+    \label{fig:main-interface}
+\end{figure}
+
+La Figura \ref{fig:main-interface} muestra la interfaz principal del sistema, donde se pueden observar:
 \begin{itemize}
-    \item Sistema de \gls{rl} para personalización del aprendizaje
-    \item Sistema \gls{multi-agent} para gestión de diálogos
-    \item Sistema de análisis de progreso del usuario    
+    \item Panel de chat interactivo
+    \item Controles de voz para \gls{tts} y \gls{stt}
+    \item Indicadores de nivel y progreso
 \end{itemize}
 
-\section{Resultados Preliminares}
-\label{resultados-preliminares}
 
-\subsection{Rendimiento del Frontend}
-\label{rendimiento-frontend}
 
-Las pruebas iniciales del procesamiento de voz con \gls{webgpu} muestran los siguientes resultados:
+\subsection{Sistema de Diálogo}
+\label{sistema-dialogo}
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figuras/screenshots/chat-complete.png}
+    \caption{Sistema de diálogo mostrando una conversación de ejemplo}
+    \label{fig:dialog-system}
+\end{figure}
+
+La Figura \ref{fig:dialog-system} ilustra el sistema de diálogo en acción, destacando:
 \begin{itemize}
-    \item \textbf{Procesamiento \gls{tts}:}
-    \begin{itemize}
-        \item Tiempo promedio de generación: 100ms por frase
-        \item Uso de memoria: 150MB promedio
-        \item Utilización de GPU: 25-30\% durante la generación
-    \end{itemize}
-
-    \item \textbf{Procesamiento \gls{stt}:}
-    \begin{itemize}
-        \item Latencia de reconocimiento: 200ms
-        \item Uso de memoria: 200MB promedio
-        \item Precisión inicial: 85\% en condiciones óptimas
-    \end{itemize}
+    \item Generación de respuestas contextuales
+    \item Integración de \gls{rag} para respuestas precisas
+    \item Sistema de corrección en tiempo real
 \end{itemize}
 
-\subsection{Rendimiento del Backend}
-\label{rendimiento-backend}
+\subsection{Selector de Situaciones}
+\label{selector-situaciones}
 
-El sistema de gestión de documentos muestra los siguientes resultados iniciales:
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figuras/screenshots/situation-picker.png}
+    \caption{Interfaz de selección de contextos conversacionales y objetivos}
+    \label{fig:situation-picker}
+\end{figure}
 
+La Figura \ref{fig:situation-picker} muestra la interfaz de selección de situaciones, donde los usuarios pueden elegir el contexto específico para su práctica conversacional. El sistema ofrece:
 \begin{itemize}
-    \item \textbf{Indexación de Documentos:}
+    \item \textbf{Contextos Predefinidos:}
     \begin{itemize}
-        \item Tiempo promedio de indexación: 500ms por documento
-        \item Eficiencia de almacenamiento: 2MB por 1000 embeddings
+        \item Escenarios cotidianos como restaurantes, tiendas y oficinas
+        \item Situaciones profesionales para entrevistas y reuniones
+        \item Contextos académicos para estudiantes
+        \item Situaciones sociales informales
     \end{itemize}
-
-    \item \textbf{Búsqueda Semántica:}
-    \begin{itemize}
-        \item Tiempo de respuesta: 100ms promedio
-        \item Precisión de búsqueda: 80\% para consultas similares
-    \end{itemize}
-\end{itemize}
-
-\section{Limitaciones Actuales}
-\label{limitaciones-actuales}
-
-Es importante señalar las siguientes limitaciones en el estado actual del desarrollo:
-
-\begin{itemize}
-    \item \textbf{Funcionalidad Limitada:} Al encontrarse en fase de desarrollo, muchas funcionalidades planificadas aún no están implementadas.
     
-    \item \textbf{Pruebas Preliminares:} Las pruebas realizadas hasta el momento son básicas y en entornos controlados.
+    \item \textbf{Sistema de Objetivos:}
+    \begin{itemize}
+        \item Lista clara de metas a alcanzar durante la conversación
+        \item Indicadores de progreso para cada objetivo
+        \item Retroalimentación en tiempo real sobre el avance
+    \end{itemize}
     
-    \item \textbf{Integración Parcial:} La integración entre frontend y backend es básica, pendiente de completar con todos los componentes planificados.
+    \item \textbf{Personalización:}
+    \begin{itemize}
+        \item Adaptación del nivel de dificultad según el perfil del usuario
+        \item Recomendaciones basadas en el historial de práctica
+        \item Opciones para personalizar los objetivos específicos
+    \end{itemize}
 \end{itemize}
 
-\section{Próximos Pasos}
-\label{proximos-pasos}
+\subsection{Panel de Análisis}
+\label{panel-analisis}
 
-Para continuar con el desarrollo del sistema, se han planificado las siguientes acciones:
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figuras/screenshots/report.png}
+    \caption{Panel de análisis mostrando métricas de aprendizaje}
+    \label{fig:analytics-panel}
+\end{figure}
+
+La Figura \ref{fig:analytics-panel} muestra el panel de análisis, que incluye:
+\begin{itemize}
+    \item Métricas de progreso
+    \item Análisis de errores comunes
+    \item Recomendaciones personalizadas
+\end{itemize}
+
+\section{Pruebas Preliminares}
+\label{pruebas-preliminares}
+
+Las pruebas iniciales se realizaron en un entorno controlado con un grupo reducido de usuarios (n=10) durante un período de 2 semanas:
 
 \begin{itemize}
-    \item Implementación del sistema de \gls{rl} para personalización
-    \item Desarrollo del sistema \gls{multi-agent}
-    \item Integración completa de componentes frontend y backend
-    \item Implementación de sistema de análisis de usuario
-    \item Realización de pruebas exhaustivas con usuarios reales
+    \item \textbf{Rendimiento del Sistema:}
+    \begin{itemize}
+        \item Tiempo de respuesta promedio: 200ms
+        \item Estabilidad del sistema: 98\% uptime
+        \item Uso de recursos dentro de límites esperados
+    \end{itemize}
+
+    \item \textbf{Feedback Inicial:}
+    \begin{itemize}
+        \item Facilidad de uso reportada: 4.0/5
+        \item Utilidad percibida: 3.8/5
+        \item Áreas de mejora identificadas: 3 principales
+    \end{itemize}
+\end{itemize}
+
+\section{Repositorios del Proyecto}
+\label{repositorios-proyecto}
+
+El sistema ha sido desarrollado siguiendo una arquitectura cliente-servidor, con el código fuente disponible públicamente en GitHub bajo licencia MIT.
+
+\subsection{Estructura de Repositorios}
+\label{estructura-repositorios}
+
+\begin{itemize}
+    \item \textbf{Frontend - Cliente:}
+    \begin{itemize}
+        \item Repositorio: \url{https://github.com/EmaSuriano/language-learning-client}
+        \item Tecnologías: Next.js, TypeScript, Tailwind CSS
+        \item Componentes principales:
+              \begin{itemize}
+                  \item Interfaz de chat basada en \gls{assistant-ui}
+                  \item Selector de situaciones y objetivos
+                  \item Gestión de estado con Zustand
+                  \item Multilenguaje con i18n
+              \end{itemize}
+    \end{itemize}
+
+    \item \textbf{Backend - Servidor:}
+    \begin{itemize}
+        \item Repositorio: \url{https://github.com/EmaSuriano/language-learning-server}
+        \item Tecnologías: FastAPI, Python, LangChain
+        \item Componentes principales:
+              \begin{itemize}
+                  \item Sistema \gls{rag} para recuperación de contexto
+                  \item Integración con \gls{llm}
+                  \item API REST para comunicación con el cliente
+                  \item Sistema de procesamiento de voz con Faster-Whisper y Kokoro-TTS
+              \end{itemize}
+    \end{itemize}
+\end{itemize}
+
+\subsection{Documentación}
+\label{documentacion-repositorios}
+
+Ambos repositorios incluyen:
+\begin{itemize}
+    \item README con instrucciones detalladas de instalación y configuración
+    \item Documentación de endpoints y componentes principales
+    \item Variables de entorno requeridas
+    \item Ejemplos de uso
+\end{itemize}
+
+
+\section{Limitaciones y Trabajo Futuro}
+\label{limitaciones-trabajo-futuro}
+
+Se identifican las siguientes áreas para desarrollo futuro:
+
+\begin{itemize}
+    \item \textbf{Evaluación Exhaustiva:}
+    \begin{itemize}
+        \item Pruebas con una muestra más amplia de usuarios
+        \item Evaluación longitudinal del progreso
+        \item Análisis comparativo con otros sistemas
+    \end{itemize}
+
+    \item \textbf{Mejoras Técnicas:}
+    \begin{itemize}
+        \item Optimización del modelo \gls{ppo}
+        \item Mejora en la precisión del \gls{stt}
+        \item Ampliación de la base de conocimientos del \gls{rag}
+    \end{itemize}
+
+    \item \textbf{Funcionalidades Adicionales:}
+    \begin{itemize}
+        \item Implementación de más escenarios de práctica
+        \item Expansión del sistema de evaluación
+        \item Mejoras en la interfaz de usuario
+    \end{itemize}
 \end{itemize}

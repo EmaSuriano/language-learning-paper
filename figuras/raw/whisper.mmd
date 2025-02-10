@@ -1,0 +1,31 @@
+---
+config:
+  look: classic
+---
+
+graph TB
+    subgraph Input
+        A[Audio Input] --> B[Mel Spectrogram]
+    end
+    
+    subgraph Encoder
+        B --> C[CTransformer Encoder]
+        C --> D[Audio Features]
+    end
+    
+    subgraph Decoder
+        D --> E[CTransformer Decoder]
+        E --> F[Text Tokens]
+    end
+    
+    subgraph Output
+        F --> G[Text Output]
+        G --> H[Timestamps]
+    end
+
+    subgraph Optimizations
+        I[CTranslate2] --> C
+        I --> E
+        J[Beam Search] --> E
+        K[VAD] --> A
+    end

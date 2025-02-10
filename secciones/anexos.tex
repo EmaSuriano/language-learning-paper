@@ -1,262 +1,293 @@
-\chapter{Anexo: WebGPU y Machine Learning en el Navegador}
-\label{anexo-webgpu}
+\chapter{Anexo: Faster Whisper y Modelos de Transcripción}
+\label{anexo-faster-whisper}
 
-Este anexo explora WebGPU, una tecnología emergente que permite la ejecución eficiente de modelos de Machine Learning directamente en el navegador web, y su impacto en el desarrollo de aplicaciones web modernas.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.4\textwidth]{figuras/webgpu.png}
-    \caption{Logo de WebGPU}
-    \label{fig:webgpu-logo}
-\end{figure}
-
-WebGPU representa la nueva generación de APIs gráficas para la web, sucediendo a WebGL como el estándar para computación de alto rendimiento en navegadores. A diferencia de sus predecesores, WebGPU está diseñado desde cero para aprovechar las arquitecturas modernas de GPU y proporcionar acceso a capacidades de computación general.
+Este anexo explora Faster Whisper, una implementación optimizada del modelo Whisper de OpenAI para transcripción y traducción de voz a texto. Se analizan sus características principales, arquitectura, y se compara el rendimiento entre los diferentes modelos disponibles.
 
 \section{Características Principales}
+\label{sec:faster-whisper-features}
+
+Faster Whisper representa una mejora significativa sobre la implementación original de Whisper, destacando por:
+
 \begin{itemize}
-    \item \textbf{Compute Shaders}: Permite la ejecución de código de propósito general en la GPU, fundamental para operaciones de ML.
-    \item \textbf{Gestión de Memoria Explícita}: Mayor control sobre la asignación y liberación de memoria en la GPU.
-    \item \textbf{Pipeline de Renderizado Moderno}: Arquitectura basada en comandos que reduce la sobrecarga del driver.
-    \item \textbf{Mejor Paralelismo}: Aprovecha eficientemente los núcleos de la GPU para computación paralela.
+	\item \textbf{Optimización CTranslate2}: Utiliza el toolkit CTranslate2 para optimizar la inferencia del modelo.
+	\item \textbf{Menor Consumo de Memoria}: Reduce significativamente el uso de memoria mediante técnicas de cuantización.
+	\item \textbf{Aceleración por Hardware}: Aprovecha eficientemente CPU y GPU mediante paralelización.
+	\item \textbf{Detección de Voz}: Integra VAD (Voice Activity Detection) para mejorar la precisión.
 \end{itemize}
 
+\section{Arquitectura del Sistema}
+\label{sec:faster-whisper-architecture}
 
-\section{Arquitectura General de WebGPU}
-\label{sec:webgpu-architecture}
+\begin{figure}[H]
+	\caption{Arquitectura de Faster Whisper}
+	\label{fig:whisper}
+	\includegraphics[width=0.8\textwidth]{figuras/whisper.png}
+\end{figure}
 
-WebGPU proporciona una interfaz moderna y eficiente para acceder a las capacidades de computación de la GPU. Esta sección detalla su arquitectura general y los componentes principales que permiten la ejecución eficiente de tareas de computación paralela.
+La arquitectura de Faster Whisper se compone de varios módulos especializados que trabajan en conjunto para proporcionar transcripción eficiente:
 
 \subsection{Componentes Principales}
 \label{subsec:main-components}
 
-\subsubsection{Dispositivo Lógico (GPUDevice)}
-El \texttt{GPUDevice} representa una interfaz lógica al hardware GPU y gestiona todos los recursos y operaciones. La inicialización se realiza con:
+\subsubsection{Preprocesamiento de Audio}
+El sistema procesa la entrada de audio mediante:
 \begin{equation}
-    \text{device} = \text{await adapter.requestDevice(descriptor);}
+	\text{mel} = \text{log}(\max(\text{STFT}(x), \epsilon))
 \end{equation}
-El dispositivo gestiona capacidades como límites de recursos, configuraciones de pipeline y formatos de memoria.
+donde STFT es la Transformada de Fourier de Tiempo Corto y $\epsilon$ es un valor pequeño para estabilidad numérica.
 
-\subsubsection{Sistema de Recursos}
-Los recursos son las unidades básicas de almacenamiento y procesamiento. Los principales tipos son:
+\subsubsection{CTransformer}
+La implementación utiliza CTranslate2 para optimizar:
 \begin{itemize}
-    \item \textbf{GPUBuffer}: Almacenamiento lineal de datos, con tipos de uso como Storage, Uniform, Vertex, e Index. Permite mapeo de memoria para transferencia CPU-GPU.
-    \item \textbf{GPUTexture}: Almacenamiento optimizado para datos 2D/3D, con soporte para mipmapping y sampling.
+	\item \textbf{Encoder}: Procesa el espectrograma mel en representaciones de audio.
+	\item \textbf{Decoder}: Genera tokens de texto mediante atención cruzada.
 \end{itemize}
 
-\subsection{Pipeline de Computación}
-\label{subsec:compute-pipeline}
-
-El pipeline define cómo se procesan los datos. La creación del pipeline se realiza con:
-\begin{equation}
-    \text{pipeline} = \text{device.createComputePipeline(descriptor);}
-\end{equation}
-Los componentes incluyen el Shader Module (código WGSL), el Layout (descripción de recursos y bindings) y el Entry Point (punto de entrada para la ejecución).
-
-\subsection{Sistema de Comandos}
-\label{subsec:command-system}
-
-La ejecución se gestiona mediante un sistema de comandos, compuesto por:
-\begin{itemize}
-    \item \textbf{Command Encoder}: Creación y registro de comandos, configuración de estados y recursos, y definición de pases de computación.
-    \item \textbf{Command Queue}: Cola de comandos para ejecución, sincronización de operaciones y gestión de dependencias.
-\end{itemize}
-
-\subsection{Flujo de Ejecución}
-\label{subsec:execution-flow}
-
-El proceso típico de ejecución sigue estos pasos:
-\begin{enumerate}
-    \item \textbf{Inicialización}: Obtención del adaptador GPU, creación del dispositivo lógico y configuración de recursos iniciales.
-    \item \textbf{Preparación de Recursos}: Creación de buffers y texturas, carga de datos desde CPU y configuración de bind groups.
-    \item \textbf{Configuración de Pipeline}: Compilación de shaders, definición de layouts y configuración de estados.
-    \item \textbf{Ejecución}: Codificación de comandos, submisión a la cola y sincronización y espera de resultados.
-\end{enumerate}
-
-\subsection{Optimizaciones}
-\label{subsec:optimizations}
-
-Para mejorar el rendimiento, se pueden aplicar las siguientes optimizaciones:
-\begin{itemize}
-    \item \textbf{Gestión de Memoria}: Buffer pooling y reutilización, estrategias de paginación, alineación y padding óptimos.
-    \item \textbf{Paralelismo}: Optimización de workgroups, overlapping de pipelines y submisión asíncrona de comandos.
-    \item \textbf{Sincronización}: Sincronización con fences, coordinación basada en eventos y barreras de memoria.
-\end{itemize}
-
-\subsection{Consideraciones de Rendimiento}
-\label{subsec:performance-considerations}
-
-Para maximizar el rendimiento, se deben considerar:
-\begin{itemize}
-    \item \textbf{Latencia}: Minimización de transferencias CPU-GPU, procesamiento en batch y reutilización de command buffers.
-    \item \textbf{Throughput}: Optimización de patrones de acceso a memoria, balanceo de carga entre workgroups y optimización del estado del pipeline.
-\end{itemize}
-
-\section{Diagrama de Arquitectura WebGPU}
-\label{sec:webgpu-architecture-diagram}
-
-La Figura~\ref{fig:webgpu-architecture} presenta la arquitectura general de WebGPU, ilustrando la relación entre sus diferentes componentes y el flujo de datos desde la aplicación hasta el hardware GPU. La arquitectura se divide en tres capas principales que facilitan la ejecución eficiente de operaciones de computación paralela en el navegador.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.8\textwidth]{figuras/webgpu-architecture.png}
-    \caption{Arquitectura general de WebGPU y flujo de datos}
-    \label{fig:webgpu-architecture}
-\end{figure}
-
-
-
-
-\subsection{Estructura de Capas}
-\label{subsec:layer-structure}
-
-\begin{itemize}
-    \item \textbf{Capa de Aplicación}:
-    \begin{itemize}
-        \item WebAssembly/JavaScript para la interfaz de programación
-        \item WebGPU API para la configuración y control de operaciones
-    \end{itemize}
-
-    \item \textbf{Dispositivo Lógico}:
-    \begin{itemize}
-        \item \texttt{Recursos}: Gestión de buffers, texturas y samplers para datos
-        \item \texttt{Pipelines}: Configuración de operaciones de computación y renderizado
-        \item \texttt{Sistema de Comandos}: Codificación y control de ejecución
-    \end{itemize}
-
-    \item \textbf{Backend Nativo}:
-    \begin{itemize}
-        \item Driver GPU y APIs nativas (Vulkan/Metal/D3D12)
-        \item Conexión directa con el hardware para ejecución
-    \end{itemize}
-\end{itemize}
-
-\subsection{Flujo de Operación}
-\label{subsec:operation-flow}
-
-El proceso de ejecución sigue una secuencia definida:
-
-\begin{enumerate}
-    \item \textbf{Inicialización}: La aplicación inicializa el dispositivo GPU.
-    \item \textbf{Creación}: La API de WebGPU crea los recursos necesarios (buffers, texturas, samplers).
-    \item \textbf{Configuración}: Se establecen los pipelines de computación y renderizado.
-    \item \textbf{Binding}: Los recursos se vinculan a los pipelines mediante bind groups.
-    \item \textbf{Encoding}: Los pipelines configurados generan comandos mediante el encoder.
-    \item \textbf{Ejecución}: Los comandos codificados se ejecutan en el hardware a través del backend nativo.
-\end{enumerate}
-
-Esta arquitectura permite una gestión eficiente de recursos y operaciones, facilitando la ejecución de tareas complejas como procesamiento de audio, video y modelos de machine learning directamente en el navegador. La separación en capas proporciona una base sólida para optimizaciones y facilita el mantenimiento del código.
-
-\section{Rendimiento y Benchmarks}
-
-\subsection{Comparativa entre WebGPU y WebGL}
-
-WebGPU representa la siguiente generación de APIs gráficas para la web, diseñada como sucesor de WebGL. Mientras que WebGL se basó en OpenGL ES, proporcionando una API gráfica para la web, WebGPU ha sido diseñado desde cero para aprovechar las arquitecturas GPU modernas y proporcionar acceso a capacidades de computación más avanzadas. La Tabla~\ref{tab:webgpu-webgl} presenta las diferencias técnicas más significativas entre ambas tecnologías, destacando las mejoras fundamentales que WebGPU introduce en términos de rendimiento, control y capacidades de computación.
-
-\label{sec:webgpu-webgl-comparison}
+\section{Comparativa de Modelos Whisper}
+\label{sec:whisper-models-comparison}
 
 \begin{table}[H]
-\caption{Diferencias técnicas principales entre WebGPU y WebGL}
-\label{tab:webgpu-webgl}
-\begin{tabular}{|p{3cm}|p{5cm}|p{5cm}|}
-\hline
-\textbf{Característica} & \textbf{WebGPU} & \textbf{WebGL} \\
-\hline
-\textbf{Modelo de Ejecución} & 
-Multi-thread con async compute y ejecución paralela de comandos & 
-Single-thread con sincronización bloqueante \\
-\hline
-\textbf{Gestión de Memoria} & 
-Control explícito con buffer pooling y mapeo directo de memoria GPU & 
-Gestión implícita a través del driver OpenGL con overhead adicional \\
-\hline
-\textbf{Pipeline} & 
-Pipeline basado en comandos con compute shaders y control granular de estados & 
-Pipeline fijo con estados globales y sin soporte nativo para compute shaders \\
-\hline
-\textbf{APIs Backend} & 
-APIs modernas (Vulkan/Metal/D3D12) con acceso directo al hardware y menor overhead & 
-OpenGL/OpenGL ES con múltiples capas de abstracción y mayor latencia \\
-\hline
-\textbf{Capacidades de Computación} & 
-Soporte nativo para GPGPU, procesamiento tensorial y operaciones atómicas & 
-Limitado a operaciones gráficas, sin soporte para computación general \\
-\hline
-\end{tabular}
+	\caption{Comparación de modelos Whisper}
+	\label{tab:whisper-models}
+	\begin{tabular}{|p{2cm}|p{2cm}|p{3cm}|p{3cm}|p{3cm}|}
+		\hline
+		\textbf{Modelo} & \textbf{Parámetros} & \textbf{RAM (FP16)} & \textbf{WER} & \textbf{Velocidad Relativa} \\
+		\hline
+		Tiny            & 39M                 & 1GB                 & 7.1\%        & 32x                         \\
+		\hline
+		Base            & 74M                 & 1.5GB               & 6.1\%        & 16x                         \\
+		\hline
+		Small           & 244M                & 2.5GB               & 5.2\%        & 8x                          \\
+		\hline
+		Medium          & 769M                & 4.5GB               & 4.3\%        & 4x                          \\
+		\hline
+		Large           & 1550M               & 7.5GB               & 3.6\%        & 1x                          \\
+		\hline
+	\end{tabular}
 \end{table}
 
-\subsection{Comparativa de Experiencia de Usuario: WebGPU vs Backend}
-\label{sec:webgpu-backend-comparison}
+\subsection{Características por Modelo}
+\label{subsec:model-features}
 
-La elección entre procesamiento local mediante WebGPU y procesamiento en backend impacta significativamente en la experiencia del usuario final. Esta comparativa analiza los aspectos clave que afectan directamente a la interacción del usuario con la aplicación, considerando factores como latencia, privacidad y disponibilidad de recursos.
+\begin{itemize}
+	\item \textbf{Tiny}:
+	      \begin{itemize}
+		      \item Ideal para dispositivos con recursos limitados
+		      \item Mejor opción para transcripción en tiempo real
+		      \item Rendimiento aceptable en condiciones de audio limpias
+	      \end{itemize}
+
+	\item \textbf{Base}:
+	      \begin{itemize}
+		      \item Balance entre rendimiento y recursos
+		      \item Adecuado para aplicaciones web
+		      \item Buen rendimiento en múltiples idiomas
+	      \end{itemize}
+
+	\item \textbf{Small}:
+	      \begin{itemize}
+		      \item Mejora significativa en precisión sobre Base
+		      \item Soporte robusto para múltiples acentos
+		      \item Detección confiable de cambios de idioma
+	      \end{itemize}
+
+	\item \textbf{Medium}:
+	      \begin{itemize}
+		      \item Alta precisión en condiciones desafiantes
+		      \item Excelente rendimiento en audio con ruido
+		      \item Capacidad avanzada de puntuación
+	      \end{itemize}
+
+	\item \textbf{Large}:
+	      \begin{itemize}
+		      \item Máxima precisión disponible
+		      \item Mejor rendimiento en audios complejos
+		      \item Capacidad superior de traducción
+	      \end{itemize}
+\end{itemize}
+
+\section{Optimizaciones}
+\label{sec:optimizations}
+
+\subsection{Técnicas de Cuantización}
+\label{subsec:quantization}
+
+Faster Whisper implementa varias técnicas de cuantización:
+
+\begin{itemize}
+	\item \textbf{INT8}: Reduce el tamaño del modelo en 4x con mínima pérdida de precisión
+	\item \textbf{INT16}: Balance entre precisión y tamaño
+	\item \textbf{FLOAT16}: Máxima precisión con reducción de memoria
+\end{itemize}
+
+\subsection{Paralelización}
+\label{subsec:parallelization}
+
+El sistema implementa múltiples niveles de paralelización:
+
+\begin{itemize}
+	\item \textbf{Batch Processing}: Procesa múltiples segmentos simultáneamente
+	\item \textbf{Thread Pooling}: Optimiza la utilización de CPU
+	\item \textbf{GPU Acceleration}: Aprovecha CUDA para procesamiento paralelo
+\end{itemize}
+
+\section{Consideraciones de Implementación}
+\label{sec:implementation-considerations}
+
+\subsection{Selección de Modelo}
+La elección del modelo debe considerar:
+
+\begin{itemize}
+	\item \textbf{Recursos Disponibles}: Memoria y capacidad de procesamiento
+	\item \textbf{Requisitos de Latencia}: Tiempo de respuesta necesario
+	\item \textbf{Precisión Requerida}: Tolerancia a errores
+\end{itemize}
+
+\subsection{Estrategias de Deployment}
+Consideraciones para el despliegue:
+
+\begin{itemize}
+	\item \textbf{Edge Computing}: Procesamiento en dispositivo para menor latencia
+	\item \textbf{Server-Side}: Mayor capacidad de procesamiento pero mayor latencia
+	\item \textbf{Hybrid}: Combinación según necesidades específicas
+\end{itemize}
+
+\chapter{Anexo: Kokoro TTS}
+\label{anexo-kokoro}
+
+Este anexo explora Kokoro TTS, un modelo de síntesis de voz de código abierto que destaca por su eficiencia y calidad comparable a modelos más grandes, a pesar de contar con solo 82 millones de parámetros. El modelo implementa una arquitectura ligera basada en StyleTTS 2 e ISTFTNet, diseñada para ofrecer una síntesis de voz de alta calidad con recursos computacionales limitados.
+
+\section{Arquitectura del Sistema}
+\label{sec:kokoro-architecture}
+
+La arquitectura de Kokoro TTS se fundamenta en dos componentes principales: StyleTTS 2 e ISTFTNet. Esta combinación permite una síntesis de voz eficiente mientras mantiene una alta calidad en la salida.
+
+\subsection{Componentes Principales}
+\label{subsec:main-components}
+
+\begin{itemize}
+	\item \textbf{Misaki G2P}: Sistema de conversión de grafemas a fonemas que soporta múltiples idiomas.
+	\item \textbf{Style Encoder}: Codifica las características de estilo de voz a partir de audio de referencia.
+	\item \textbf{Decoder}: Genera características acústicas basadas en los fonemas y el estilo.
+	\item \textbf{ISTFT Network}: Realiza la síntesis final del audio mediante transformada inversa de Fourier.
+\end{itemize}
+
+\section{Características Técnicas}
+\label{sec:technical-features}
+
+\subsection{Especificaciones del Modelo}
+\begin{itemize}
+	\item \textbf{Parámetros}: 82 millones
+	\item \textbf{Arquitectura Base}: StyleTTS 2 + ISTFTNet
+	\item \textbf{Licencia}: Apache 2.0
+	\item \textbf{Formato de Audio}: 24kHz, mono
+\end{itemize}
+
+\subsection{Conjunto de Datos}
+El entrenamiento se realizó exclusivamente con datos de audio permitidos:
+\begin{itemize}
+	\item Audio de dominio público
+	\item Audio con licencias permisivas (Apache, MIT)
+	\item Audio sintético de modelos comerciales
+\end{itemize}
+
+\section{Análisis de Voces}
+\label{sec:voice-analysis}
+
+\subsection{Sistema de Calificación}
+\label{subsec:grading-system}
+
+El sistema evalúa las voces mediante dos métricas principales:
+
+\begin{itemize}
+	\item \textbf{Calidad Objetivo}:
+	      \begin{itemize}
+		      \item A: Calidad excepcional
+		      \item B: Buena calidad
+		      \item C: Calidad aceptable
+		      \item D: Calidad limitada
+	      \end{itemize}
+
+	\item \textbf{Duración del Entrenamiento}:
+	      \begin{itemize}
+		      \item HH: 10-100 horas
+		      \item H: 1-10 horas
+		      \item MM: 10-100 minutos
+		      \item M: 1-10 minutos
+	      \end{itemize}
+\end{itemize}
+
+\subsection{Distribución de Voces}
+\label{subsec:voice-distribution}
 
 \begin{table}[H]
-\caption{Comparación de experiencia de usuario entre WebGPU y Backend}
-\label{tab:webgpu-backend-ux}
-\begin{tabular}{|p{3cm}|p{5cm}|p{5cm}|}
-\hline
-\textbf{Aspecto} & \textbf{WebGPU (Local)} & \textbf{Backend} \\
-\hline
-\textbf{Latencia} & 
-Respuesta inmediata sin depender de la conexión a internet & 
-Latencia variable dependiente de la conexión y carga del servidor \\
-\hline
-\textbf{Privacidad} & 
-Datos procesados localmente sin salir del dispositivo & 
-Datos enviados y procesados en servidores externos \\
-\hline
-\textbf{Disponibilidad} & 
-Funciona offline una vez cargados los modelos & 
-Requiere conexión constante a internet \\
-\hline
-\textbf{Recursos} & 
-Limitado por el hardware del dispositivo del usuario & 
-Acceso a recursos computacionales escalables \\
-\hline
-\textbf{Consistencia} & 
-Rendimiento consistente basado en el dispositivo del usuario & 
-Rendimiento variable según carga del servidor y red \\
-\hline
-\end{tabular}
+	\centering
+	\caption{Distribución y calidad de voces por idioma}
+	\label{tab:voice-distribution}
+	\begin{tabular}{|l|c|c|c|l|}
+		\hline
+		\textbf{Idioma}  & \textbf{F} & \textbf{M} & \textbf{Total} & \textbf{Calidad Media} \\
+		\hline
+		Inglés Americano & 11         & 9          & 20             & B-                     \\
+		\hline
+		Inglés Británico & 4          & 4          & 8              & C+                     \\
+		\hline
+		Japonés          & 4          & 1          & 5              & C+                     \\
+		\hline
+		Chino Mandarín   & 4          & 4          & 8              & D+                     \\
+		\hline
+		Español          & 1          & 2          & 3              & C                      \\
+		\hline
+		Francés          & 1          & 0          & 1              & B-                     \\
+		\hline
+		Hindi            & 2          & 2          & 4              & C                      \\
+		\hline
+		Italiano         & 1          & 1          & 2              & C                      \\
+		\hline
+		Portugués BR     & 1          & 2          & 3              & C                      \\
+		\hline
+	\end{tabular}
 \end{table}
 
-\section{Futuro y Evolución}
-\label{sec:future-evolution}
+\section{Rendimiento y Limitaciones}
+\label{sec:performance}
 
-WebGPU representa un cambio significativo en la computación web, y su evolución continúa marcando el camino hacia nuevas posibilidades en el procesamiento GPU en el navegador. Esta sección explora las direcciones futuras y el impacto potencial de esta tecnología.
+\subsection{Rangos Óptimos de Operación}
+\label{subsec:optimal-ranges}
 
-\subsection{Avances Técnicos Previstos}
-\label{subsec:technical-advances}
+El rendimiento del modelo varía según la longitud del texto:
+\begin{itemize}
+	\item \textbf{Rango Óptimo}: 100-200 tokens
+	\item \textbf{Rendimiento Reducido}: <20 tokens
+	\item \textbf{Posible Aceleración}: >400 tokens
+\end{itemize}
 
-\subsubsection{Operaciones Tensoriales}
-El futuro de WebGPU en el ámbito del Machine Learning se centra en la implementación de operaciones tensoriales altamente optimizadas. Se están desarrollando aceleradores específicos para redes neuronales y mejorando el soporte para tipos de datos de precisión mixta. Estas optimizaciones serán particularmente relevantes para la ejecución eficiente de modelos de lenguaje grandes en el navegador.
+\subsection{Costos de Entrenamiento}
+\label{subsec:training-costs}
 
-\subsubsection{Interoperabilidad}
-Se prevé una integración más profunda con las APIs web existentes y una mejor compatibilidad con formatos de modelos estándar. Las futuras versiones de WebGPU incluirán interfaces unificadas para el procesamiento multimedia y mejorarán la conectividad con sistemas de visualización avanzada, facilitando el desarrollo de aplicaciones web más sofisticadas.
+El entrenamiento de Kokoro ha sido notablemente eficiente:
+\begin{itemize}
+	\item \textbf{Horas GPU}: 1000 horas en A100 80GB
+	\item \textbf{Costo Total}: Aproximadamente \$1000 USD
+	\item \textbf{Tasa Promedio}: \$1/hora
+\end{itemize}
 
-\subsubsection{Optimizaciones de Rendimiento}
-Las próximas iteraciones de WebGPU se centrarán en mejorar la gestión de memoria compartida y reducir el overhead en transferencias de datos. Se están desarrollando técnicas avanzadas de scheduling de comandos y métodos más eficientes para la paralelización de operaciones, lo que resultará en un mejor aprovechamiento de los recursos GPU.
+\section{Comparativa con Otros Modelos}
+\label{sec:model-comparison}
 
-\subsection{Adopción y Ecosistema}
-\label{subsec:adoption-ecosystem}
-
-\subsubsection{Soporte en Navegadores}
-La implementación de WebGPU ya está disponible en Chrome/Chromium desde la versión 113, con planes de soporte en desarrollo para Firefox y Safari. Las adaptaciones para dispositivos móviles están en progreso, junto con mejoras significativas en las herramientas de desarrollo que facilitarán la depuración y optimización de aplicaciones WebGPU.
-
-\subsubsection{Frameworks y Herramientas}
-El ecosistema de desarrollo está evolucionando rápidamente con la creación de bibliotecas especializadas para Machine Learning y herramientas avanzadas de debugging y profiling. La integración con entornos de desarrollo populares está mejorando, facilitando la adopción de WebGPU en proyectos web convencionales.
-
-\subsection{Casos de Uso Emergentes}
-\label{subsec:emerging-uses}
-
-\subsubsection{Machine Learning en el Navegador}
-El procesamiento de Machine Learning en el cliente está evolucionando hacia la inferencia de modelos complejos en tiempo real. Esto incluye capacidades avanzadas de procesamiento de lenguaje natural local y análisis de imagen y video, permitiendo sistemas de recomendación personalizados que respetan la privacidad del usuario.
-
-\subsubsection{Aplicaciones Científicas}
-WebGPU está abriendo nuevas posibilidades en el campo científico, permitiendo simulaciones físicas en tiempo real y visualización de datos científicos directamente en el navegador. Las aplicaciones en análisis biomédico y modelado molecular se beneficiarán especialmente de estas capacidades de computación avanzada.
-
-\subsection{Impacto en el Desarrollo Web}
-\label{subsec:web-development-impact}
-
-La evolución de WebGPU está transformando fundamentalmente el desarrollo web. En términos de privacidad y seguridad, el procesamiento local de datos sensibles reduce la dependencia de servicios en la nube y mejora el control sobre el flujo de datos. La experiencia de usuario se beneficia de una menor latencia en aplicaciones complejas y un mejor funcionamiento offline.
-
-La arquitectura de aplicaciones web está experimentando un cambio de paradigma, con nuevos patrones de diseño emergentes que aprovechan la distribución optimizada de carga computacional entre cliente y servidor. Esta evolución está redefiniendo los límites de lo que es posible lograr en aplicaciones web modernas.
+\begin{table}[H]
+	\centering
+	\caption{Comparación con modelos TTS similares}
+	\label{tab:model-comparison}
+	\begin{tabular}{|l|c|c|c|c|}
+		\hline
+		\textbf{Modelo} & \textbf{Parámetros} & \textbf{Voces} & \textbf{Idiomas} & \textbf{Licencia} \\
+		\hline
+		Kokoro          & 82M                 & 54             & 8                & Apache            \\
+		\hline
+		Coqui           & 1000M               & 1087           & 100+             & MIT               \\
+		\hline
+		Bark            & 900M                & 100+           & 100+             & MIT               \\
+		\hline
+	\end{tabular}
+\end{table}

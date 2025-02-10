@@ -1,0 +1,17 @@
+flowchart LR
+    subgraph Client["Frotend"]
+        UI[/"Interfaz de Usuario"/]
+    end
+    subgraph Core["Backend"]
+        Asst["Sistema de Asistente"]
+        Eval["Sistema de Evaluación"]
+        Voice["Procesamiento de Voz"]
+    end
+    subgraph Store["Almacenamiento"]
+        DB[(Bases de Datos)]
+    end
+    UI <--> Core
+    Core <--> DB
+    class UI client
+    class Asst,Eval,Voice core
+    class DB storage

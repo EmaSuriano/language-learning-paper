@@ -1,8 +1,6 @@
 ---
 config:
   look: classic
-  layout: elk
-  theme: mc
 ---
 flowchart TB
  subgraph Security["Seguridad"]
@@ -16,19 +14,20 @@ flowchart TB
   end
  subgraph Agents["Agentes"]
     direction LR
-        LA["Learning Agent"]
-        DA["Dialog Agent"]
+        Assistant["Assistant Agent"]
         EA["Evaluation Agent"]
   end
- subgraph LangGraph["LangGraph System"]
-        WorkFlow["Workflow Manager"]
+ subgraph LangchainSystem["Langchain System"]
+        Chain["Chain Manager"]
         Agents
-        State["State Manager"]
+        Memory["Memory Manager"]
   end
  subgraph Models["Modelos"]
         LLM["LLM Manager"]
-        RL["RL Manager"]
+        PPO["PPO Manager"]
         RAG["RAG System"]
+        Whisper["Faster-Whisper"]
+        KokoroTTS["Kokoro-TTS"]
   end
  subgraph Services["Servicios"]
         UserService["User Service"]
@@ -36,46 +35,40 @@ flowchart TB
         ProgressService["Progress Service"]
   end
  subgraph Core["Core"]
-        LangGraph
+        LangchainSystem
         Models
         Services
   end
  subgraph DB["Bases de Datos"]
         SQL[("SQL Database")]
         Vector[("ChromaDB")]
+        Redis[("Redis Sessions")]
   end
- subgraph Cache["Sistema de Cache"]
-        Redis[("Redis")]
-  end
- subgraph Data["Data Layer"]
-        DB
-        Cache
-  end
-    Routes --> Security
-    Security --> LangGraph
-    WorkFlow --> Agents
-    Agents --> State & Services
-    LA --> Models
-    DA --> Models
-    EA --> Models
+    Routes --> Security & Whisper & KokoroTTS
+    Security --> LangchainSystem
+    Chain --> Agents
+    Agents --> Memory & Services & Models
     LLM --> RAG
     RAG --> Vector
-    Services --> DB & Cache
-     Routes:::api
-     Middleware:::api
+    Services --> DB & DB
+    ProgressService --> PPO
+    Cache["Cache"]
      Auth:::api
      JWT:::api
-     WorkFlow:::agents
-     LA:::agents
-     DA:::agents
+     Routes:::api
+     Middleware:::api
+     Security:::api
+     Assistant:::agents
      EA:::agents
-     State:::agents
+     Chain:::agents
+     Memory:::agents
      LLM:::models
-     RL:::models
+     PPO:::models
      RAG:::models
+     Whisper:::models
+     KokoroTTS:::models
      SQL:::data
      Vector:::data
      Redis:::data
-     Security:::api
      DB:::data
      Cache:::data
