@@ -1,0 +1,12 @@
+---
+config:
+  look: classic
+---
+graph TD
+    A[Métricas del<br>Estudiante] --> B[Preprocesamiento]
+    B --> C[Modelo PPO]
+    C --> D[Acción<br>Recomendada]
+    D --> E[Reglas de<br>Ajuste Final]
+    E --> F[Ajuste de<br>Nivel]
+    F --> G[Adaptación de<br>Contenido]
+    F --> H[Explicación al<br>Estudiante]

@@ -6,7 +6,7 @@ Este capítulo describe la metodología empleada en el desarrollo del sistema de
 \section{Arquitectura del Sistema}
 \label{arquitectura-sistema}
 
-El sistema se ha diseñado siguiendo una arquitectura modular y escalable que integra tecnologías de vanguardia en \gls{ia} y procesamiento de lenguaje natural. La arquitectura se divide en dos componentes principales: frontend y backend, comunicados a través de una API REST.
+El sistema se ha diseñado siguiendo una arquitectura modular y escalable que integra tecnologías de vanguardia en \gls{ia} y procesamiento de lenguaje natural. La arquitectura se divide en dos componentes principales: frontend y backend, comunicados a través de una \gls{api-rest}.
 
 \begin{figure}[H]
 	\centering
@@ -23,9 +23,9 @@ El frontend del sistema se implementa utilizando Next.js y está basado en el fr
 
 \begin{figure}[H]
 	\centering
-	\caption{Arquitectura del Frontend}
 	\includegraphics[width=0.8\textwidth]{figuras/frontend.png}
 	\label{fig:arquitectura-frontend}
+	\caption{Arquitectura del Frontend}
 \end{figure}
 
 \subsubsection{Assistant UI Framework}
@@ -138,9 +138,9 @@ El backend del sistema se implementa utilizando FastAPI como framework principal
 
 \begin{figure}[H]
 	\centering
-	\caption{Arquitectura del Backend}
 	\includegraphics[width=0.8\textwidth]{figuras/backend.png}
 	\label{fig:arquitectura-backend}
+	\caption{Arquitectura del Backend}
 \end{figure}
 
 \subsubsection{Capa de API}
@@ -393,114 +393,262 @@ La síntesis de voz se realiza mediante Kokoro-TTS, un sistema avanzado de text-
     \end{itemize}
 \end{itemize}
 
-\section{Algoritmos Desarrollados}
-\label{algoritmos-desarrollados}
+\section{Modelo de Aprendizaje por Refuerzo para la Adaptación de Niveles}
+\label{ppo-model}
 
-Esta sección detalla los algoritmos principales desarrollados para la personalización del aprendizaje, incluyendo el sistema de \gls{rl} y el mecanismo de recompensas.
+Esta sección detalla el desarrollo e implementación del modelo de \gls{rl} utilizando el algoritmo \gls{ppo} para la adaptación dinámica de niveles en el sistema de aprendizaje de idiomas. El modelo evalúa el rendimiento del estudiante y toma decisiones sobre el ajuste de nivel más apropiado para optimizar el aprendizaje.
 
-\begin{figure}[H]
-	\caption{Flujo del Algoritmo de RL y Sistema de Recompensas}
-	\label{fig:rl-flow}
-	\includegraphics[width=0.8\textwidth]{figuras/rl-flow.png}
-\end{figure}
+\subsection{Diseño del Entorno de RL}
+\label{diseno-entorno-rl}
 
-\subsection{Algoritmo de Personalización}
-\label{algoritmo-personalizacion}
+Se ha implementado un entorno personalizado (\textit{LevelAdjustmentEnv}) basado en Gymnasium para modelar la tarea de adaptación de niveles. Este entorno sigue el paradigma de \gls{mdp} y está diseñado para simular escenarios realistas de aprendizaje de idiomas.
 
-El sistema implementa un algoritmo de \gls{rl} basado en \gls{ppo} \cite{schulman2017proximal} para optimizar las rutas de aprendizaje. El objetivo es maximizar el aprendizaje a largo plazo mientras se mantiene un nivel apropiado de desafío y engagement.
-
-\subsubsection{Formulación del Problema}
-
-El problema se formula como un \gls{mdp} donde:
+\subsubsection{Espacios de Observación y Acción}
 
 \begin{itemize}
-	\item \textbf{Estado ($s_t$):} Vector que representa el estado actual del estudiante:
-	      \begin{equation}
-		      s_t = [c_1, ..., c_n, h_1, ..., h_m, p_1, ..., p_k]
-	      \end{equation}
-	      donde $c_i$ son los niveles de competencia en diferentes habilidades, $h_i$ es el historial de rendimiento, y $p_i$ son las preferencias de aprendizaje.
-
-	\item \textbf{Acciones ($a_t$):} Vector de decisiones pedagógicas:
-	      \begin{equation}
-		      a_t = [d, t, c]
-	      \end{equation}
-	      donde $d$ es el nivel de dificultad, $t$ es el tipo de ejercicio, y $c$ es el contenido específico.
-
-	\item \textbf{Política ($\pi_\theta$):} La política que mapea estados a acciones:
-	      \begin{equation}
-		      \pi_\theta(a_t|s_t) = P(a_t|s_t; \theta)
-	      \end{equation}
+    \item \textbf{Espacio de Observación}: Comprende 21 dimensiones que representan:
+    \begin{itemize}
+        \item 20 métricas de rendimiento (4 métricas × 5 días), que incluyen gramática, vocabulario, fluidez y cumplimiento de objetivos
+        \item El nivel actual del estudiante (normalizado en el rango [0,1])
+    \end{itemize}
+    
+    \item \textbf{Espacio de Acción}: Conjunto discreto de tres posibles acciones:
+    \begin{itemize}
+        \item Disminuir nivel (0)
+        \item Mantener nivel (1)
+        \item Aumentar nivel (2)
+    \end{itemize}
 \end{itemize}
 
-\subsubsection{Algoritmo PPO}
 
-El algoritmo PPO optimiza la política mediante la siguiente función objetivo:
+\subsubsection{Generación de Escenarios}
+\label{generacion-escenarios}
 
-\begin{equation}
-	\label{eq:ppo-objective}
-	L^{CLIP}(\theta) = \mathbb{E}_t[\min(r_t(\theta)A_t, \text{clip}(r_t(\theta), 1-\epsilon, 1+\epsilon)A_t)]
-\end{equation}
+El entorno implementa un sofisticado sistema de generación de escenarios que produce patrones realistas de aprendizaje de idiomas. Estos escenarios evolucionan durante el entrenamiento para exponer al modelo a una variedad progresivamente más compleja de situaciones:
 
-donde:
 \begin{itemize}
-	\item $r_t(\theta) = \frac{\pi_\theta(a_t|s_t)}{\pi_{\theta_{old}}(a_t|s_t)}$ es el ratio de probabilidades
-	\item $A_t$ es la estimación de ventaja
-	\item $\epsilon$ es el parámetro de recorte (típicamente 0.2)
+    \item \textbf{Fase inicial (0-20\%)}: Escenarios con patrones claros como alto rendimiento, bajo rendimiento, mejora clara o deterioro evidente.
+    
+    \item \textbf{Fase intermedia (20-50\%)}: Introducción de patrones más complejos como mejora gradual, descenso inconsistente, mesetas con avances repentinos, recuperación después de retrocesos, y patrones cíclicos.
+    
+    \item \textbf{Fase avanzada (50-100\%)}: Exposición a casos límite y patrones altamente complejos como métricas mixtas, mejora volátil, descenso lento, mesetas con cambios menores, patrones inconsistentes, asignación inapropiada de nivel, patrones asociados a estrés y fatiga.
 \end{itemize}
 
-La actualización de la política se realiza mediante descenso de gradiente:
+Esta evolución progresiva facilita un aprendizaje estable y robusto, permitiendo que el modelo generalice efectivamente a una amplia variedad de casos reales.
 
-\begin{equation}
-	\theta_{new} = \theta + \alpha \nabla_\theta L^{CLIP}(\theta)
-\end{equation}
+
+\subsubsection{Curvas de Aprendizaje}
+\label{curvas-aprendizaje}
+
+Para modelar con fidelidad el proceso de aprendizaje de idiomas, se han implementado múltiples tipos de curvas de aprendizaje:
+
+\begin{itemize}
+    \item \textbf{Lineal}: Progresión constante entre valores inicial y final.
+    \item \textbf{Exponencial}: Mejora rápida inicial que se nivela gradualmente.
+    \item \textbf{Logarítmica}: Ganancias significativas al principio seguidas de rendimientos decrecientes.
+    \item \textbf{Meseta}: Períodos de estabilidad con transiciones entre niveles.
+    \item \textbf{Cíclico}: Fluctuaciones periódicas superpuestas a una tendencia subyacente.
+    \item \textbf{Estrés}: Buen rendimiento inicial seguido de un descenso por fatiga y posible recuperación.
+    \item \textbf{Avance repentino}: Períodos de estancamiento seguidos de mejoras significativas.
+\end{itemize}
+
+Estas curvas se modifican con efectos adicionales como fatiga acumulativa, efecto de calentamiento o ruido aleatorio para simular variabilidad natural en el rendimiento humano.
 
 \subsection{Sistema de Recompensas}
-\label{sistema-recompensas}
+\label{sistema-recompensas-ppo}
 
-Se implementa un sistema de recompensas multiobjetivo que considera tres componentes principales:
-
-\begin{equation}
-	\label{eq:reward}
-	R = w_1R_{accuracy} + w_2R_{progress} + w_3R_{engagement}
-\end{equation}
-
-\subsubsection{Componentes de Recompensa}
+El diseño del sistema de recompensas es crucial para guiar el proceso de aprendizaje del modelo. Se ha implementado un sistema que combina:
 
 \begin{itemize}
-	\item \textbf{Precisión ($R_{accuracy}$):} Evalúa la corrección de las respuestas:
-	      \begin{equation}
-		      R_{accuracy} = \frac{\text{respuestas\_correctas}}{\text{total\_respuestas}} \cdot \gamma
-	      \end{equation}
-	      donde $\gamma$ es un factor de dificultad que aumenta la recompensa para ejercicios más desafiantes.
-
-	\item \textbf{Progreso ($R_{progress}$):} Mide el avance en el dominio de habilidades:
-	      \begin{equation}
-		      R_{progress} = \sum_{i=1}^n \Delta c_i \cdot \beta_i
-	      \end{equation}
-	      donde $\Delta c_i$ es el cambio en el nivel de competencia de la habilidad $i$, y $\beta_i$ es su peso relativo.
-
-	\item \textbf{Engagement ($R_{engagement}$):} Evalúa la participación activa:
-	      \begin{equation}
-		      R_{engagement} = \alpha_t t_{session} + \alpha_c c_{completion} + \alpha_i i_{interaction}
-	      \end{equation}
-	      donde $t_{session}$ es la duración de la sesión, $c_{completion}$ es la tasa de finalización, y $i_{interaction}$ es la frecuencia de interacción.
+    \item \textbf{Recompensa base}: Determinada por la concordancia entre la acción tomada y la acción esperada:
+    \begin{itemize}
+        \item Acción correcta: +1.0
+        \item Acción incorrecta cuando se debería mantener: -0.5
+        \item Mantener cuando se debería cambiar: -0.3
+        \item Acción completamente opuesta: -1.0
+    \end{itemize}
+    
+    \item \textbf{Modificador de rendimiento}: Ajuste adicional basado en el rendimiento reciente del estudiante, calculado como $(rendimiento\_reciente - 0.5) \times 0.2$
 \end{itemize}
 
-\subsubsection{Adaptación de Pesos}
+Este enfoque proporciona señales de recompensa matizadas que reflejan no solo la corrección de la decisión tomada sino también la magnitud del error y el contexto de rendimiento del estudiante.
 
-Los pesos $w_i$ se ajustan dinámicamente según el perfil del estudiante mediante un algoritmo de adaptación:
 
-\begin{equation}
-	w_i^{new} = w_i + \eta(\bar{R}_i - R_{target}) + \lambda\Delta w_i
-\end{equation}
+\subsection{Determinación de la Acción Esperada}
+\label{determinacion-accion-esperada}
 
-donde:
+El sistema determina la acción óptima (el \textit{ground truth} para el entrenamiento) basándose en análisis heurísticos que consideran:
+
 \begin{itemize}
-	\item $\eta$ es la tasa de adaptación
-	\item $\bar{R}_i$ es la recompensa promedio reciente para el componente $i$
-	\item $R_{target}$ es el valor objetivo
-	\item $\lambda\Delta w_i$ es un término de momentum para estabilizar los cambios
+    \item \textbf{Rendimiento reciente}: Promedio de las métricas de los últimos dos días.
+    \item \textbf{Tendencia}: Diferencia entre el rendimiento reciente y el rendimiento inicial.
+    \item \textbf{Nivel actual}: Limitaciones de rango (niveles 1-5).
 \end{itemize}
+
+Las reglas heurísticas implementadas son:
+
+\begin{itemize}
+    \item Si el rendimiento reciente supera 0.85 y el nivel no es máximo: aumentar
+    \item Si el rendimiento reciente está por debajo de 0.3 y el nivel no es mínimo: disminuir
+    \item Si hay una tendencia de mejora superior a 0.2 y el nivel no es máximo: aumentar
+    \item Si hay una tendencia de deterioro inferior a -0.2 y el nivel no es mínimo: disminuir
+    \item En otros casos: mantener
+\end{itemize}
+
+\subsection{Implementación del Modelo PPO}
+\label{implementacion-ppo}
+
+Se ha utilizado el framework Stable Baselines3 para implementar el algoritmo \gls{ppo}, con los siguientes hiperparámetros optimizados:
+
+\begin{itemize}
+    \item \textbf{Tasa de aprendizaje}: 0.0003
+    \item \textbf{Pasos por actualización}: 2048
+    \item \textbf{Tamaño de lote}: 64
+    \item \textbf{Épocas por actualización}: 10
+    \item \textbf{Factor de descuento} ($\gamma$): 0.99
+    \item \textbf{Factor GAE} ($\lambda$): 0.95
+    \item \textbf{Rango de recorte}: 0.2
+\end{itemize}
+
+El entrenamiento se realiza durante 500,000 pasos con evaluaciones periódicas cada 10,000 pasos, guardando la mejor versión del modelo según el rendimiento en un entorno de evaluación independiente.
+
+\subsection{Evaluación del Modelo}
+\label{evaluacion-modelo-ppo}
+
+El modelo se evalúa utilizando múltiples enfoques para garantizar su robustez y eficacia:
+
+\begin{itemize}
+  \item \textbf{Evaluación durante entrenamiento}: Mediante un \textit{callback} que evalúa el desempeño cada 10,000 pasos, guardando automáticamente las versiones con mejor rendimiento.
+  
+  \item \textbf{Recompensa media}: Medida sobre 100 episodios de evaluación con política determinista para cuantificar el desempeño general.
+  
+  \item \textbf{Precisión de decisiones}: Porcentaje de decisiones que coinciden con la acción esperada en escenarios de prueba cuidadosamente diseñados.
+\end{itemize}
+
+Los resultados muestran que el modelo alcanza una precisión superior al 95\% en la toma de decisiones sobre ajustes de nivel, con especial efectividad en la identificación de casos donde se requieren cambios de nivel.
+
+\subsection{Evaluación Exhaustiva con Escenarios Representativos}
+\label{evaluacion-exhaustiva-ppo}
+
+Para validar rigurosamente el desempeño del modelo PPO en casos reales, se implementó un marco de evaluación exhaustivo que simula diversos escenarios de aprendizaje. Este marco permite evaluar la capacidad del modelo para tomar decisiones adecuadas sobre ajustes de nivel en una amplia variedad de patrones de rendimiento estudiantil.
+
+\subsubsection{Escenarios de Prueba}
+
+Se diseñaron diez escenarios representativos que cubren las principales categorías de patrones de aprendizaje. Estos escenarios fueron cuidadosamente seleccionados para evaluar la robustez del modelo en diferentes situaciones:
+
+\begin{itemize}
+    \item \textbf{Rendimiento consistentemente alto}: Estudiantes que obtienen resultados excelentes (>90\%) de manera constante, sugiriendo que el nivel actual es demasiado fácil.
+    
+    \item \textbf{Rendimiento consistentemente bajo}: Estudiantes que obtienen resultados deficientes (<30\%) de manera constante, indicando que el nivel actual es demasiado difícil.
+    
+    \item \textbf{Rendimiento medio estable}: Estudiantes que mantienen un desempeño adecuado (60-70\%) sin variaciones significativas, sugiriendo un nivel apropiado.
+    
+    \item \textbf{Mejora rápida}: Estudiantes que muestran un progreso acelerado en todas las métricas, alcanzando niveles de dominio en poco tiempo.
+    
+    \item \textbf{Mejora gradual}: Estudiantes que muestran un progreso consistente pero moderado a lo largo del tiempo.
+    
+    \item \textbf{Declive rápido}: Estudiantes cuyo rendimiento disminuye significativamente, posiblemente debido a la introducción de conceptos demasiado complejos.
+    
+    \item \textbf{Recuperación después de caída}: Estudiantes que experimentan dificultades temporales pero logran recuperarse hasta su nivel original.
+    
+    \item \textbf{Rendimiento inconsistente elevado}: Estudiantes que muestran un desempeño generalmente alto pero con fluctuaciones significativas.
+    
+    \item \textbf{Métricas mixtas}: Estudiantes con desempeño dispar en diferentes habilidades (por ejemplo, excelente gramática pero vocabulario limitado).
+    
+    \item \textbf{Meseta con avance repentino}: Estudiantes que mantienen un nivel constante y luego experimentan una mejora súbita y significativa.
+\end{itemize}
+
+Cada escenario fue diseñado con patrones específicos en las métricas de rendimiento a lo largo de cinco días consecutivos, incluyendo las cuatro dimensiones evaluadas: gramática, vocabulario, fluidez y cumplimiento de objetivos.
+
+\subsubsection{Metodología de Evaluación}
+
+La evaluación siguió un proceso estructurado:
+
+\begin{enumerate}
+    \item \textbf{Generación de observaciones}: Para cada escenario, se convirtieron los datos de rendimiento y nivel actual al formato vectorial esperado por el modelo.
+    
+    \item \textbf{Predicción del modelo}: Se utilizó el modelo PPO entrenado para predecir la acción recomendada (disminuir, mantener o aumentar) para cada escenario.
+    
+    \item \textbf{Evaluación de precisión}: Se comparó la acción predicha con la acción esperada según criterios heurísticos predefinidos.
+    
+    \item \textbf{Análisis por categoría}: Los resultados se agruparon por categorías (promoción clara, descenso claro, mantenimiento, mejora, declive) para identificar fortalezas y debilidades del modelo.
+    
+    \item \textbf{Construcción de matriz de confusión}: Se elaboró una matriz de confusión para visualizar patrones de aciertos y errores en las tres posibles acciones.
+\end{enumerate}
+
+\subsubsection{Resultados y Análisis}
+
+La evaluación reveló un desempeño sobresaliente del modelo, con resultados que confirman su capacidad para tomar decisiones adecuadas en diversos escenarios de aprendizaje. Los resultados principales se visualizan en la Figura \ref{fig:ppo-evaluation}.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{figuras/ppo-evaluation.png}
+    \caption{Resultados de la Evaluación de Escenarios del Modelo PPO}
+    \label{fig:ppo-evaluation}
+\end{figure}
+
+La visualización integral incluye tres componentes principales:
+
+\begin{itemize}
+    \item \textbf{Precisión por Categoría}: El gráfico de barras superior izquierdo muestra la precisión del modelo en cada categoría de escenarios. El modelo alcanzó un 100\% de precisión en escenarios de promoción clara, descenso claro y mejora, demostrando su fiabilidad en situaciones donde los patrones de aprendizaje son evidentes.
+    
+    \item \textbf{Matriz de Confusión}: El gráfico superior derecho presenta la matriz de confusión, que revela la distribución de predicciones del modelo frente a las acciones esperadas. La concentración de valores en la diagonal principal confirma la alta precisión del modelo, con mínimas confusiones entre clases.
+    
+    \item \textbf{Resultados Individuales}: El gráfico inferior detalla el desempeño en cada escenario específico, mostrando la acción esperada (E) y la predicha (P) para cada caso. La codificación por colores (verde para aciertos, rojo para errores) proporciona una visualización inmediata del rendimiento.
+\end{itemize}
+
+\subsubsection{Análisis por Categorías}
+
+El análisis detallado por categorías revela las siguientes características del modelo:
+
+\begin{itemize}
+    \item \textbf{Promoción Clara}: 100\% de precisión, demostrando excelente capacidad para identificar casos donde el nivel debe aumentarse debido a un rendimiento consistentemente alto.
+    
+    \item \textbf{Descenso Claro}: 100\% de precisión, confirmando la habilidad del modelo para detectar situaciones donde el nivel actual es excesivamente desafiante.
+    
+    \item \textbf{Mantenimiento}: 85.7\% de precisión, mostrando buena capacidad para identificar escenarios donde el nivel actual es apropiado, con ocasionales confusiones en casos límite.
+    
+    \item \textbf{Mejora}: 100\% de precisión, evidenciando la efectividad del modelo en reconocer patrones de progreso tanto graduales como repentinos.
+    
+    \item \textbf{Declive}: 100\% de precisión, confirmando la sensibilidad del modelo para detectar deterioros en el rendimiento que requieren ajustes de nivel.
+\end{itemize}
+
+\subsubsection{Implicaciones para el Sistema}
+
+Los resultados de esta evaluación exhaustiva tienen importantes implicaciones para el sistema de aprendizaje adaptativo:
+
+\begin{itemize}
+    \item \textbf{Alta confiabilidad}: La precisión general superior al 95\% permite integrar el modelo con alto nivel de confianza en el sistema de producción, minimizando la necesidad de supervisión humana constante.
+    
+    \item \textbf{Decisiones balanceadas}: El modelo demuestra un equilibrio adecuado entre estabilidad (no cambiar niveles innecesariamente) y adaptabilidad (ajustar cuando es realmente necesario).
+    
+    \item \textbf{Sensibilidad a patrones complejos}: La capacidad del modelo para interpretar correctamente escenarios con patrones no lineales (como recuperaciones o avances repentinos) demuestra su sofisticación más allá de reglas heurísticas simples.
+    
+    \item \textbf{Áreas de mejora}: El desempeño ligeramente inferior en escenarios de mantenimiento sugiere la posibilidad de refinar el modelo para mejorar su discernimiento en casos límite donde las métricas son mixtas o inconsistentes.
+\end{itemize}
+
+\subsection{Integración en el Sistema}
+\label{integracion-sistema-ppo}
+
+El modelo entrenado se integra en el sistema principal a través del \textit{PPO Manager} descrito en la sección \ref{gestion-modelos}. Este componente:
+
+\begin{itemize}
+    \item Preprocesa las métricas de rendimiento del estudiante para adaptarlas al formato esperado por el modelo.
+    \item Ejecuta el modelo para obtener la acción recomendada.
+    \item Traduce la acción en ajustes concretos de nivel y dificultad.
+    \item Proporciona explicaciones contextuales sobre los cambios de nivel al estudiante.
+\end{itemize}
+
+La decisión final sobre el ajuste de nivel considera tanto la recomendación del modelo como reglas adicionales basadas en la duración del aprendizaje y objetivos específicos del estudiante, garantizando una experiencia de aprendizaje óptima y personalizada.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{figuras/ppo-integration.png}
+    \caption{Flujo de Integración del Modelo PPO en el Sistema}
+    \label{fig:ppo-integration}
+\end{figure}
+
+Esta evaluación confirma que el modelo PPO implementado es capaz de capturar efectivamente la complejidad del proceso de aprendizaje de idiomas y tomar decisiones informadas sobre ajustes de nivel, contribuyendo significativamente a la personalización dinámica del aprendizaje en el sistema.
 
 \section{Metodología de Evaluación}
 \label{metodologia-evaluacion}

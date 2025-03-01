@@ -1,15 +1,19 @@
 \chapter{Introducción}
-\label{introduccion}
+\label{chap:introduccion}
 
 El aprendizaje de idiomas en la era digital ha experimentado una transformación significativa gracias a los avances en el sector de \gls{ia}. Sin embargo, uno de los mayores desafíos sigue siendo la personalización efectiva del proceso de aprendizaje para adaptarse a las necesidades individuales de cada estudiante. Este trabajo propone un enfoque innovador que combina técnicas de \gls{rl} con arquitecturas \gls{transformers} introducidas y tecnologías de procesamiento de voz para crear un sistema de aprendizaje de idiomas adaptativo y personalizado.
 
-\section{Motivación}
-\label{motivacion}
+En este capítulo introductorio se presenta la motivación que impulsa el desarrollo de este trabajo, las limitaciones actuales de los sistemas existentes, las oportunidades de mejora identificadas y los objetivos específicos que guían esta investigación. Finalmente, se incluye un mapa de contenidos que orienta al lector sobre la estructura y organización del documento.
 
-La adquisición de una segunda lengua es un proceso complejo que varía significativamente entre individuos. Los métodos tradicionales de enseñanza de idiomas, incluso en su forma digitalizada, presentan limitaciones significativas que impiden una personalización efectiva y una adaptación dinámica al progreso del estudiante.
+\section{Motivación}
+\label{sec:motivacion}
+
+La adquisición de una segunda lengua es un proceso complejo que varía significativamente entre individuos. Este proceso está influenciado por múltiples factores, como el estilo de aprendizaje, experiencias previas, nivel de motivación, y aptitudes específicas de cada estudiante \cite{ellis1994study}. Los métodos tradicionales de enseñanza de idiomas, incluso en su forma digitalizada, presentan limitaciones significativas que impiden una personalización efectiva y una adaptación dinámica al progreso del estudiante.
+
+Los sistemas actuales suelen seguir un modelo secuencial predefinido que no considera adecuadamente las diferencias individuales, lo que puede resultar en experiencias de aprendizaje ineficientes o desmotivadoras. Como señala \cite{krashen1982principles}, el aprendizaje óptimo ocurre cuando el input es ligeramente superior al nivel actual del estudiante (principio i+1), un equilibrio difícil de lograr con sistemas que no se adaptan dinámicamente.
 
 \subsection{Limitaciones Actuales}
-\label{limitaciones-actuales}
+\label{subsec:limitaciones-actuales}
 
 En la actualidad, los métodos de enseñanza de idiomas enfrentan varias limitaciones que afectan la eficacia del aprendizaje. Estas limitaciones pueden clasificarse en cuatro categorías principales:
 
@@ -23,39 +27,92 @@ En la actualidad, los métodos de enseñanza de idiomas enfrentan varias limitac
 Estas limitaciones resaltan la necesidad de un enfoque más flexible y personalizado en la enseñanza de idiomas, que pueda adaptarse a las necesidades y progresos individuales de cada estudiante, proporcionando una experiencia de aprendizaje más efectiva y motivadora.
 
 \subsection{Oportunidades de Mejora}
-\label{oportunidad-de-mejora}
+\label{subsec:oportunidades-de-mejora}
 
-A pesar de los avances en la enseñanza de idiomas, existen varias áreas donde se pueden realizar mejoras significativas:
+Los recientes avances en inteligencia artificial, particularmente en el campo del procesamiento del lenguaje natural y el aprendizaje por refuerzo, abren nuevas posibilidades para superar las limitaciones anteriormente mencionadas. A continuación, se identifican cuatro áreas principales de oportunidad:
 
 \begin{itemize}
-  \item \textbf{Adaptabilidad Dinámica}: Implementar sistemas que ajusten el contenido y la dificultad en tiempo real, basándose en el rendimiento y las necesidades del estudiante.
-  \item \textbf{Personalización Profunda}: Considerar múltiples factores individuales, como el estilo de aprendizaje, intereses y ritmo de progreso, para optimizar el proceso de aprendizaje.
-  \item \textbf{Interacción Natural}: Utilizar tecnologías avanzadas, como modelos de lenguaje natural y procesamiento de voz, para simular conversaciones más realistas y dinámicas.
-  \item \textbf{Feedback Contextual}: Proporcionar retroalimentación detallada y específica, basada en el contexto y el perfil del estudiante, para mejorar la comprensión y el rendimiento.
+  \item \textbf{Adaptabilidad Dinámica:} Implementar sistemas que ajusten el contenido y la dificultad en tiempo real, basándose en el rendimiento y las necesidades del estudiante. Los algoritmos de \gls{rl}, como demuestra \cite{williams2017educational}, son particularmente adecuados para esta tarea, ya que pueden optimizar decisiones secuenciales en entornos de aprendizaje.
+  
+  \item \textbf{Personalización Profunda:} Considerar múltiples factores individuales, como el estilo de aprendizaje, intereses y ritmo de progreso, para optimizar el proceso de aprendizaje. Las arquitecturas modernas basadas en \gls{transformers} permiten analizar patrones complejos de comportamiento y adaptar la experiencia educativa de manera más granular \cite{vaswani2017attention}.
+  
+  \item \textbf{Interacción Natural:} Utilizar tecnologías avanzadas, como modelos de lenguaje natural y procesamiento de voz, para simular conversaciones más realistas y dinámicas. Los recientes avances en \gls{llm} \cite{brown2020language} y tecnologías de voz \cite{graves2013speech} permiten interacciones mucho más naturales que los sistemas anteriores.
+  
+  \item \textbf{Feedback Contextual:} Proporcionar retroalimentación detallada y específica, basada en el contexto y el perfil del estudiante, para mejorar la comprensión y el rendimiento. Los sistemas de \gls{rag} \cite{lewis2020retrieval} pueden enriquecer significativamente la calidad y relevancia de esta retroalimentación.
 \end{itemize}
 
+La combinación de estas tecnologías avanzadas ofrece un potencial transformador para el campo del aprendizaje de idiomas, permitiendo crear sistemas adaptativos que respondan a las necesidades individuales de cada estudiante de manera dinámica y efectiva.
+
 \section{Objetivos}
-\label{objetivos}
+\label{sec:objetivos}
+
+Con base en la motivación expuesta y las oportunidades identificadas, este trabajo establece los siguientes objetivos:
 
 \subsection{Objetivo General}
-\label{objetivo-general}
+\label{subsec:objetivo-general}
 
-Desarrollar un sistema de aprendizaje de idiomas que utilice \gls{rl}, \gls{transformers} y un \gls{multi-agent} para una experiencia de aprendizaje personalizada, adaptativa y efectiva.
+Desarrollar un sistema de aprendizaje de idiomas que integre \gls{rl}, arquitecturas \gls{transformers} y un enfoque \gls{multi-agent} para proporcionar una experiencia de aprendizaje personalizada, adaptativa y efectiva, que supere las limitaciones de los métodos tradicionales y aproveche las capacidades de las tecnologías de inteligencia artificial más recientes.
 
-\subsection{Objetivo Específicos}
-\label{objetivos-especificos}
+\subsection{Objetivos Específicos}
+\label{subsec:objetivos-especificos}
 
-Para alcanzar el objetivo general, se han definido varios objetivos específicos que se centran en la implementación de técnicas avanzadas de inteligencia artificial. Estos objetivos específicos se enfocan en la aplicación de \gls{rl} para optimizar el proceso de aprendizaje, el uso de modelos \gls{llm} para mejorar la interacción, el desarrollo de herramientas basadas en \gls{tts} y \gls{stt} para perfeccionar las habilidades lingüísticas, y la integración de sistemas \gls{rag} para una gestión eficiente del conocimiento. A continuación, se detallan los objetivos específicos:
+Para alcanzar el objetivo general, se han definido varios objetivos específicos que se centran en la implementación de técnicas avanzadas de \gls{ia}. Estos objetivos específicos se organizan en cuatro áreas principales:
 
 \subsubsection{Optimización del Aprendizaje}
-El objetivo de esta sección es implementar estrategias que optimicen el proceso de aprendizaje mediante la personalización y la evaluación continua. Para ello, se propone implementar un sistema de \gls{rl} que optimice rutas de aprendizaje personalizadas, desarrollar mecanismos de adaptación dinámica del contenido y crear sistemas de evaluación continua del progreso.
+\label{subsubsec:optimizacion-aprendizaje}
 
+\begin{itemize}
+  \item Implementar un algoritmo de \gls{ppo} que optimice rutas de aprendizaje personalizadas según el perfil y progreso del estudiante.
+  \item Desarrollar mecanismos de adaptación dinámica del contenido que ajusten la dificultad en tiempo real.
+  \item Crear sistemas de evaluación continua que midan el progreso en múltiples dimensiones lingüísticas.
+\end{itemize}
 
 \subsubsection{Mejora de la Interacción}
-El objetivo de esta sección es mejorar la interacción entre el sistema y el usuario mediante el uso de \gls{llm}. Para ello, se propone integrar modelos \gls{llm} para el \gls{nlp}, desarrollar sistemas de diálogo contextuales e implementar análisis de errores en tiempo real. Estas mejoras permitirán una comunicación más fluida y natural, facilitando una experiencia de aprendizaje más efectiva y personalizada.
+\label{subsubsec:mejora-interaccion}
+
+\begin{itemize}
+  \item Integrar modelos \gls{llm} avanzados para el \gls{nlp} que permitan una comprensión contextual profunda.
+  \item Desarrollar sistemas de diálogo que reproduzcan conversaciones naturales y contextualmente relevantes.
+  \item Implementar análisis de errores en tiempo real con retroalimentación específica y constructiva.
+\end{itemize}
 
 \subsubsection{Perfeccionamiento de Habilidades Lingüísticas}
-El objetivo aquí es desarrollar herramientas que ayuden a los usuarios a mejorar sus habilidades lingüísticas, especialmente en pronunciación y comprensión. Para lograr esto, se propone crear sistemas de evaluación de pronunciación usando \gls{tts} y \gls{stt}, desarrollar ejercicios adaptativos de comprensión e implementar práctica conversacional contextual.
+\label{subsubsec:perfeccionamiento-habilidades}
+
+\begin{itemize}
+  \item Crear sistemas de evaluación de pronunciación utilizando tecnologías avanzadas de \gls{tts} y \gls{stt}.
+  \item Desarrollar ejercicios adaptativos de comprensión que evolucionen según el nivel del estudiante.
+  \item Implementar práctica conversacional contextualizada que simule situaciones reales de uso del idioma.
+\end{itemize}
 
 \subsubsection{Gestión del Conocimiento}
-Esta sección se dedica a la integración y gestión de recursos educativos para proporcionar un acceso eficiente y actualizado a la información. Se busca integrar sistemas \gls{rag} para el acceso a recursos educativos, desarrollar bases de conocimiento dinámicas e implementar mecanismos de actualización de contenido.
+\label{subsubsec:gestion-conocimiento}
+
+\begin{itemize}
+  \item Integrar sistemas \gls{rag} para el acceso eficiente y contextualizado a recursos educativos relevantes.
+  \item Desarrollar bases de conocimiento dinámicas que evolucionen con las necesidades del estudiante.
+  \item Implementar mecanismos de actualización automática de contenido para mantener los recursos actualizados.
+\end{itemize}
+
+\section{Estructura del Documento}
+\label{sec:estructura-documento}
+
+El presente trabajo se organiza en siete capítulos que guían al lector desde los fundamentos teóricos hasta los resultados finales y conclusiones:
+
+\begin{description}
+  \item[Capítulo 1: Introducción] Presenta la motivación, limitaciones actuales, oportunidades de mejora y objetivos del trabajo.
+  
+  \item[Capítulo 2: Estado del Arte] Revisa las tecnologías y sistemas más avanzados en el campo del aprendizaje de idiomas asistido por inteligencia artificial.
+  
+  \item[Capítulo 3: Marco Teórico] Explora los fundamentos teóricos del aprendizaje de idiomas, inteligencia artificial en educación, procesamiento del lenguaje natural y aprendizaje por refuerzo.
+  
+  \item[Capítulo 4: Material] Detalla los recursos tecnológicos, infraestructura y herramientas utilizadas en el desarrollo del sistema.
+  
+  \item[Capítulo 5: Métodos] Describe la arquitectura del sistema, la implementación de componentes y el modelo de aprendizaje por refuerzo para adaptación de niveles.
+  
+  \item[Capítulo 6: Resultados] Presenta los resultados obtenidos, evaluación del sistema y análisis de las pruebas preliminares.
+  
+  \item[Capítulo 7: Conclusiones] Analiza los logros alcanzados, contribuciones realizadas, limitaciones identificadas y líneas futuras de investigación.
+\end{description}
+
+Adicionalmente, se incluyen dos anexos técnicos que profundizan en aspectos específicos de las tecnologías de procesamiento de voz utilizadas: Faster Whisper para reconocimiento de voz (Anexo A) y Kokoro TTS para síntesis de voz (Anexo B).

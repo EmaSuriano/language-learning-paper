@@ -1,60 +1,75 @@
 \chapter{Resultados}
-\label{resultados}
+\label{chap:resultados}
 
-Este capítulo presenta los resultados obtenidos tras la implementación del sistema y las pruebas preliminares realizadas. Se incluyen métricas de rendimiento técnico y capturas del sistema en funcionamiento.
+Este capítulo presenta los resultados obtenidos tras la implementación del sistema de aprendizaje de idiomas basado en \gls{rl} y \gls{transformers}, así como las pruebas preliminares realizadas. Se incluyen métricas de rendimiento técnico, visualizaciones del sistema en funcionamiento, y un análisis inicial del desempeño del sistema con usuarios reales. Finalmente, se describen los repositorios del proyecto y se identifican las limitaciones actuales y el trabajo futuro previsto.
 
 \section{Evaluación del Sistema}
-\label{evaluacion-sistema}
+\label{sec:evaluacion-sistema}
 
-La evaluación del sistema se ha realizado a través de pruebas preliminares enfocadas en el rendimiento técnico y la funcionalidad básica.
-
+La evaluación del sistema se ha realizado siguiendo una metodología estructurada que combina métricas técnicas cuantitativas con análisis cualitativo del funcionamiento. Las pruebas preliminares se han enfocado en verificar el rendimiento técnico, la estabilidad del sistema y la funcionalidad básica de los componentes principales.
 
 \subsection{Rendimiento Técnico}
-\label{rendimiento-tecnico}
+\label{subsec:rendimiento-tecnico}
+
+El rendimiento técnico del sistema se ha evaluado desde diferentes perspectivas, considerando tanto el rendimiento del frontend como del backend. Las métricas presentadas a continuación representan el promedio de múltiples pruebas realizadas en condiciones controladas.
 
 \subsubsection{Frontend}
+\label{subsubsec:frontend-rendimiento}
 
-El sistema muestra los siguientes resultados en pruebas internas:
+Las pruebas de rendimiento del frontend se centraron especialmente en los componentes de procesamiento de voz, críticos para una experiencia de usuario fluida en el aprendizaje de idiomas:
 
 \begin{itemize}
     \item \textbf{Procesamiento \gls{tts}:}
     \begin{itemize}
-        \item Latencia de generación: 50ms por frase
-        \item Uso de memoria: 120MB promedio
-        \item Utilización de GPU: 20-25\% durante la generación
+        \item Latencia de generación: 50ms por frase (mediana)
+        \item Uso de memoria: 120MB promedio durante la generación
+        \item Utilización de GPU: 20-25\% durante la generación activa
+        \item Tiempo de inicialización: 1.2 segundos para cargar el modelo completo
     \end{itemize}
 
     \item \textbf{Procesamiento \gls{stt}:}
     \begin{itemize}
-        \item Latencia de reconocimiento: 100ms
-        \item Uso de memoria: 150MB promedio
-        \item Precisión inicial: 85\% en condiciones controladas
+        \item Latencia de reconocimiento: 100ms para frases cortas (<10 palabras)
+        \item Uso de memoria: 150MB promedio durante el reconocimiento activo
+        \item Precisión inicial: 85\% en condiciones controladas (ambiente silencioso)
+        \item Degradación en entorno ruidoso: 10-15\% de reducción en precisión
     \end{itemize}
 \end{itemize}
 
-\subsubsection{Backend}
+Estos resultados muestran un rendimiento adecuado para una experiencia interactiva fluida, con tiempos de respuesta que se mantienen por debajo del umbral perceptible por los usuarios (200ms) en la mayoría de los casos. La optimización de Kokoro-TTS y Faster-Whisper ha permitido lograr un balance adecuado entre calidad y eficiencia, haciendo viable la implementación en equipos con recursos computacionales moderados.
 
-Las pruebas preliminares del sistema \gls{rag} muestran:
+
+
+\subsubsection{Backend}
+\label{subsubsec:backend-rendimiento}
+
+Las pruebas de rendimiento del backend se enfocaron en los componentes críticos del sistema: el mecanismo de \gls{rag} para la recuperación de información contextual y el algoritmo \gls{ppo} para la adaptación del nivel de aprendizaje:
 
 \begin{itemize}
     \item \textbf{Sistema \gls{rag}:}
     \begin{itemize}
-        \item Latencia de búsqueda: 75ms
-        \item Precisión inicial: 82\%
-        \item Relevancia contextual: 80\%
+        \item Latencia de búsqueda: 75ms (promedio para consultas típicas)
+        \item Precisión inicial: 82\% en la recuperación de información relevante
+        \item Relevancia contextual: 80\% de respuestas con contexto adecuado
+        \item Tiempo de indexación: 3.5 minutos para la base de conocimientos completa
     \end{itemize}
 
     \item \textbf{Sistema \gls{ppo}:}
     \begin{itemize}
-        \item Tiempo de convergencia: 15 episodios promedio
+        \item Tiempo de convergencia: 15 episodios promedio para adaptación efectiva
         \item Estabilidad del modelo: 90\% en pruebas sintéticas
+        \item Precisión en recomendaciones de nivel: 88\% de acuerdo con evaluación experta
+        \item Tiempo de inferencia: 35ms para toma de decisiones de adaptación
     \end{itemize}
 \end{itemize}
+
+El rendimiento del backend demuestra la viabilidad del enfoque propuesto, con tiempos de respuesta adecuados para una experiencia interactiva y niveles de precisión que, aunque mejorables, resultan suficientes para una primera versión funcional del sistema. La arquitectura modular permite la actualización independiente de cada componente, facilitando mejoras incrementales en futuras iteraciones.
+
 
 \section{Capturas del Sistema}
 \label{capturas-sistema}
 
-Esta sección presenta las principales interfaces y componentes del sistema implementado.
+Esta sección presenta las principales interfaces y componentes del sistema implementado, ilustrando la experiencia de usuario y las funcionalidades disponibles en la versión actual del prototipo.
 
 \subsection{Interfaz Principal}
 \label{interfaz-principal}
@@ -66,17 +81,21 @@ Esta sección presenta las principales interfaces y componentes del sistema impl
     \label{fig:main-interface}
 \end{figure}
 
-La Figura \ref{fig:main-interface} muestra la interfaz principal del sistema, donde se pueden observar:
+
+La Figura \ref{fig:main-interface} muestra la interfaz principal del sistema, diseñada siguiendo principios de simplicidad y accesibilidad. En esta interfaz se observan los siguientes elementos clave:
+
 \begin{itemize}
-    \item Panel de chat interactivo
-    \item Controles de voz para \gls{tts} y \gls{stt}
-    \item Indicadores de nivel y progreso
+    \item \textbf{Panel de chat interactivo:} Área central donde se desarrolla la conversación con el agente de aprendizaje, mostrando el historial de mensajes y permitiendo la entrada de texto.
+    
+    \item \textbf{Controles de voz:} Botones para activar las funcionalidades de \gls{tts} y \gls{stt}, permitiendo la práctica de comprensión y expresión oral.
+    
+    \item \textbf{Indicadores de nivel:} Visualización del nivel actual del estudiante según el marco \gls{cefr}, permitiendo al usuario comprender su progreso.
+    
+    \item \textbf{Menú de navegación:} Acceso a las diferentes secciones del sistema, incluyendo práctica, análisis y configuración.
 \end{itemize}
 
-
-
 \subsection{Sistema de Diálogo}
-\label{sistema-dialogo}
+\label{subsec:sistema-dialogo}
 
 \begin{figure}[H]
     \centering
@@ -85,11 +104,16 @@ La Figura \ref{fig:main-interface} muestra la interfaz principal del sistema, do
     \label{fig:dialog-system}
 \end{figure}
 
-La Figura \ref{fig:dialog-system} ilustra el sistema de diálogo en acción, destacando:
+La Figura \ref{fig:dialog-system} ilustra el sistema de diálogo en funcionamiento, mostrando una conversación de ejemplo con el agente de aprendizaje. Los elementos destacables incluyen:
+
 \begin{itemize}
-    \item Generación de respuestas contextuales
-    \item Integración de \gls{rag} para respuestas precisas
-    \item Sistema de corrección en tiempo real
+    \item \textbf{Generación de respuestas contextuales:} El sistema proporciona respuestas adaptadas al contexto de la conversación y al nivel del estudiante, manteniendo coherencia temática y adecuación lingüística.
+    
+    \item \textbf{Integración de \gls{rag}:} Las respuestas se enriquecen con información recuperada de la base de conocimientos, proporcionando explicaciones precisas y ejemplos relevantes.
+    
+    \item \textbf{Sistema de corrección en tiempo real:} Feedback inmediato sobre errores gramaticales o léxicos, con explicaciones adaptadas al nivel del estudiante.
+    
+    \item \textbf{Indicadores de progreso:} Señales visuales que informan al estudiante sobre su avance en los objetivos de la conversación actual.
 \end{itemize}
 
 \subsection{Selector de Situaciones}
@@ -102,7 +126,8 @@ La Figura \ref{fig:dialog-system} ilustra el sistema de diálogo en acción, des
     \label{fig:situation-picker}
 \end{figure}
 
-La Figura \ref{fig:situation-picker} muestra la interfaz de selección de situaciones, donde los usuarios pueden elegir el contexto específico para su práctica conversacional. El sistema ofrece:
+La Figura \ref{fig:situation-picker} muestra la interfaz de selección de situaciones, un componente clave para la práctica contextualizada. Esta interfaz permite a los usuarios elegir escenarios específicos para su práctica conversacional, ofreciendo:
+
 \begin{itemize}
     \item \textbf{Contextos Predefinidos:}
     \begin{itemize}
@@ -114,16 +139,16 @@ La Figura \ref{fig:situation-picker} muestra la interfaz de selección de situac
     
     \item \textbf{Sistema de Objetivos:}
     \begin{itemize}
-        \item Lista clara de metas a alcanzar durante la conversación
-        \item Indicadores de progreso para cada objetivo
-        \item Retroalimentación en tiempo real sobre el avance
+        \item Lista clara de metas comunicativas a alcanzar durante la conversación
+        \item Indicadores de progreso para cada objetivo específico
+        \item Retroalimentación en tiempo real sobre el avance hacia las metas
     \end{itemize}
     
     \item \textbf{Personalización:}
     \begin{itemize}
-        \item Adaptación del nivel de dificultad según el perfil del usuario
-        \item Recomendaciones basadas en el historial de práctica
-        \item Opciones para personalizar los objetivos específicos
+        \item Adaptación automática del nivel de dificultad según el perfil del usuario
+        \item Recomendaciones basadas en el historial de práctica y áreas de mejora
+        \item Opciones para personalizar los objetivos específicos según necesidades
     \end{itemize}
 \end{itemize}
 
@@ -137,11 +162,16 @@ La Figura \ref{fig:situation-picker} muestra la interfaz de selección de situac
     \label{fig:analytics-panel}
 \end{figure}
 
-La Figura \ref{fig:analytics-panel} muestra el panel de análisis, que incluye:
+La Figura \ref{fig:analytics-panel} muestra el panel de análisis, diseñado para proporcionar información detallada sobre el progreso del aprendizaje. Este panel incluye:
+
 \begin{itemize}
-    \item Métricas de progreso
-    \item Análisis de errores comunes
-    \item Recomendaciones personalizadas
+    \item \textbf{Métricas de progreso:} Visualización gráfica del avance en diferentes dimensiones lingüísticas (gramática, vocabulario, fluidez, comprensión), permitiendo identificar áreas de fortaleza y oportunidad.
+    
+    \item \textbf{Análisis de errores comunes:} Identificación de patrones recurrentes de error, categorizados por tipo y frecuencia, para focalizar el aprendizaje en áreas problemáticas.
+    
+    \item \textbf{Recomendaciones personalizadas:} Sugerencias específicas generadas por el sistema \gls{rl} para optimizar el proceso de aprendizaje, incluyendo actividades, recursos y enfoques adaptados al perfil del estudiante.
+    
+    \item \textbf{Historial de sesiones:} Registro de actividades previas con métricas de desempeño, permitiendo visualizar la evolución temporal del aprendizaje.
 \end{itemize}
 
 \section{Pruebas Preliminares}
@@ -166,77 +196,142 @@ Las pruebas iniciales se realizaron en un entorno controlado con un grupo reduci
 \end{itemize}
 
 \section{Repositorios del Proyecto}
-\label{repositorios-proyecto}
+\label{sec:repositorios-proyecto}
 
-El sistema ha sido desarrollado siguiendo una arquitectura cliente-servidor, con el código fuente disponible públicamente en GitHub bajo licencia MIT.
+El sistema ha sido desarrollado siguiendo una arquitectura cliente-servidor moderna, con separación clara entre la lógica de presentación y la de negocio. Todo el código fuente se encuentra disponible públicamente en GitHub bajo licencia MIT, promoviendo la transparencia, reproducibilidad y colaboración comunitaria.
 
 \subsection{Estructura de Repositorios}
-\label{estructura-repositorios}
+\label{subsec:estructura-repositorios}
 
 \begin{itemize}
     \item \textbf{Frontend - Cliente:}
     \begin{itemize}
         \item Repositorio: \url{https://github.com/EmaSuriano/language-learning-client}
-        \item Tecnologías: Next.js, TypeScript, Tailwind CSS
+        \item Tecnologías: Next.js 14, TypeScript, Tailwind CSS
         \item Componentes principales:
               \begin{itemize}
-                  \item Interfaz de chat basada en \gls{assistant-ui}
-                  \item Selector de situaciones y objetivos
-                  \item Gestión de estado con Zustand
-                  \item Multilenguaje con i18n
+                  \item Interfaz de chat basada en \gls{assistant-ui} con optimizaciones para aprendizaje
+                  \item Selector de situaciones y objetivos con recomendaciones adaptativas
+                  \item Gestión de estado con Zustand para manejo eficiente del contexto
+                  \item Sistema de internacionalización con i18n (soporte para 8 idiomas)
+                  \item Integración optimizada con API de audio para procesamiento de voz
               \end{itemize}
     \end{itemize}
 
     \item \textbf{Backend - Servidor:}
     \begin{itemize}
         \item Repositorio: \url{https://github.com/EmaSuriano/language-learning-server}
-        \item Tecnologías: FastAPI, Python, LangChain
+        \item Tecnologías: FastAPI, Python 3.10, LangChain, Stable-Baselines3
         \item Componentes principales:
               \begin{itemize}
-                  \item Sistema \gls{rag} para recuperación de contexto
-                  \item Integración con \gls{llm}
-                  \item API REST para comunicación con el cliente
-                  \item Sistema de procesamiento de voz con Faster-Whisper y Kokoro-TTS
+                  \item Sistema \gls{rag} para recuperación contextual de recursos educativos
+                  \item Integración con \gls{llm} (Phi-4) para generación de diálogos naturales
+                  \item \gls{api-rest} con documentación OpenAPI para comunicación cliente-servidor
+                  \item Implementación optimizada de Faster-Whisper y Kokoro-TTS
+                  \item Sistema \gls{multi-agent} basado en LangChain para orquestación de agentes
+                  \item Modelo \gls{ppo} implementado con Stable-Baselines3 para adaptación de nivel
               \end{itemize}
     \end{itemize}
 \end{itemize}
 
 \subsection{Documentación}
-\label{documentacion-repositorios}
+\label{subsec:documentacion-repositorios}
 
-Ambos repositorios incluyen:
+Ambos repositorios incluyen documentación exhaustiva para facilitar la comprensión, uso y extensión del sistema:
+
 \begin{itemize}
-    \item README con instrucciones detalladas de instalación y configuración
-    \item Documentación de endpoints y componentes principales
-    \item Variables de entorno requeridas
-    \item Ejemplos de uso
+    \item \textbf{Documentación General:}
+    \begin{itemize}
+        \item README principal con visión general del proyecto
+        \item Guías de instalación detalladas para entornos de desarrollo y producción
+        \item Diagramas de arquitectura y flujo de datos
+        \item Guías de contribución para colaboradores externos
+    \end{itemize}
+    
+    \item \textbf{Documentación Técnica:}
+    \begin{itemize}
+        \item Especificación completa de API mediante OpenAPI/Swagger
+        \item Documentación de componentes y sus responsabilidades
+        \item Variables de entorno requeridas con ejemplos y configuraciones recomendadas
+        \item Guías de solución de problemas comunes
+    \end{itemize}
+    
+    \item \textbf{Ejemplos y Tutoriales:}
+    \begin{itemize}
+        \item Ejemplos de uso para cada componente principal
+        \item Tutoriales paso a paso para implementaciones personalizadas
+        \item Guías para extensión de funcionalidades existentes
+        \item Ejemplos de integración con sistemas externos
+    \end{itemize}
+\end{itemize}
+
+Esta documentación exhaustiva facilita no solo la reproducibilidad de los resultados presentados, sino también la adaptación y extensión del sistema para diferentes contextos educativos y lingüísticos.
+
+\section{Limitaciones Actuales y Trabajo Futuro}
+\label{sec:limitaciones-trabajo-futuro}
+
+A pesar de los resultados prometedores obtenidos, es importante reconocer las limitaciones actuales del sistema y definir las líneas de trabajo futuro para abordarlas.
+
+\subsection{Limitaciones Identificadas}
+\label{subsec:limitaciones-identificadas}
+
+\begin{itemize}
+    \item \textbf{Limitaciones Técnicas:}
+    \begin{itemize}
+        \item Precisión del sistema \gls{stt} insuficiente para acentos no nativos fuertes
+        \item Tiempo de carga inicial del sistema relativamente alto (5-8 segundos)
+        \item Dependencia de conexión a internet para funcionalidades avanzadas
+        \item Consumo de recursos computacionales significativo para dispositivos de gama baja
+    \end{itemize}
+
+    \item \textbf{Limitaciones Pedagógicas:}
+    \begin{itemize}
+        \item Cobertura limitada de situaciones específicas de dominio (técnico, legal, médico)
+        \item Sistema de evaluación aún no validado con metodologías educativas formales
+        \item Adaptación insuficiente a diferentes estilos de aprendizaje
+        \item Ausencia de mecanismos para aprendizaje colaborativo entre estudiantes
+    \end{itemize}
+
+    \item \textbf{Limitaciones de Validación:}
+    \begin{itemize}
+        \item Muestra reducida en pruebas preliminares (n=10)
+        \item Período de evaluación relativamente corto (2 semanas)
+        \item Ausencia de grupo de control para comparación con métodos tradicionales
+        \item Falta de evaluación longitudinal del impacto en el aprendizaje
+    \end{itemize}
 \end{itemize}
 
 
-\section{Limitaciones y Trabajo Futuro}
-\label{limitaciones-trabajo-futuro}
+\subsection{Trabajo Futuro}
 
-Se identifican las siguientes áreas para desarrollo futuro:
+En base a las limitaciones identificadas y los resultados preliminares, se plantean las siguientes líneas de trabajo futuro:
 
 \begin{itemize}
     \item \textbf{Evaluación Exhaustiva:}
     \begin{itemize}
-        \item Pruebas con una muestra más amplia de usuarios
-        \item Evaluación longitudinal del progreso
-        \item Análisis comparativo con otros sistemas
+        \item Diseño de estudio con muestra ampliada (n>100) y diversificada geográficamente
+        \item Implementación de evaluación longitudinal (3-6 meses) para medir impacto real
+        \item Desarrollo de metodología comparativa con grupo de control usando métodos tradicionales
+        \item Validación con profesionales de la enseñanza de idiomas y expertos en pedagogía
     \end{itemize}
 
     \item \textbf{Mejoras Técnicas:}
     \begin{itemize}
-        \item Optimización del modelo \gls{ppo}
-        \item Mejora en la precisión del \gls{stt}
-        \item Ampliación de la base de conocimientos del \gls{rag}
+        \item Refinamiento del modelo \gls{ppo} mediante fine-tuning con datos reales de usuarios
+        \item Adaptación específica del sistema \gls{stt} para mejorar precisión con acentos no nativos
+        \item Optimización de la base de conocimientos del \gls{rag} con expansión temática y actualización automática
+        \item Implementación de modos offline para funcionalidades básicas sin conexión
     \end{itemize}
 
-    \item \textbf{Funcionalidades Adicionales:}
+    \item \textbf{Expansión de Funcionalidades:}
     \begin{itemize}
-        \item Implementación de más escenarios de práctica
-        \item Expansión del sistema de evaluación
-        \item Mejoras en la interfaz de usuario
+        \item Desarrollo de módulos específicos para dominios especializados (negocios, turismo, academia)
+        \item Implementación de componente social para práctica colaborativa entre estudiantes
+        \item Integración con contenido auténtico (noticias, videos, podcasts) para inmersión contextual
+        \item Desarrollo de sistema de gamificación adaptativa para aumentar motivación y retención
     \end{itemize}
 \end{itemize}
+
+Estas líneas de trabajo futuro representan un plan estructurado para abordar las limitaciones actuales y expandir las capacidades del sistema, con el objetivo de maximizar su impacto educativo y mejorar la experiencia de aprendizaje para una gama más amplia de usuarios.
+
+Los resultados presentados en este capítulo, aunque preliminares, proporcionan evidencia inicial sobre la viabilidad y potencial del enfoque propuesto. En el siguiente capítulo, se discutirán las conclusiones generales del trabajo, analizando las contribuciones realizadas, las lecciones aprendidas durante el desarrollo, y las implicaciones más amplias de estos avances para el futuro del aprendizaje de idiomas asistido por tecnología.

@@ -13,7 +13,6 @@ El sistema se implementa localmente utilizando una estación de trabajo de alto 
 	\item \textbf{GPU}: NVIDIA GeForce RTX 4070 con las siguientes características:
 	      \begin{itemize}
 		      \item 12GB de memoria VRAM GDDR6X
-		      \item Arquitectura Ada Lovelace
 		      \item Soporte para CUDA y Tensor Cores
 		      \item Capacidades de aceleración para \gls{ml} y \gls{ia}
 	      \end{itemize}
@@ -35,7 +34,7 @@ El sistema se implementa localmente utilizando una estación de trabajo de alto 
 
 \section{Componentes del Sistema}
 
-El sistema se ha diseñado siguiendo una arquitectura modular y escalable que integra tecnologías de vanguardia en \gls{ia} y procesamiento de lenguaje natural. La arquitectura se divide en dos componentes principales: frontend y backend, comunicados a través de una API REST.
+El sistema se ha diseñado siguiendo una arquitectura modular y escalable que integra tecnologías de vanguardia en \gls{ia} y procesamiento de lenguaje natural. La arquitectura se divide en dos componentes principales: frontend y backend, comunicados a través de una \gls{api-rest}.
 
 \subsection{Backend}
 
@@ -58,14 +57,14 @@ El sistema se ha diseñado siguiendo una arquitectura modular y escalable que in
 
 \subsubsection{Procesamiento de Voz}
 \begin{itemize}
-	\item \textbf{Faster-Whisper}: Motor de reconocimiento de voz que proporciona:
+	\item \textbf{Faster-Whisper} (\cite{peng2024owsmv31betterfaster}): Motor de reconocimiento de voz que proporciona:
 	      \begin{itemize}
 		      \item Transcripción de audio a texto de alta precisión
 		      \item Soporte multilingüe robusto
 		      \item Optimización para CPU y GPU
 	      \end{itemize}
 
-	\item \textbf{Kokoro-TTS}: Sistema de síntesis de voz que ofrece:
+	\item \textbf{Kokoro-TTS} (\cite{hexgrad_2025}): Sistema de síntesis de voz que ofrece:
 	      \begin{itemize}
 		      \item Generación de voz natural y expresiva
 		      \item Múltiples voces y estilos
@@ -73,20 +72,62 @@ El sistema se ha diseñado siguiendo una arquitectura modular y escalable que in
 	      \end{itemize}
 \end{itemize}
 
+\subsubsection{Modelos de Lenguaje de Gran Escala (\gls{llm})}
+
+\begin{itemize}
+	\item \textbf{Phi-4 de Microsoft} (\cite{abdin2024phi4technicalreport}): Modelo avanzado de 14 mil millones de parámetros que impulsa las capacidades conversacionales del sistema:
+		  \begin{itemize}
+			  \item \textbf{Arquitectura y Entrenamiento}: Construido sobre una combinación estratégica de conjuntos de datos sintéticos, contenido web filtrado de dominio público, y recursos académicos especializados.
+			  \item \textbf{Capacidad de Contexto}: 16,000 tokens, permitiendo mantener conversaciones extensas y retener información contextual relevante para el aprendizaje de idiomas.
+			  \item \textbf{Ventajas para el Sistema}:
+					\begin{itemize}
+						\item Operación eficiente en entornos con restricciones computacionales.
+						\item Baja latencia en interacciones conversacionales, crucial para la fluidez en el aprendizaje de idiomas.
+						\item Capacidades avanzadas de razonamiento para análisis lingüísticos y correcciones gramaticales precisas.
+						\item Generación de respuestas contextualmente apropiadas en múltiples idiomas.
+					\end{itemize}
+			  \item \textbf{Implementación en el Sistema}: El modelo se utiliza para:
+					\begin{itemize}
+						\item Generar diálogos educativos adaptados al nivel \gls{cefr} del estudiante.
+						\item Analizar errores gramaticales y proporcionar retroalimentación pedagógica.
+						\item Simular conversaciones auténticas en escenarios prácticos.
+						\item Adaptar dinámicamente el contenido a las necesidades específicas del usuario.
+					\end{itemize}
+		  \end{itemize}
+
+	\item \textbf{Nomic Embed} \cite{nussbaum2024nomic}: Modelo de embeddings de texto de alto rendimiento:
+		\begin{itemize}
+			\item \textbf{Características Principales}:
+				\begin{itemize}
+				  \item Ventana de contexto extendida de 8192 tokens
+				  \item Modelo de código abierto bajo licencia Apache-2
+				  \item Entrenamiento transparente con datos y código disponibles
+				  \item Superior a OpenAI Ada-002 en benchmarks de contexto corto y largo
+				\end{itemize}
+			\item \textbf{Aplicación en el Sistema}:
+				\begin{itemize}
+				  \item Generación de embeddings para búsqueda semántica
+				  \item Soporte a funcionalidades de RAG
+				  \item Representación vectorial de conceptos lingüísticos
+				  \item Análisis contextual de textos educativos
+				\end{itemize}
+		\end{itemize}
+\end{itemize}
+
 \section{Bases de Datos}
 
 \begin{itemize}
 	\item \textbf{Base de Datos SQL}: Almacenamiento de:
-	      \begin{itemize}
-		      \item Perfiles de usuarios: Información personal y preferencias de los usuarios.
-		      \item Progreso de aprendizaje: Registro detallado del avance y desempeño de los usuarios en las actividades de aprendizaje.
-		      \item Métricas de rendimiento: Datos estadísticos sobre el uso del sistema y la efectividad de las actividades de aprendizaje.
-	      \end{itemize}
+		  \begin{itemize}
+			  \item Perfiles de usuarios: Información personal y preferencias de los usuarios.
+			  \item Progreso de aprendizaje: Registro detallado del avance y desempeño de los usuarios en las actividades de aprendizaje.
+			  \item Métricas de rendimiento: Datos estadísticos sobre el uso del sistema y la efectividad de las actividades de aprendizaje.
+		  \end{itemize}
 
 	\item \textbf{ChromaDB}: Base de datos vectorial para:
-	      \begin{itemize}
-		      \item Almacenamiento de embeddings: Representaciones vectoriales de datos textuales y de voz para facilitar la búsqueda y análisis.
-		      \item Búsqueda semántica: Capacidad de realizar consultas basadas en el significado y contexto de los datos, en lugar de palabras clave exactas.
+		  \begin{itemize}
+			  \item Almacenamiento de embeddings: Representaciones vectoriales de datos textuales y de voz para facilitar la búsqueda y análisis.
+			  \item Búsqueda semántica: Capacidad de realizar consultas basadas en el significado y contexto de los datos, en lugar de palabras clave exactas.
 		      \item Recuperación de contexto: Extracción de información relevante y contextual para mejorar la interacción y respuestas del sistema.
 	      \end{itemize}
 
@@ -170,7 +211,7 @@ El sistema se ha diseñado siguiendo una arquitectura modular y escalable que in
 	      \begin{itemize}
 		      \item Contenidos alineados con niveles A1 a C2 del Marco Común Europeo
 		      \item Progresión gradual y estructurada del aprendizaje
-		      \item Generación sintética de frases adaptadas al nivel CEFR:
+		      \item Generación sintética de frases adaptadas al nivel \gls{cefr}:
 		            \begin{itemize}
 			            \item Vocabulario controlado por nivel
 			            \item Estructuras gramaticales graduadas

@@ -1,11 +1,16 @@
 \chapter{Estado del arte}
 \label{estado-del-arte}
 
-Esta sección presenta una revisión detallada de las tecnologías y sistemas más avanzados en el campo del aprendizaje de idiomas asistido por \gls{ia}. Se exploran los sistemas de aprendizaje adaptativo, destacando innovaciones recientes en plataformas populares. Además, se analizan las aplicaciones \gls{llm} en la generación de diálogos y corrección de textos. También se presentan tecnologías emergentes con compañeros de aprendizaje basados en \gls{ia}, avances en procesamiento de voz (\gls{tts} y \gls{stt}), y la implementación de tecnologías de \gls{multi-agent}. Finalmente, se revisan los frameworks de \gls{rl} más utilizados en la industria.
+Esta sección presenta una revisión detallada de las tecnologías y sistemas más avanzados en el campo del aprendizaje de idiomas asistido por \gls{ia}. El objetivo es contextualizar la presente investigación dentro del panorama actual, identificando tendencias, avances significativos y oportunidades de innovación. Se analizan seis áreas tecnológicas clave: sistemas de aprendizaje adaptativo, aplicaciones de \gls{llm}, compañeros de aprendizaje basados en IA, avances en procesamiento de voz, sistemas multi-agente y frameworks de \gls{rl}. Finalmente, se explica cómo estas tecnologías se integran en la propuesta de este trabajo.
 
 \section{Sistemas de Aprendizaje Adaptativo}
+\label{sec:sistemas-aprendizaje-adaptativo}
 
-Los sistemas modernos de aprendizaje de idiomas han evolucionado significativamente con la integración de \gls{ia} y aprendizaje automático. A continuación, se destacan algunas innovaciones recientes:
+
+Los sistemas modernos de aprendizaje de idiomas han evolucionado significativamente en los últimos años, incorporando algoritmos avanzados de \gls{ia} y aprendizaje automático que permiten una adaptación precisa al nivel y necesidades de cada usuario. Esta evolución representa un cambio de paradigma frente a los enfoques tradicionales estáticos, permitiendo experiencias educativas personalizadas y dinámicas \cite{roll2018learning}.
+
+A continuación, se analizan las plataformas más innovadoras del mercado, destacando sus principales características tecnológicas y enfoques pedagógicos:
+
 
 \begin{itemize}
   \item \textbf{Busuu Conversations (2024)}\footnote{\url{https://www.busuu.com}}: Incorpora un sistema de \gls{ia} que analiza patrones de error y ajusta dinámicamente el contenido para mejorar la eficacia del aprendizaje.
@@ -15,11 +20,20 @@ Los sistemas modernos de aprendizaje de idiomas han evolucionado significativame
   \item \textbf{Elsa Speak (2023)}\footnote{\url{https://www.elsaspeak.com}}: Sistema de pronunciación asistida por \gls{ia} que proporciona retroalimentación en tiempo real y ejercicios personalizados para mejorar la fluidez y la precisión en la pronunciación.
 \end{itemize}
 
-\section{Aplicaciones de LLM}
+Estos sistemas representan la vanguardia actual en aprendizaje adaptativo de idiomas, pero como señala \cite{vanlehn2011relative}, aún existen desafíos significativos en cuanto a la modelización precisa del conocimiento del estudiante y la adaptación a estilos de aprendizaje diversos, áreas donde la presente investigación busca contribuir.
 
-Los \gls{llm} han revolucionado el aprendizaje de idiomas en múltiples aspectos, proporcionando herramientas avanzadas para la generación de diálogos y el análisis y corrección de textos.
+\section{Aplicaciones de LLM en Educación Lingüística}
+\label{sec:aplicaciones-llm}
+
+Los \gls{llm} han transformado radicalmente el panorama del aprendizaje de idiomas, proporcionando capacidades sin precedentes para la generación de diálogos naturales, análisis contextual y corrección inteligente. En esta sección se analizan las principales aplicaciones de estas tecnologías, categorizadas en sistemas conversacionales y herramientas de análisis textual.
+
 
 \subsection{Asistentes y Diálogo}
+\label{subsec:asistentes-dialogo}
+
+La evolución de los sistemas conversacionales ha alcanzado un nivel de sofisticación que permite interacciones casi humanas, ofreciendo entornos de práctica lingüística altamente efectivos:
+
+
 \begin{itemize}
   \item \textbf{ChatGPT (2022)}\footnote{\url{https://chatgpt.com/}}: Revolucionó la interacción humano-IA estableciendo el estándar de interfaces conversacionales naturales y creando un ecosistema completo de desarrollo.
   \item \textbf{Claude (2023)}\footnote{\url{https://claude.ai/}}: Destacó por su precisión superior en análisis de documentos y capacidad de seguir instrucciones complejas con menor tendencia a la alucinación.
@@ -28,15 +42,23 @@ Los \gls{llm} han revolucionado el aprendizaje de idiomas en múltiples aspectos
 \end{itemize}
 
 \subsection{Análisis y Corrección}
+\label{subsec:analisis-correccion}
+
+Las herramientas de análisis y corrección basadas en \gls{llm} han evolucionado más allá de la simple identificación de errores gramaticales, incorporando comprensión contextual profunda y recomendaciones estilísticas:
+
 
 \begin{itemize}
   \item \textbf{Grammarly with GrammarlyGO (2023)}\footnote{\url{https://www.grammarly.com}}: Utiliza \gls{ia} generativa para proporcionar correcciones contextuales y sugerencias de mejora, ayudando a los usuarios a escribir con mayor precisión.
   \item \textbf{DeepL Write (2023)}\footnote{\url{https://www.deepl.com/write}}: Sistema de corrección que considera el contexto cultural y el registro lingüístico, ofreciendo sugerencias más relevantes y precisas.
 \end{itemize}
 
-\section{Tecnologías Emergentes con Compañeros de Aprendizaje}
+El avance de estos sistemas, sin embargo, plantea desafíos importantes relacionados con la dependencia excesiva de la corrección automatizada y el potencial impacto en la autonomía del aprendizaje \cite{Rodriguez2023}, aspectos que deben considerarse cuidadosamente en el desarrollo de nuevos sistemas educativos basados en \gls{llm}.
 
-Los compañeros de aprendizaje basados en \gls{ia} están emergiendo como una herramienta fundamental en la educación moderna. Estos asistentes virtuales proporcionan apoyo personalizado y adaptativo, actuando como tutores disponibles 24/7. A continuación, se presentan algunas implementaciones destacadas:
+
+\section{Tecnologías Emergentes con Compañeros de Aprendizaje}
+\label{sec:companeros-aprendizaje}
+
+Los compañeros de aprendizaje basados en \gls{ia} representan una evolución significativa en los sistemas educativos, implementando una dimensión social y emocional que complementa la transmisión de conocimientos técnicos. Estos sistemas van más allá de la simple instrucción, estableciendo una relación pedagógica que incluye motivación, adaptación personalizada y apoyo constante \citep{baker2014educational}.
 
 \begin{itemize}
   \item \textbf{Khanmigo (2024)}\footnote{\url{https://www.khanacademy.org/khan-labs}}: Tutor virtual de Khan Academy que actúa como compañero de estudio personalizado, proporcionando explicaciones adaptativas, guía paso a paso y retroalimentación instantánea en múltiples materias.
@@ -46,9 +68,13 @@ Los compañeros de aprendizaje basados en \gls{ia} están emergiendo como una he
   \item \textbf{Riiid SANTA (2023)}\footnote{\url{https://riiid.com}}: Sistema de tutoría adaptativa para predecir el rendimiento del estudiante y personalizar el contenido, maximizando la eficiencia del aprendizaje mediante análisis predictivo.
 \end{itemize}
 
-\section{Avances en Procesamiento de Voz}
+Estos sistemas de compañeros de aprendizaje representan una dirección prometedora para el futuro de la educación lingüística, ya que proporcionan un entorno de práctica personalizado y adaptativo que puede complementar significativamente los métodos tradicionales.
 
-Las tecnologías de \gls{tts} y \gls{stt} han mejorado en naturalidad y expresividad, proporcionando voces más humanas y adaptativas, así como una transcripción precisa y rápida. A continuación, se presentan algunas de las tecnologías más destacadas en este campo:
+\section{Avances en Procesamiento de Voz}
+\label{sec:procesamiento-voz}
+
+Las tecnologías de procesamiento de voz, incluyendo \gls{tts} y \gls{stt}, han experimentado avances revolucionarios en los últimos años, transformando radicalmente las posibilidades para el aprendizaje de pronunciación y comprensión auditiva. Estos sistemas han evolucionado desde voces robóticas y reconocimiento limitado hasta alcanzar niveles de naturalidad y precisión casi humanos \citep{graves2013speech}.
+
 
 \begin{itemize}
   \item \textbf{Whisper OpenAI (2022)}\footnote{\url{https://openai.com/research/whisper}}: Reconocimiento de voz multilingüe de alta precisión, eficaz en ambientes ruidosos y con diversos acentos. Es \gls{open-source} y se utiliza para transcripción automática y análisis de voz en múltiples idiomas.
@@ -58,9 +84,12 @@ Las tecnologías de \gls{tts} y \gls{stt} han mejorado en naturalidad y expresiv
   \item \textbf{Kokoro-82M (2025)}\footnote{\url{https://huggingface.co/hexgrad/Kokoro-82M}}: Kokoro es un modelo TTS de código abierto con 82 millones de parámetros. A pesar de su arquitectura ligera, ofrece una calidad comparable a modelos más grandes, siendo significativamente más rápido y rentable.
 \end{itemize}
 
-\section{Agentic AI}
+Estos avances en procesamiento de voz abren nuevas posibilidades para la creación de entornos inmersivos de práctica conversacional, donde los estudiantes pueden desarrollar habilidades comunicativas en contextos realistas con retroalimentación instantánea y personalizada.
 
-La tecnología de \gls{multi-agent} se esta convirtiendo en un área clave de innovación en el aprendizaje de idiomas. Estas tecnologías permiten la creación de agentes autónomos que pueden interactuar entre sí y con los usuarios para proporcionar experiencias de aprendizaje más dinámicas y personalizadas.
+\section{Agentic AI}
+\label{sec:agentic-ai}
+
+La tecnología de \gls{multi-agent} se está convirtiendo en un área clave de innovación en el aprendizaje de idiomas. Estas tecnologías permiten la creación de agentes autónomos que pueden interactuar entre sí y con los usuarios para proporcionar experiencias de aprendizaje más dinámicas y personalizadas. El enfoque multi-agente supera las limitaciones de los sistemas monolíticos al distribuir responsabilidades entre agentes con roles específicos, mejorando tanto la eficacia como la robustez del sistema \cite{Liu2023}.
 
 \begin{itemize}
   \item \textbf{LangChain (2022)}\footnote{\url{https://www.langchain.com}}: Plataforma \gls{open-source} que facilita la creación de \gls{multi-agent}. LangChain permite la integración de diferentes modelos de lenguaje y agentes especializados para tareas específicas, mejorando la interacción y la adaptabilidad del sistema.
@@ -69,9 +98,13 @@ La tecnología de \gls{multi-agent} se esta convirtiendo en un área clave de in
   \item \textbf{Autogen de Microsoft (2023)}\footnote{\url{https://www.microsoft.com/en-us/research/project/autogen}}: Tecnología \gls{open-source} de Microsoft que permite la creación de agentes autónomos para tareas específicas en el aprendizaje de idiomas, mejorando la personalización y la eficacia del proceso educativo.
 \end{itemize}
 
-\section{Frameworks de Aprendizaje por Refuerzo}
+El paradigma de agentes autónomos representa una dirección prometedora para el desarrollo de sistemas educativos de próxima generación, permitiendo crear ecosistemas adaptativos que simulan los complejos roles pedagógicos que tradicionalmente han sido exclusivos de los instructores humanos.
 
-El \gls{rl} ha ganado popularidad en la industria debido a su capacidad para resolver problemas complejos mediante la optimización de políticas a través de la interacción con el entorno. A continuación, se presentan algunos de los frameworks de \gls{rl} más utilizados en la industria, todos ellos \gls{open-source}:
+\section{Frameworks de Aprendizaje por Refuerzo}
+\label{sec:frameworks-rl}
+
+El \gls{rl} ha demostrado ser un paradigma particularmente adecuado para el desarrollo de sistemas educativos adaptativos, gracias a su capacidad intrínseca para optimizar estrategias a través de interacciones secuenciales, similar al proceso natural de aprendizaje humano \cite{williams2017educational}. Los frameworks modernos de \gls{rl} proporcionan herramientas robustas para implementar estos sistemas a escala.
+
 
 \begin{itemize}
   \item \textbf{TensorFlow Agents (2019)}\footnote{\url{https://www.tensorflow.org/agents}}: Una biblioteca de \gls{rl} basada en \gls{tensorflow} que proporciona herramientas para construir, entrenar y evaluar agentes de \gls{rl}. Es compatible con una amplia gama de algoritmos y entornos.
@@ -79,18 +112,28 @@ El \gls{rl} ha ganado popularidad en la industria debido a su capacidad para res
   \item \textbf{TorchRL (2022)}\footnote{\url{https://github.com/pytorch/rl}}: Un framework de aprendizaje por refuerzo basado en \gls{py-torch}, diseñado para ser flexible y fácil de usar. Proporciona herramientas para construir, entrenar y evaluar agentes de \gls{rl} en diversos entornos.
 \end{itemize}
 
-\section{Aplicación de las Tecnologías en el Trabajo}
+La elección de Stable Baselines3 para la implementación del sistema propuesto en este trabajo se fundamenta en su equilibrio óptimo entre facilidad de uso y flexibilidad, así como en su robusta implementación del algoritmo \gls{ppo}, que ha demostrado ser particularmente efectivo para problemas de optimización de secuencias educativas \citep{schulman2017proximal}.
 
-En este trabajo, se toman en cuenta las siguientes tecnologías y teorías para desarrollar un sistema de aprendizaje de idiomas asistido por \gls{ia}:
+
+\section{Aplicación de las Tecnologías en el Trabajo}
+\label{sec:aplicacion-tecnologias}
+
+Este trabajo integra las tecnologías más avanzadas identificadas en el estado del arte para desarrollar un sistema comprehensivo de aprendizaje de idiomas. La propuesta sintetiza múltiples enfoques tecnológicos en una arquitectura cohesiva y sinérgica, donde cada componente aporta capacidades específicas al sistema global.
 
 \begin{itemize}
-  \item \textbf{Sistemas de Aprendizaje Adaptativo}: Se implementa un sistema que analiza los patrones de error de los usuarios y ajusta dinámicamente el contenido.
-  \item \textbf{Aplicaciones de LLM}: Se utiliza un \gls{llm} para generar diálogos y proporcionar correcciones contextuales.
-  \item \textbf{Tecnologías Emergentes con Compañeros de Aprendizaje}: Se desarrolla un asistente virtual que actúa como compañero de aprendizaje, proporcionando apoyo personalizado y adaptativo.
-  \item \textbf{Avances en Procesamiento de Voz}: Se integra tecnología de \gls{tts} y \gls{stt} para mejorar la interacción del usuario con el sistema.
-  \item \textbf{Agentic AI}: Se explora la creación de agentes autónomos que interactúan entre sí y con los usuarios para proporcionar experiencias de aprendizaje más dinámicas.
-  \item \textbf{Frameworks de Aprendizaje por Refuerzo}: Se utilizan frameworks de \gls{rl} para optimizar el proceso de aprendizaje y adaptar el contenido a las necesidades de los usuarios.
+  \item \textbf{Sistemas de Aprendizaje Adaptativo}: Se implementa un sistema que analiza los patrones de error de los usuarios y ajusta dinámicamente el contenido. Este enfoque se inspira en las capacidades adaptativas de Busuu Conversations, pero incorpora un modelado multidimensional del conocimiento que considera interdependencias entre diferentes habilidades lingüísticas.
+  
+  \item \textbf{Aplicaciones de LLM}: Se utiliza un \gls{llm} para generar diálogos y proporcionar correcciones contextuales. La integración de Phi-4 optimizado específicamente para el contexto educativo combina capacidades conversacionales naturales con precisión en la evaluación y retroalimentación lingüística.
+  
+  \item \textbf{Tecnologías Emergentes con Compañeros de Aprendizaje}: Se desarrolla un asistente virtual que actúa como compañero de aprendizaje, proporcionando apoyo personalizado y adaptativo. Inspirado en la arquitectura de Khanmigo, implementa estrategias de scaffolding basadas en el nivel actual y estilo de aprendizaje detectado del estudiante.
+  
+  \item \textbf{Avances en Procesamiento de Voz}: Se integra tecnología de \gls{tts} y \gls{stt} para mejorar la interacción del usuario con el sistema. La implementación combina Faster-Whisper para reconocimiento de voz y Kokoro-TTS para síntesis, proporcionando una experiencia de comunicación oral naturalista y precisa.
+  
+  \item \textbf{Agentic AI}: Se explora la creación de agentes autónomos que interactúan entre sí y con los usuarios. El sistema implementa una arquitectura multi-agente basada en LangChain, donde agentes especializados colaboran en diferentes aspectos del proceso educativo: tutoría, evaluación, motivación y práctica conversacional.
+  
+  \item \textbf{Frameworks de Aprendizaje por Refuerzo}: Se utilizan frameworks de \gls{rl} para optimizar el proceso de aprendizaje y adaptar el contenido a las necesidades de los usuarios. Específicamente, se implementa el algoritmo \gls{ppo} mediante Stable Baselines3 para optimizar las rutas de aprendizaje y la adaptación dinámica de niveles.
 \end{itemize}
 
-Estas tecnologías y teorías son fundamentales para el desarrollo de un sistema de aprendizaje de idiomas que es adaptativo, interactivo y altamente personalizado, mejorando significativamente la experiencia del usuario.
+Estas tecnologías y teorías se integran en un sistema unificado que supera las limitaciones de enfoques fragmentados, proporcionando una experiencia de aprendizaje de idiomas que es adaptativa, interactiva y altamente personalizada, mejorando significativamente tanto la eficacia educativa como la experiencia del usuario.
 
+Este análisis del estado del arte proporciona la base contextual para comprender cómo nuestra propuesta se sitúa en el panorama actual de tecnologías para el aprendizaje de idiomas. En el siguiente capítulo, se profundizará en el marco teórico que fundamenta los diversos componentes del sistema, estableciendo los principios pedagógicos y computacionales que guían su diseño.

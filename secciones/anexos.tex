@@ -19,9 +19,9 @@ Faster Whisper representa una mejora significativa sobre la implementación orig
 \label{sec:faster-whisper-architecture}
 
 \begin{figure}[H]
-	\caption{Arquitectura de Faster Whisper}
 	\label{fig:whisper}
 	\includegraphics[width=0.8\textwidth]{figuras/whisper.png}
+	\caption{Arquitectura de Faster Whisper}
 \end{figure}
 
 La arquitectura de Faster Whisper se compone de varios módulos especializados que trabajan en conjunto para proporcionar transcripción eficiente:
@@ -47,7 +47,6 @@ La implementación utiliza CTranslate2 para optimizar:
 \label{sec:whisper-models-comparison}
 
 \begin{table}[H]
-	\caption{Comparación de modelos Whisper}
 	\label{tab:whisper-models}
 	\begin{tabular}{|p{2cm}|p{2cm}|p{3cm}|p{3cm}|p{3cm}|}
 		\hline
@@ -64,6 +63,7 @@ La implementación utiliza CTranslate2 para optimizar:
 		Large           & 1550M               & 7.5GB               & 3.6\%        & 1x                          \\
 		\hline
 	\end{tabular}
+	\caption{Comparación de modelos Whisper}
 \end{table}
 
 \subsection{Características por Modelo}
@@ -163,7 +163,7 @@ Este anexo explora Kokoro TTS, un modelo de síntesis de voz de código abierto 
 La arquitectura de Kokoro TTS se fundamenta en dos componentes principales: StyleTTS 2 e ISTFTNet. Esta combinación permite una síntesis de voz eficiente mientras mantiene una alta calidad en la salida.
 
 \subsection{Componentes Principales}
-\label{subsec:main-components}
+\label{subsec:kokoro-main-components}
 
 \begin{itemize}
 	\item \textbf{Misaki G2P}: Sistema de conversión de grafemas a fonemas que soporta múltiples idiomas.
@@ -222,7 +222,6 @@ El sistema evalúa las voces mediante dos métricas principales:
 
 \begin{table}[H]
 	\centering
-	\caption{Distribución y calidad de voces por idioma}
 	\label{tab:voice-distribution}
 	\begin{tabular}{|l|c|c|c|l|}
 		\hline
@@ -247,6 +246,7 @@ El sistema evalúa las voces mediante dos métricas principales:
 		Portugués BR     & 1          & 2          & 3              & C                      \\
 		\hline
 	\end{tabular}
+	\caption{Distribución y calidad de voces por idioma}
 \end{table}
 
 \section{Rendimiento y Limitaciones}
@@ -277,7 +277,6 @@ El entrenamiento de Kokoro ha sido notablemente eficiente:
 
 \begin{table}[H]
 	\centering
-	\caption{Comparación con modelos TTS similares}
 	\label{tab:model-comparison}
 	\begin{tabular}{|l|c|c|c|c|}
 		\hline
@@ -290,4 +289,5 @@ El entrenamiento de Kokoro ha sido notablemente eficiente:
 		Bark            & 900M                & 100+           & 100+             & MIT               \\
 		\hline
 	\end{tabular}
+	\caption{Comparación con modelos TTS similares}
 \end{table}
