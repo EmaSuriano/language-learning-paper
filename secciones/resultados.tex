@@ -293,17 +293,41 @@ La Figura \ref{fig:situation-picker} muestra la interfaz de selección de situac
     \label{fig:analytics-panel}
 \end{figure}
 
-La Figura \ref{fig:analytics-panel} muestra el panel de análisis, diseñado para proporcionar información detallada sobre el progreso del aprendizaje. Este panel incluye:
+La Figura \ref{fig:analytics-panel} muestra el panel de resultados, diseñado para proporcionar retroalimentación inmediata sobre el desempeño en la conversación. Este panel incluye:
 
 \begin{itemize}
-    \item \textbf{Métricas de progreso:} Visualización gráfica del avance en diferentes dimensiones lingüísticas (gramática, vocabulario, fluidez, comprensión), permitiendo identificar áreas de fortaleza y oportunidad.
+    \item \textbf{Objetivos cumplidos:} Registro de las metas alcanzadas durante la sesión de conversación.
     
-    \item \textbf{Análisis de errores comunes:} Identificación de patrones recurrentes de error, categorizados por tipo y frecuencia, para focalizar el aprendizaje en áreas problemáticas.
+    \item \textbf{Métricas de desempeño:} Evaluación de la conversación en tres dimensiones clave: gramática, vocabulario y fluidez, permitiendo al usuario identificar sus fortalezas y áreas de mejora.
     
-    \item \textbf{Recomendaciones personalizadas:} Sugerencias específicas generadas por el sistema \gls{rl} para optimizar el proceso de aprendizaje, incluyendo actividades, recursos y enfoques adaptados al perfil del estudiante.
+    \item \textbf{Reporte personalizado:} Análisis detallado del desempeño con observaciones específicas sobre aspectos destacados y recomendaciones para mejorar.
     
-    \item \textbf{Historial de sesiones:} Registro de actividades previas con métricas de desempeño, permitiendo visualizar la evolución temporal del aprendizaje.
+    \item \textbf{Opciones de continuidad:} El usuario puede guardar su progreso y acceder posteriormente a la página de historial donde podrá visualizar su evolución a lo largo del tiempo.
 \end{itemize}
+
+\subsection{Visualización del Progreso de Aprendizaje}
+\label{visualizacion-progreso}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figuras/screenshots/learning-history.png}
+    \caption{Interfaz de visualización del progreso de aprendizaje con métricas detalladas}
+    \label{fig:learning-history}
+\end{figure}
+
+La Figura \ref{fig:learning-history} muestra la interfaz de visualización del progreso de aprendizaje, un componente esencial para el seguimiento del desempeño del usuario. Esta herramienta proporciona una representación gráfica completa del desarrollo lingüístico a través de diversas funcionalidades integradas.
+
+\begin{itemize}
+    \item \textbf{Análisis Temporal Flexible:} Combina una vista detallada de sesiones individuales y una perspectiva de tendencias agrupadas, permitiendo al usuario alternar entre ambas modalidades para identificar tanto patrones generales como detalles específicos de su aprendizaje. El sistema incorpora controles interactivos que facilitan la exploración cronológica de los datos.
+    
+    \item \textbf{Evaluación Integral de Competencias Lingüísticas:} Monitoriza cuatro dimensiones fundamentales del aprendizaje: gramática, vocabulario, fluidez y cumplimiento de objetivos comunicativos. Cada métrica se presenta visualmente mediante un código de colores consistente que facilita la comparación entre habilidades y la identificación de fortalezas y áreas de mejora.
+    
+    \item \textbf{Análisis de Progresión de Nivel:} Ofrece un resumen visual de la trayectoria del aprendizaje, categorizando las sesiones según sus resultados (incremento, mantenimiento o descenso de nivel). Este componente proporciona contexto estadístico sobre el avance general, permitiendo correlacionar estrategias de práctica con resultados concretos.
+    
+    \item \textbf{Diseño Adaptativo y Accesible:} Implementado con Radix UI y técnicas responsivas para garantizar una experiencia óptima en cualquier dispositivo. La interfaz mantiene la integridad visual de los datos independientemente del tamaño de pantalla, priorizando la accesibilidad mediante contraste adecuado y elementos interactivos bien definidos.
+\end{itemize}
+
+Esta visualización del progreso constituye una herramienta fundamental para la reflexión metacognitiva del estudiante, permitiéndole identificar patrones en su aprendizaje y tomar decisiones informadas sobre sus futuras prácticas lingüísticas.
 
 \section{Repositorios del Proyecto}
 \label{sec:repositorios-proyecto}
