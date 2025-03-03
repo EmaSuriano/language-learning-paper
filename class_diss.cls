@@ -686,7 +686,7 @@
 \newcommand\contentsname{Índice general}
 \newcommand\listfigurename{Índice de figuras}
 \newcommand\listtablename{Índice de tablas}
-\newcommand\bibname{Bibliografía}
+\newcommand\bibname{Referencias bibliográficas}
 \newcommand\indexname{Índice}
 \newcommand\figurename{Figura}
 \newcommand\tablename{Tabla}

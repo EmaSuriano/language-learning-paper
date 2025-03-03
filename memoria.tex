@@ -174,11 +174,6 @@
 \cleardoublepage
 \phantomsection
 
-
-% Appendix
-\appendix
-\input{secciones/anexos.tex}
-
 % Bibliography
 \begin{singlespace}
   \begin{footnotesize}
@@ -188,6 +183,12 @@
     \end{twocolumn}
   \end{footnotesize}
 \end{singlespace}
+
+% Appendix
+\appendix
+\clearpage
+\onecolumn  % Reset to single column layout
+\input{secciones/anexos.tex}
 
 
 \end{document}

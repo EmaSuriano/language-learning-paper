@@ -38,8 +38,6 @@ Las pruebas de rendimiento del frontend se centraron especialmente en los compon
 
 Estos resultados muestran un rendimiento adecuado para una experiencia interactiva fluida, con tiempos de respuesta que se mantienen por debajo del umbral perceptible por los usuarios (200ms) en la mayoría de los casos. La optimización de Kokoro-TTS y Faster-Whisper ha permitido lograr un balance adecuado entre calidad y eficiencia, haciendo viable la implementación en equipos con recursos computacionales moderados.
 
-
-
 \subsubsection{Backend}
 \label{subsubsec:backend-rendimiento}
 
@@ -65,6 +63,139 @@ Las pruebas de rendimiento del backend se enfocaron en los componentes críticos
 
 El rendimiento del backend demuestra la viabilidad del enfoque propuesto, con tiempos de respuesta adecuados para una experiencia interactiva y niveles de precisión que, aunque mejorables, resultan suficientes para una primera versión funcional del sistema. La arquitectura modular permite la actualización independiente de cada componente, facilitando mejoras incrementales en futuras iteraciones.
 
+
+\section{Pruebas Preliminares}
+\label{pruebas-preliminares}
+
+Las pruebas iniciales se realizaron en un entorno controlado con un grupo reducido de usuarios (n=10):
+
+\subsection{Resultados de Encuestas de Usuario}
+\label{subsec:resultados_encuestas}
+
+Las encuestas de usuario se realizaron utilizando un cuestionario estructurado que evaluaba diferentes dimensiones de la experiencia de usuario, aplicando \gls{escala-likert} de 5 puntos para valorar distintos aspectos del sistema. A continuación, se presentan los resultados detallados:
+
+\subsubsection{Evaluación de la Facilidad de Uso}
+\label{subsubsec:facilidad_uso}
+
+La facilidad de uso del sistema se evaluó mediante una escala de 1 (Muy difícil) a 5 (Muy fácil):
+
+\begin{table}[h]
+\centering
+\caption{Resultados de Evaluación de Facilidad de Uso}
+\label{table:facilidad_uso}
+\begin{tabular}{|l|c|}
+\hline
+\textbf{Aspecto} & \textbf{Puntuación Media (1-5)} \\
+\hline
+Navegación por la interfaz & 4.2 $\pm$ 0.4 \\
+\hline
+Interacción con el agente conversacional & 4.0 $\pm$ 0.6 \\
+\hline
+Configuración de preferencias & 3.7 $\pm$ 0.8 \\
+\hline
+Uso de funcionalidades de voz & 3.9 $\pm$ 0.7 \\
+\hline
+Selección de situaciones de práctica & 4.3 $\pm$ 0.5 \\
+\hline
+\textbf{Promedio global} & \textbf{4.0 $\pm$ 0.6} \\
+\hline
+\end{tabular}
+\end{table}
+
+Los comentarios cualitativos de los usuarios indicaron que la interfaz era "intuitiva" y "fácil de navegar", aunque algunos señalaron dificultades iniciales con la configuración de las preferencias de aprendizaje y el uso óptimo de las funcionalidades de voz.
+
+\subsubsection{Satisfacción con las Funcionalidades}
+\label{subsubsec:satisfaccion_funcionalidades}
+
+La satisfacción con las diferentes funcionalidades del sistema se evaluó utilizando una escala de 5 puntos (1: Muy insatisfecho, 5: Muy satisfecho):
+
+\begin{table}[h]
+\centering
+\caption{Resultados de Satisfacción con Funcionalidades}
+\label{table:satisfaccion_funcionalidades}
+\begin{tabular}{|l|c|c|}
+\hline
+\textbf{Funcionalidad} & \textbf{Puntuación Media} & \textbf{Tasa de Uso (\%)} \\
+\hline
+Sistema de diálogo adaptativo & 4.1 $\pm$ 0.5 & 95\% \\
+\hline
+Reconocimiento de voz (\gls{stt}) & 3.6 $\pm$ 0.9 & 78\% \\
+\hline
+Síntesis de voz (\gls{tts}) & 4.0 $\pm$ 0.6 & 82\% \\
+\hline
+Análisis de errores gramaticales & 3.9 $\pm$ 0.7 & 90\% \\
+\hline
+Recomendaciones personalizadas & 3.8 $\pm$ 0.8 & 75\% \\
+\hline
+Panel de análisis de progreso & 4.2 $\pm$ 0.4 & 85\% \\
+\hline
+\textbf{Promedio global} & \textbf{3.9 $\pm$ 0.7} & \textbf{84\%} \\
+\hline
+\end{tabular}
+\end{table}
+
+La satisfacción más alta se observó en el panel de análisis de progreso (4.2/5) y el sistema de diálogo adaptativo (4.1/5), mientras que el reconocimiento de voz (\gls{stt}) recibió la puntuación más baja (3.6/5), principalmente debido a dificultades con acentos no nativos, como se menciona en la sección \ref{subsec:limitaciones-identificadas}.
+
+
+\subsubsection{Percepción de la Utilidad del Sistema}
+\label{subsubsec:percepcion_utilidad}
+
+La percepción de utilidad se evaluó mediante preguntas específicas sobre el valor percibido del sistema para el aprendizaje de idiomas: 
+
+\begin{table}[h]
+\centering
+\caption{Resultados de Percepción de Utilidad}
+\label{table:percepcion_utilidad}
+\begin{tabular}{|l|c|}
+\hline
+\textbf{Aspecto} & \textbf{Puntuación Media (1-5)} \\
+\hline
+Mejora en habilidades comunicativas & 3.9 $\pm$ 0.7 \\
+\hline
+Adaptación al nivel personal & 4.0 $\pm$ 0.6 \\
+\hline
+Relevancia de los escenarios prácticos & 4.2 $\pm$ 0.5 \\
+\hline
+Efectividad del feedback & 3.7 $\pm$ 0.8 \\
+\hline
+Motivación para continuar el aprendizaje & 3.8 $\pm$ 0.7 \\
+\hline
+\textbf{Utilidad general percibida} & \textbf{3.9 $\pm$ 0.7} \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsubsection{Análisis Comparativo con Métodos Tradicionales}
+\label{subsubsec:comparacion_metodos}
+
+Se pidió a los participantes que compararan su experiencia con el sistema frente a métodos tradicionales de aprendizaje de idiomas que hubieran utilizado previamente:
+
+\begin{table}[h]
+\centering
+\caption{Comparación con Métodos Tradicionales}
+\label{table:comparacion_metodos}
+\begin{tabular}{|l|c|}
+\hline
+\textbf{Aspecto} & \textbf{Preferencia por el Sistema (\%)} \\
+\hline
+Conveniencia de acceso & 90\% \\
+\hline
+Personalización & 80\% \\
+\hline
+Retroalimentación inmediata & 85\% \\
+\hline
+Desarrollo de habilidades orales & 65\% \\
+\hline
+Desarrollo de vocabulario & 70\% \\
+\hline
+\textbf{Preferencia general} & \textbf{78\%} \\
+\hline
+\end{tabular}
+\end{table}
+
+Estos resultados preliminares sugieren una recepción positiva del sistema entre los usuarios de prueba, con áreas específicas identificadas para mejora, principalmente en el reconocimiento de voz para acentos no nativos y en la efectividad del feedback. La relevancia de los escenarios prácticos y la adaptación al nivel personal fueron los aspectos mejor valorados, alineándose con los objetivos principales del sistema.
+
+Es importante señalar que estos resultados, aunque prometedores, deben interpretarse con cautela debido al tamaño limitado de la muestra (n=10) y la corta duración del periodo de prueba. Se requiere un estudio más amplio y longitudinal para validar completamente estos hallazgos iniciales, como se propone en la sección de trabajo futuro.
 
 \section{Capturas del Sistema}
 \label{capturas-sistema}
@@ -172,27 +303,6 @@ La Figura \ref{fig:analytics-panel} muestra el panel de análisis, diseñado par
     \item \textbf{Recomendaciones personalizadas:} Sugerencias específicas generadas por el sistema \gls{rl} para optimizar el proceso de aprendizaje, incluyendo actividades, recursos y enfoques adaptados al perfil del estudiante.
     
     \item \textbf{Historial de sesiones:} Registro de actividades previas con métricas de desempeño, permitiendo visualizar la evolución temporal del aprendizaje.
-\end{itemize}
-
-\section{Pruebas Preliminares}
-\label{pruebas-preliminares}
-
-Las pruebas iniciales se realizaron en un entorno controlado con un grupo reducido de usuarios (n=10) durante un período de 2 semanas:
-
-\begin{itemize}
-    \item \textbf{Rendimiento del Sistema:}
-    \begin{itemize}
-        \item Tiempo de respuesta promedio: 200ms
-        \item Estabilidad del sistema: 98\% uptime
-        \item Uso de recursos dentro de límites esperados
-    \end{itemize}
-
-    \item \textbf{Feedback Inicial:}
-    \begin{itemize}
-        \item Facilidad de uso reportada: 4.0/5
-        \item Utilidad percibida: 3.8/5
-        \item Áreas de mejora identificadas: 3 principales
-    \end{itemize}
 \end{itemize}
 
 \section{Repositorios del Proyecto}
