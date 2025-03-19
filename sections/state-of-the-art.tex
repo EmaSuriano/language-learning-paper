@@ -1,0 +1,139 @@
+\chapter{State of the Art}
+\label{state-of-the-art}
+
+This section presents a detailed review of the most advanced technologies and systems in the field of \gls{ia}-assisted language learning. The objective is to contextualize the present research within the current landscape, identifying trends, significant advances, and opportunities for innovation. Six key technological areas are analyzed: adaptive learning systems, \gls{llm} applications, AI-based learning companions, advances in voice processing, multi-agent systems, and \gls{rl} frameworks. Finally, this chapter explains how these technologies are integrated into the proposal of this work.
+
+\section{Adaptive Learning Systems}
+\label{sec:adaptive-learning-systems}
+
+
+Modern language learning systems have evolved significantly in recent years, incorporating advanced \gls{ia} and machine learning algorithms that allow precise adaptation to each user's level and needs. This evolution represents a paradigm shift compared to traditional static approaches, enabling personalized and dynamic educational experiences \cite{roll2018learning}.
+
+Below, the most innovative platforms in the market are analyzed, highlighting their main technological features and pedagogical approaches:
+
+
+\begin{itemize}
+  \item \textbf{Busuu Conversations (2024)}\footnote{\url{https://www.busuu.com}}: Incorporates an \gls{ia} system that analyzes error patterns and dynamically adjusts content to improve learning effectiveness.
+  \item \textbf{Duolingo Max (2024)}\footnote{\url{https://www.duolingo.com}}: Uses GPT-4 to generate personalized explanations and maintain contextual conversations, adapting to the user's level.
+  \item \textbf{Babbel Everyday Conversations (2023)}\footnote{\url{https://www.babbel.com}}: Combines \gls{ia} with human tutors to optimize the hybrid learning experience, offering more personalized interaction.
+  \item \textbf{Lingvist (2023)}\footnote{\url{https://www.lingvist.com}}: Uses contextual data to generate exercises, lessons, and adapted recommendations, facilitating the retrieval of relevant linguistic content and the generation of interactive activities.
+  \item \textbf{Elsa Speak (2023)}\footnote{\url{https://www.elsaspeak.com}}: \gls{ia}-assisted pronunciation system that provides real-time feedback and personalized exercises to improve fluency and pronunciation accuracy.
+\end{itemize}
+
+These systems represent the current state of the art in adaptive language learning, but as \cite{vanlehn2011relative} points out, there are still significant challenges regarding precise modeling of student knowledge and adaptation to diverse learning styles, areas where this research seeks to contribute.
+
+\section{LLM Applications in Language Education}
+\label{sec:llm-applications}
+
+\gls{llm}s have radically transformed the landscape of language learning, providing unprecedented capabilities for natural dialogue generation, contextual analysis, and intelligent correction. This section analyzes the main applications of these technologies, categorized into conversational systems and textual analysis tools.
+
+
+\subsection{Assistants and Dialogue}
+\label{subsec:assistants-dialogue}
+
+The evolution of conversational systems has reached a level of sophistication that allows almost human-like interactions, offering highly effective language practice environments:
+
+
+\begin{itemize}
+  \item \textbf{ChatGPT (2022)}\footnote{\url{https://chatgpt.com/}}: Revolutionized human-AI interaction by establishing the standard for natural conversational interfaces and creating a complete development ecosystem.
+  \item \textbf{Claude (2023)}\footnote{\url{https://claude.ai/}}: Stood out for its superior accuracy in document analysis and ability to follow complex instructions with less tendency to hallucinate.
+  \item \textbf{Azure Language Studio (2023)}\footnote{\url{https://language.cognitive.azure.com/}}: Offers linguistic analysis tools and educational content generation, improving the quality of learning.
+  \item \textbf{LLaMA (2023)}\footnote{\url{https://ai.facebook.com/blog/large-language-model-llama}}: \gls{open-source} model developed by Meta, designed to be efficient and accessible for research and practical applications.
+\end{itemize}
+
+\subsection{Analysis and Correction}
+\label{subsec:analysis-correction}
+
+Analysis and correction tools based on \gls{llm}s have evolved beyond simple identification of grammatical errors, incorporating deep contextual understanding and stylistic recommendations:
+
+
+\begin{itemize}
+  \item \textbf{Grammarly with GrammarlyGO (2023)}\footnote{\url{https://www.grammarly.com}}: Uses generative \gls{ia} to provide contextual corrections and improvement suggestions, helping users write with greater precision.
+  \item \textbf{DeepL Write (2023)}\footnote{\url{https://www.deepl.com/write}}: Correction system that considers cultural context and linguistic register, offering more relevant and precise suggestions.
+\end{itemize}
+
+The advancement of these systems, however, poses important challenges related to excessive dependence on automated correction and the potential impact on learning autonomy \cite{Rodriguez2023}, aspects that must be carefully considered in the development of new educational systems based on \gls{llm}s.
+
+
+\section{Emerging Technologies with Learning Companions}
+\label{sec:learning-companions}
+
+\gls{ia}-based learning companions represent a significant evolution in educational systems, implementing a social and emotional dimension that complements the transmission of technical knowledge. These systems go beyond simple instruction, establishing a pedagogical relationship that includes motivation, personalized adaptation, and constant support \citep{baker2014educational}.
+
+\begin{itemize}
+  \item \textbf{Khanmigo (2024)}\footnote{\url{https://www.khanacademy.org/khan-labs}}: Khan Academy's virtual tutor that acts as a personalized study companion, providing adaptive explanations, step-by-step guidance, and instant feedback across multiple subjects.
+
+  \item \textbf{Third Space Learning (2024)}\footnote{\url{https://thirdspacelearning.com}}: Platform that combines human tutors with \gls{ia} to create a hybrid learning experience, where the system analyzes interactions and provides personalized insights.
+
+  \item \textbf{Riiid SANTA (2023)}\footnote{\url{https://riiid.com}}: Adaptive tutoring system for predicting student performance and personalizing content, maximizing learning efficiency through predictive analysis.
+\end{itemize}
+
+These learning companion systems represent a promising direction for the future of language education, as they provide a personalized and adaptive practice environment that can significantly complement traditional methods.
+
+\section{Advances in Voice Processing}
+\label{sec:voice-processing}
+
+Voice processing technologies, including \gls{tts} and \gls{stt}, have experienced revolutionary advances in recent years, radically transforming the possibilities for pronunciation learning and listening comprehension. These systems have evolved from robotic voices and limited recognition to achieve near-human levels of naturalness and precision \citep{graves2013speech}.
+
+
+\begin{itemize}
+  \item \textbf{Whisper OpenAI (2022)}\footnote{\url{https://openai.com/research/whisper}}: High-precision multilingual voice recognition, effective in noisy environments and with diverse accents. It is \gls{open-source} and used for automatic transcription and voice analysis in multiple languages.
+  \item \textbf{Google Speech-to-Text/Text-to-Speech (2023)}\footnote{\url{https://cloud.google.com/speech-to-text}}: Real-time voice recognition with high accuracy, support for multiple languages, and easy integration with other Google platforms. Commonly used in virtual assistants and live meeting transcription.
+  \item \textbf{Microsoft Azure AI Speech (2023)}\footnote{\url{https://azure.microsoft.com/en-us/products/ai-services/ai-speech}}: Precise and fast transcription, with advanced capabilities for personalization and context adaptation. Ideal for customer service systems and real-time conversation analysis.
+  \item \textbf{Deepgram (2023)}\footnote{\url{https://deepgram.com}}: Voice recognition platform based on deep neural networks, known for its speed and precision. Used for call transcription and business conversation analysis.
+  \item \textbf{Kokoro-82M (2025)}\footnote{\url{https://huggingface.co/hexgrad/Kokoro-82M}}: Kokoro is an open-source TTS model with 82 million parameters. Despite its lightweight architecture, it offers quality comparable to larger models, being significantly faster and more cost-effective.
+\end{itemize}
+
+These advances in voice processing open new possibilities for creating immersive conversational practice environments, where students can develop communication skills in realistic contexts with instant and personalized feedback.
+
+\section{Agentic AI}
+\label{sec:agentic-ai}
+
+\gls{multi-agent} technology is becoming a key area of innovation in language learning. These technologies allow the creation of autonomous agents that can interact with each other and with users to provide more dynamic and personalized learning experiences. The multi-agent approach overcomes the limitations of monolithic systems by distributing responsibilities among agents with specific roles, improving both the effectiveness and robustness of the system \cite{Liu2023}.
+
+\begin{itemize}
+  \item \textbf{LangChain (2022)}\footnote{\url{https://www.langchain.com}}: \gls{open-source} platform that facilitates the creation of \gls{multi-agent} systems. LangChain allows the integration of different language models and specialized agents for specific tasks, improving system interaction and adaptability.
+  \item \textbf{CrewAI (2023)}\footnote{\url{https://www.crewai.com}}: \gls{open-source} multi-agent system designed for team collaboration, allowing users to work together on language learning projects and receive real-time feedback.
+  \item \textbf{phiData (2023)}\footnote{\url{https://www.phidata.com}}: \gls{open-source} platform that uses specialized agents to analyze linguistic data and provide personalized recommendations to improve language learning.
+  \item \textbf{Autogen by Microsoft (2023)}\footnote{\url{https://www.microsoft.com/en-us/research/project/autogen}}: Microsoft's \gls{open-source} technology that enables the creation of autonomous agents for specific tasks in language learning, improving the personalization and effectiveness of the educational process.
+\end{itemize}
+
+The autonomous agent paradigm represents a promising direction for the development of next-generation educational systems, allowing the creation of adaptive ecosystems that simulate the complex pedagogical roles that have traditionally been exclusive to human instructors.
+
+\section{Reinforcement Learning Frameworks}
+\label{sec:rl-frameworks}
+
+\gls{rl} has proven to be a particularly suitable paradigm for the development of adaptive educational systems, thanks to its intrinsic ability to optimize strategies through sequential interactions, similar to the natural process of human learning \cite{williams2017educational}. Modern \gls{rl} frameworks provide robust tools to implement these systems at scale.
+
+
+\begin{itemize}
+  \item \textbf{TensorFlow Agents (2019)}\footnote{\url{https://www.tensorflow.org/agents}}: A \gls{rl} library based on \gls{tensorflow} that provides tools to build, train, and evaluate \gls{rl} agents. It is compatible with a wide range of algorithms and environments.
+  \item \textbf{Stable Baselines3 (2020)}\footnote{\url{https://stable-baselines3.readthedocs.io}}: An implementation of \gls{rl} algorithms in \gls{py-torch}, designed to be easy to use and extend. It is widely used for experimentation and development of \gls{rl} solutions.
+  \item \textbf{TorchRL (2022)}\footnote{\url{https://github.com/pytorch/rl}}: A reinforcement learning framework based on \gls{py-torch}, designed to be flexible and easy to use. It provides tools to build, train, and evaluate \gls{rl} agents in various environments.
+\end{itemize}
+
+The choice of Stable Baselines3 for the implementation of the system proposed in this work is based on its optimal balance between ease of use and flexibility, as well as its robust implementation of the \gls{ppo} algorithm, which has proven to be particularly effective for educational sequence optimization problems \citep{schulman2017proximal}.
+
+
+\section{Application of Technologies in This Work}
+\label{sec:technology-application}
+
+This work integrates the most advanced technologies identified in the state of the art to develop a comprehensive language learning system. The proposal synthesizes multiple technological approaches into a cohesive and synergistic architecture, where each component contributes specific capabilities to the overall system.
+
+\begin{itemize}
+  \item \textbf{Adaptive Learning Systems}: A system is implemented that analyzes user error patterns and dynamically adjusts content. This approach is inspired by the adaptive capabilities of Busuu Conversations, but incorporates multidimensional knowledge modeling that considers interdependencies between different linguistic skills.
+  
+  \item \textbf{LLM Applications}: A \gls{llm} is used to generate dialogues and provide contextual corrections. The integration of Phi-4, specifically optimized for the educational context, combines natural conversational capabilities with precision in linguistic evaluation and feedback.
+  
+  \item \textbf{Emerging Technologies with Learning Companions}: A virtual assistant is developed that acts as a learning companion, providing personalized and adaptive support. Inspired by Khanmigo's architecture, it implements scaffolding strategies based on the student's current level and detected learning style.
+  
+  \item \textbf{Advances in Voice Processing}: \gls{tts} and \gls{stt} technology is integrated to enhance user interaction with the system. The implementation combines Faster-Whisper for speech recognition and Kokoro-TTS for synthesis, providing a naturalistic and precise oral communication experience.
+  
+  \item \textbf{Agentic AI}: The creation of autonomous agents that interact with each other and with users is explored. The system implements a multi-agent architecture based on LangChain, where specialized agents collaborate in different aspects of the educational process: tutoring, evaluation, motivation, and conversational practice.
+  
+  \item \textbf{Reinforcement Learning Frameworks}: \gls{rl} frameworks are used to optimize the learning process and adapt content to user needs. Specifically, the \gls{ppo} algorithm is implemented through Stable Baselines3 to optimize learning paths and dynamic level adaptation.
+\end{itemize}
+
+These technologies and theories are integrated into a unified system that overcomes the limitations of fragmented approaches, providing a language learning experience that is adaptive, interactive, and highly personalized, significantly improving both educational effectiveness and user experience.
+
+This State of the Art analysis provides the contextual basis for understanding how our proposal is situated in the current landscape of technologies for language learning. The next chapter will delve into the theoretical framework that underpins the various components of the system, establishing the pedagogical and computational principles that guide its design.

@@ -1,0 +1,116 @@
+\chapter{Introduction}
+\label{chap:introduction}
+
+Language learning in the digital era has undergone a significant transformation thanks to advances in the field of \gls{ai}. However, one of the greatest challenges remains the effective personalization of the learning process to adapt to the individual needs of each student. This work proposes an innovative approach that combines \gls{rl} techniques with \gls{transformers} architectures and voice processing technologies to create an adaptive and personalized language learning system.
+
+\section{Document Structure}
+\label{sec:document-structure}
+
+This thesis is organized into seven chapters that guide the reader from the theoretical foundations to the final results and conclusions:
+
+\begin{description}
+  \item[Chapter 1: Introduction] Presents the motivation, current limitations, opportunities for improvement, and objectives of the work.
+  
+  \item[Chapter 2: State of the Art] Reviews the most advanced technologies and systems in the field of AI-assisted language learning.
+  
+  \item[Chapter 3: Theoretical Framework] Explores the theoretical foundations of language learning, artificial intelligence in education, natural language processing, and reinforcement learning.
+  
+  \item[Chapter 4: Materials] Details the technological resources, infrastructure, and tools used in the development of the system.
+  
+  \item[Chapter 5: Methods] Describes the system architecture, component implementation, and the reinforcement learning model for level adaptation.
+  
+  \item[Chapter 6: Results] Presents the results obtained, system evaluation, and analysis of preliminary tests.
+  
+  \item[Chapter 7: Conclusions] Analyzes the achievements, contributions made, limitations identified, and future lines of research.
+\end{description}
+
+Additionally, two technical appendices are included that delve into specific aspects of the voice processing technologies used: Faster Whisper for speech recognition (Appendix A) and Kokoro TTS for speech synthesis (Appendix B).
+
+\section{Motivation}
+\label{sec:motivation}
+
+Second language acquisition is a complex process that varies significantly among individuals. This process is influenced by multiple factors, such as learning style, previous experiences, level of motivation, and specific aptitudes of each student \cite{ellis1994study}. Traditional language teaching methods, even in their digitized form, present significant limitations that prevent effective personalization and dynamic adaptation to student progress.
+
+Current systems often follow a predefined sequential model that does not adequately consider individual differences, which can result in inefficient or demotivating learning experiences. As \cite{krashen1982principles} points out, optimal learning occurs when the input is slightly above the student's current level (i+1 principle), a balance that is difficult to achieve with systems that do not adapt dynamically.
+
+\subsection{Current Limitations}
+\label{subsec:current-limitations}
+
+Currently, language teaching methods face several limitations that affect learning effectiveness. These limitations can be classified into four main categories:
+
+\begin{itemize}
+  \item \textbf{Structural Rigidity}: Programs follow predefined sequences that do not adapt to the student's actual progress, limiting the ability to respond to their specific needs.
+  \item \textbf{Lack of Personalization}: They do not adequately consider different learning styles, interests, and individual preferences, which can affect motivation and learning effectiveness.
+  \item \textbf{Limited Feedback}: Most systems provide basic feedback without considering the complete context of learning, making it difficult to identify specific areas for improvement.
+  \item \textbf{Artificial Conversational Practice}: Interactions are often mechanical and do not reflect the dynamic nature of real language, limiting the student's ability to apply their skills in real-life situations.
+\end{itemize}
+
+These limitations highlight the need for a more flexible and personalized approach to language teaching, which can adapt to the individual needs and progress of each student, providing a more effective and motivating learning experience.
+
+\subsection{Opportunities for Improvement}
+\label{subsec:opportunities-for-improvement}
+
+Recent advances in artificial intelligence, particularly in the field of natural language processing and reinforcement learning, open new possibilities to overcome the previously mentioned limitations. Four main areas of opportunity are identified:
+
+\begin{itemize}
+  \item \textbf{Dynamic Adaptability:} Implement systems that adjust content and difficulty in real-time, based on the student's performance and needs. \gls{rl} algorithms, as demonstrated by \cite{williams2017educational}, are particularly suited for this task, as they can optimize sequential decisions in learning environments.
+  
+  \item \textbf{Deep Personalization:} Consider multiple individual factors, such as learning style, interests, and pace of progress, to optimize the learning process. Modern architectures based on \gls{transformers} allow analyzing complex behavior patterns and adapting the educational experience in a more granular way \cite{vaswani2017attention}.
+  
+  \item \textbf{Natural Interaction:} Use advanced technologies, such as natural language models and voice processing, to simulate more realistic and dynamic conversations. Recent advances in \gls{llm} \cite{brown2020language} and voice technologies \cite{graves2013speech} allow for much more natural interactions than previous systems.
+  
+  \item \textbf{Contextual Feedback:} Provide detailed and specific feedback, based on the context and profile of the student, to improve understanding and performance. \gls{rag} systems \cite{lewis2020retrieval} can significantly enrich the quality and relevance of this feedback.
+\end{itemize}
+
+The combination of these advanced technologies offers transformative potential for the field of language learning, allowing the creation of adaptive systems that dynamically respond to the individual needs of each student.
+
+\section{Objectives}
+\label{sec:objectives}
+
+Based on the motivation presented and the opportunities identified, this work establishes the following objectives:
+
+\subsection{General Objective}
+\label{subsec:general-objective}
+
+Develop a language learning system that integrates \gls{rl}, \gls{transformers} architectures, and a \gls{multi-agent} approach to provide a personalized, adaptive, and effective learning experience that overcomes the limitations of traditional methods and leverages the capabilities of the most recent artificial intelligence technologies.
+
+\subsection{Specific Objectives}
+\label{subsec:specific-objectives}
+
+To achieve the general objective, several specific objectives have been defined that focus on the implementation of advanced \gls{ai} techniques. These specific objectives are organized into four main areas:
+
+\subsubsection{Learning Optimization}
+\label{subsubsec:learning-optimization}
+
+\begin{itemize}
+  \item Implement a \gls{ppo} algorithm that optimizes personalized learning paths according to the student's profile and progress.
+  \item Develop mechanisms for dynamic content adaptation that adjust difficulty in real-time.
+  \item Create continuous evaluation systems that measure progress in multiple linguistic dimensions.
+\end{itemize}
+
+\subsubsection{Interaction Enhancement}
+\label{subsubsec:interaction-enhancement}
+
+\begin{itemize}
+  \item Integrate advanced \gls{llm} for \gls{nlp} that allow deep contextual understanding.
+  \item Develop dialogue systems that reproduce natural and contextually relevant conversations.
+  \item Implement real-time error analysis with specific and constructive feedback.
+\end{itemize}
+
+\subsubsection{Language Skills Improvement}
+\label{subsubsec:language-skills-improvement}
+
+\begin{itemize}
+  \item Create pronunciation evaluation systems using advanced \gls{tts} and \gls{stt} technologies.
+  \item Develop adaptive comprehension exercises that evolve according to the student's level.
+  \item Implement contextualized conversational practice that simulates real language use situations.
+\end{itemize}
+
+\subsubsection{Knowledge Management}
+\label{subsubsec:knowledge-management}
+
+\begin{itemize}
+  \item Integrate \gls{rag} systems for efficient and contextualized access to relevant educational resources.
+  \item Develop dynamic knowledge bases that evolve with the student's needs.
+  \item Implement automatic content update mechanisms to keep resources up-to-date.
+\end{itemize}

@@ -5,7 +5,7 @@
 % Basic packages
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
-\usepackage[spanish,es-tabla]{babel}
+\usepackage[english]{babel}
 \usepackage[margin=3cm]{geometry}
 \usepackage{setspace}
 \usepackage{url}
@@ -54,7 +54,7 @@
 \setcitestyle{authoryear}
 
 % Glossary packages
-\usepackage[pdftex,plainpages=false,pdfpagelabels]{hyperref}\usepackage[toc,acronym,nonumberlist,xindy={language=spanish-traditional},sanitize=none]{glossaries}
+\usepackage[pdftex,plainpages=false,pdfpagelabels]{hyperref}\usepackage[toc,acronym,nonumberlist,xindy={language=english},sanitize=none]{glossaries}
 
 \makeglossaries
 
@@ -71,7 +71,7 @@
 
 % Custom commands and settings
 \theoremstyle{definition}
-\newtheorem{definition}{Teorema}[section]
+\newtheorem{definition}{Theorem}[section]
 \theoremstyle{remark}
 \newtheorem*{remark}{Remark}
 \DeclareMathOperator*{\argmax}{arg\,max}
@@ -79,17 +79,14 @@
 
 % Color definitions
 \definecolor{VIU}{RGB}{240, 90, 15}
-\definecolor{DESTACADO}{RGB}{130, 34, 145}
-\definecolor{CITA}{RGB}{0, 123, 194}
+\definecolor{HIGHLIGHTED}{RGB}{130, 34, 145}
+\definecolor{CITATION}{RGB}{0, 123, 194}
 
 % Custom commands
-\renewcommand{\algorithmcfname}{Algoritmo}
-\renewcommand{\acronymname}{Lista de Acrónimos}
-\addto\captionsspanish{
-    \renewcommand*{\acronymname}{Lista de Acrónimos}
-}
+\renewcommand{\algorithmcfname}{Algorithm}
+\renewcommand{\acronymname}{List of Acronyms}
 \newcommand{\inhib}{\relbar\mapsfromchar}
-\newcommand{\destacado}[1]{\color{DESTACADO}\textbf{#1}\color{black}\xspace}
+\newcommand{\highlighted}[1]{\color{HIGHLIGHTED}\textbf{#1}\color{black}\xspace}
 \newcommand*\circled[1]{\tikz[baseline=(char.base)]{
     \node[shape=diamond,fill=black!90,inner sep=1pt,minimum size=1cm] (char) {\textcolor{white}{\small\textbf{#1}}};}
 }
@@ -128,15 +125,15 @@
 {\rlap{\parbox{0.7\textwidth}{\filright\chaptitlefont #1}}}
 
 % Glossary entries
-\input{secciones/glosario.tex}
+\input{sections/glossary.tex}
 
 % Hyperref settings
 \hypersetup{
     linktocpage=true,
     colorlinks=true,
-    citecolor=CITA,
-    urlcolor=CITA,
-    linkcolor=CITA,
+    citecolor=CITATION,
+    urlcolor=CITATION,
+    linkcolor=CITATION,
     citebordercolor={1 0 0},
     urlbordercolor={1 0 0},
     linkbordercolor={.7 .8 .8},
@@ -152,24 +149,24 @@
 \begin{document}
 
 \pagestyle{empty}
-\input{secciones/portada.tex}
-\input{secciones/frase-favorita.tex}
-\input{secciones/agradecimientos.tex}
+\input{sections/title-page.tex}
+\input{sections/favorite-quote.tex}
+\input{sections/acknowledgements.tex}
 
 \pagestyle{fancy}
-\input{secciones/indice.tex}
+\input{sections/index.tex}
 % Print the glossary and acronyms
 \printglossaries
-\addcontentsline{toc}{chapter}{Glosario}
+\addcontentsline{toc}{chapter}{Glossary}
 
-\input{secciones/resumen.tex}
-\input{secciones/introduccion.tex}
-\input{secciones/estado-del-arte.tex}
-\input{secciones/marco-teorico.tex}
-\input{secciones/material.tex}
-\input{secciones/metodos.tex}
-\input{secciones/resultados.tex}
-\input{secciones/conclusiones.tex}
+\input{sections/abstract.tex}
+\input{sections/introduction.tex}
+\input{sections/state-of-the-art.tex}
+\input{sections/theoretical-framework.tex}
+\input{sections/materials.tex}
+\input{sections/methods.tex}
+\input{sections/results.tex}
+\input{sections/conclusions.tex}
 
 \cleardoublepage
 \phantomsection
@@ -178,8 +175,8 @@
 \begin{singlespace}
   \begin{footnotesize}
     \begin{twocolumn}
-      \bibliography{bibliografia}
-      \addcontentsline{toc}{chapter}{Referencias bibliográficas}
+      \bibliography{bibliography}
+      \addcontentsline{toc}{chapter}{References}
     \end{twocolumn}
   \end{footnotesize}
 \end{singlespace}
@@ -188,7 +185,7 @@
 \appendix
 \clearpage
 \onecolumn  % Reset to single column layout
-\input{secciones/anexos.tex}
+\input{sections/appendices.tex}
 
 
 \end{document}

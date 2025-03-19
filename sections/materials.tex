@@ -1,0 +1,245 @@
+\chapter{Materials}
+\label{materials}
+
+This chapter details the technological resources, infrastructure, and tools used in the development of the language learning system. It describes the general architecture, hardware and software components, as well as libraries and frameworks employed.
+
+\section{Infrastructure and Computational Resources}
+
+The system is implemented locally using a high-performance workstation, leveraging hardware acceleration capabilities for language and voice model processing.
+
+\subsection{Hardware Resources}
+
+\begin{itemize}
+	\item \textbf{GPU}: NVIDIA GeForce RTX 4070 with the following features:
+	      \begin{itemize}
+		      \item 12GB of GDDR6X VRAM
+		      \item CUDA and Tensor Cores support
+		      \item Acceleration capabilities for \gls{ml} and \gls{ia}
+	      \end{itemize}
+
+	\item \textbf{Main Memory}:
+	      \begin{itemize}
+		      \item 32GB of DDR4 RAM
+		      \item Optimized for memory-intensive workloads
+	      \end{itemize}
+
+	\item \textbf{Storage}:
+	      \begin{itemize}
+		      \item 1TB NVMe SSD
+		      \item High read/write performance
+		      \item Model and data storage
+	      \end{itemize}
+\end{itemize}
+
+
+\section{System Components}
+
+The system has been designed following a modular and scalable architecture that integrates cutting-edge technologies in \gls{ia} and natural language processing. The architecture is divided into two main components: frontend and backend, communicated through a \gls{api-rest}.
+
+\subsection{Backend}
+
+\begin{itemize}
+	\item \textbf{LangChain}: A powerful tool for:
+	      \begin{itemize}
+		      \item Integrating large-scale language models (\gls{llm}) into the system
+		      \item Managing and optimizing prompts to improve interaction with language models
+		      \item Processing and analyzing text efficiently using advanced natural language processing techniques
+		      \item Enabling access to \gls{rag} to improve the accuracy and relevance of generated responses
+	      \end{itemize}
+
+	\item \textbf{FastAPI}: A robust framework for creating backend services and exposing APIs, allowing efficient communication with the frontend:
+	      \begin{itemize}
+		      \item High-performance, low-latency REST APIs
+		      \item Automatic generation of interactive documentation through OpenAPI
+		      \item Automatic data validation and efficient serialization
+	      \end{itemize}
+\end{itemize}
+
+\subsubsection{Voice Processing}
+\begin{itemize}
+	\item \textbf{Faster-Whisper} (\cite{peng2024owsmv31betterfaster}): Speech recognition engine that provides:
+	      \begin{itemize}
+		      \item High-precision audio-to-text transcription
+		      \item Robust multilingual support
+		      \item Optimization for both CPU and GPU
+	      \end{itemize}
+
+	\item \textbf{Kokoro-TTS} (\cite{hexgrad_2025}): Speech synthesis system that offers:
+	      \begin{itemize}
+		      \item Natural and expressive voice generation
+		      \item Multiple voices and styles
+		      \item High processing efficiency
+	      \end{itemize}
+\end{itemize}
+
+\subsubsection{Large Language Models (\gls{llm})}
+
+\begin{itemize}
+	\item \textbf{Microsoft's Phi-4} (\cite{abdin2024phi4technicalreport}): Advanced 14-billion-parameter model that powers the system's conversational capabilities:
+		  \begin{itemize}
+			  \item \textbf{Architecture and Training}: Built on a strategic combination of synthetic datasets, filtered public domain web content, and specialized academic resources.
+			  \item \textbf{Context Capacity}: 16,000 tokens, allowing for extended conversations and retention of contextual information relevant to language learning.
+			  \item \textbf{System Advantages}:
+					\begin{itemize}
+						\item Efficient operation in environments with computational constraints.
+						\item Low latency in conversational interactions, crucial for fluency in language learning.
+						\item Advanced reasoning capabilities for linguistic analysis and precise grammatical corrections.
+						\item Generation of contextually appropriate responses in multiple languages.
+					\end{itemize}
+			  \item \textbf{System Implementation}: The model is used to:
+					\begin{itemize}
+						\item Generate educational dialogues adapted to the student's \gls{cefr} level.
+						\item Analyze grammatical errors and provide pedagogical feedback.
+						\item Simulate authentic conversations in practical scenarios.
+						\item Dynamically adapt content to the user's specific needs.
+					\end{itemize}
+		  \end{itemize}
+
+	\item \textbf{Nomic Embed} \cite{nussbaum2024nomic}: High-performance text embedding model:
+		\begin{itemize}
+			\item \textbf{Main Features}:
+				\begin{itemize}
+				  \item Extended context window of 8192 tokens
+				  \item Open-source model under Apache-2 license
+				  \item Transparent training with available data and code
+				  \item Superior to OpenAI Ada-002 in short and long context benchmarks
+				\end{itemize}
+			\item \textbf{System Application}:
+				\begin{itemize}
+				  \item Generation of embeddings for semantic search
+				  \item Support for RAG functionalities
+				  \item Vector representation of linguistic concepts
+				  \item Contextual analysis of educational texts
+				\end{itemize}
+		\end{itemize}
+\end{itemize}
+
+\section{Databases}
+
+\begin{itemize}
+	\item \textbf{SQL Database}: Storage of:
+		  \begin{itemize}
+			  \item User profiles: Personal information and user preferences.
+			  \item Learning progress: Detailed record of users' advancement and performance in learning activities.
+			  \item Performance metrics: Statistical data on system usage and effectiveness of learning activities.
+		  \end{itemize}
+
+	\item \textbf{ChromaDB}: Vector database for:
+		  \begin{itemize}
+			  \item Embedding storage: Vector representations of textual and voice data to facilitate search and analysis.
+			  \item Semantic search: Ability to perform queries based on the meaning and context of data, rather than exact keywords.
+		      \item Context retrieval: Extraction of relevant and contextual information to improve system interaction and responses.
+	      \end{itemize}
+
+	\item \textbf{Redis}: In-memory cache system for:
+	      \begin{itemize}
+		      \item User session management
+		      \item Frequent response caching
+		      \item Temporary state storage
+	      \end{itemize}
+\end{itemize}
+
+\subsection{Frontend}
+
+\begin{itemize}
+	\item \textbf{Next.js}: React framework that offers:
+	      \begin{itemize}
+		      \item Hybrid rendering (SSR and CSR): Allows content generation on both server and client, improving performance and user experience.
+		      \item Automatic resource optimization: Efficient management of images, scripts, and styles to improve loading speed.
+		      \item Support for API Routes: Facilitates the creation of API endpoints directly in the Next.js application.
+	      \end{itemize}
+
+
+	\item \textbf{NextAuth.js}: Authentication system that provides:
+	      \begin{itemize}
+		      \item Multiple authentication providers (OAuth, credentials)
+		      \item Secure session management
+		      \item Integration with Next.js middleware
+	      \end{itemize}
+
+
+	\item \textbf{Next-i18next}: Internationalization system that offers:
+	      \begin{itemize}
+		      \item Support for multiple languages
+		      \item Automatic browser language detection
+		      \item Server and client translations
+	      \end{itemize}
+\end{itemize}
+
+\section{Linguistic Resources}
+
+\subsection{Voice Models}
+\begin{itemize}
+	\item \textbf{Speech Synthesis (\gls{tts})}:
+	      \begin{itemize}
+		      \item Natural and fluid voice generation through Kokoro-TTS
+		      \item Support for 8 major languages:
+		            \begin{itemize}
+			            \item English (en)
+			            \item Spanish (es)
+			            \item French (fr)
+			            \item Hindi (hi)
+			            \item Italian (it)
+			            \item Portuguese (pt)
+			            \item Japanese (ja)
+			            \item Chinese (zh)
+		            \end{itemize}
+		      \item Customization of voices and speech styles
+		      \item Optimization for different conversational contexts
+	      \end{itemize}
+
+	\item \textbf{Speech Recognition (\gls{stt})}:
+	      \begin{itemize}
+		      \item Accurate transcription using Faster-Whisper
+		      \item Extended support for 20 languages:
+		            \begin{itemize}
+			            \item Germanic languages: English, German, Dutch, Danish, Swedish
+			            \item Romance languages: Spanish, French, Italian, Portuguese, Romanian
+			            \item Slavic languages: Czech, Polish, Russian, Ukrainian
+			            \item Asian languages: Hindi, Japanese, Korean, Chinese
+			            \item Other languages: Arabic, Turkish
+		            \end{itemize}
+		      \item Optimized processing for CPU and GPU
+		      \item High accuracy across various accents and dialects
+	      \end{itemize}
+\end{itemize}
+
+
+\subsection{Educational Resources}
+\begin{itemize}
+	\item \textbf{CEFR Teaching Materials}:
+	      \begin{itemize}
+		      \item Content aligned with A1 to C2 levels of the Common European Framework
+		      \item Gradual and structured learning progression
+		      \item Synthetic generation of phrases adapted to \gls{cefr} level:
+		            \begin{itemize}
+			            \item Level-controlled vocabulary
+			            \item Graduated grammatical structures
+			            \item Adaptive lexical complexity
+		            \end{itemize}
+	      \end{itemize}
+
+	\item \textbf{Practice Scenarios}:
+	      \begin{itemize}
+		      \item Predefined common situations for role-play:
+		            \begin{itemize}
+			            \item Basic social encounters
+			            \item Commercial transactions
+			            \item Professional situations
+			            \item Academic contexts
+			            \item Emergencies and assistance
+		            \end{itemize}
+		      \item Graduated interactive exercises:
+		            \begin{itemize}
+			            \item Reading and listening comprehension
+			            \item Oral and written production
+			            \item Real-time personalized feedback
+		            \end{itemize}
+		      \item Contextualized practice:
+		            \begin{itemize}
+			            \item Real-life scenarios
+			            \item Situational dialogues
+			            \item Authentic conversation simulations
+		            \end{itemize}
+	      \end{itemize}
+\end{itemize}
